@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Papers | Awesome Video Anomaly Tasks</title>
+    <link rel="stylesheet" href="../assets/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <div>
+        <p class="eyebrow">Bibliography</p>
+        <h1>Papers</h1>
+        <p class="subtitle">Paper metadata for video anomaly detection tasks. Preprints are represented by venue.</p>
+        <p id="load-status" class="status">Loading data</p>
+      </div>
+      <nav aria-label="Primary">
+        <a href="../">Home</a>
+        <a href="../leaderboards/">Leaderboards</a>
+        <a href="../datasets/">Datasets</a>
+      </nav>
+    </header>
+
+    <main>
+      <section id="papers" class="section-block" aria-labelledby="papers-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Index</p>
+            <h2 id="papers-title">Papers</h2>
+          </div>
+          <div class="toolbar">
+            <label>
+              Search
+              <input id="paper-query" type="search" placeholder="method, venue, tag">
+            </label>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Paper</th>
+                <th>Year</th>
+                <th>Venue</th>
+                <th>Tags</th>
+                <th>Links</th>
+              </tr>
+            </thead>
+            <tbody id="papers-body"></tbody>
+          </table>
+          <p id="papers-empty" class="empty" hidden>No matching papers.</p>
+        </div>
+      </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+    <script type="module" src="../assets/papers-page.js"></script>
+  </body>
+</html>
