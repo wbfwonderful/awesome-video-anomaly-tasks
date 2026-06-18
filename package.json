@@ -1,0 +1,9 @@
+{
+  "name": "awesome-video-anomaly-tasks",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "ruby test/data_schema_test.rb && ruby test/css_structure_test.rb && ruby test/leaderboard_ui_structure_test.rb && node --test test/leaderboard_model_test.mjs",
+    "test:model": "node --test test/leaderboard_model_test.mjs"
+  }
+}

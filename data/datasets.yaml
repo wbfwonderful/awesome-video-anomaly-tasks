@@ -1,0 +1,95 @@
+- id: ucf-crime
+  name: UCF-Crime
+  task_types:
+    - weakly-supervised-vad
+    - anomaly-localization
+  links:
+    homepage: https://www.crcv.ucf.edu/projects/real-world/
+    paper: https://openaccess.thecvf.com/content_cvpr_2018/html/Sultani_Real-World_Anomaly_Detection_CVPR_2018_paper.html
+    download: https://www.crcv.ucf.edu/projects/real-world/
+    annotation:
+  metrics:
+    - AUC
+    - mAP@0.1
+    - mAP@0.2
+    - mAP@0.3
+    - mAP@0.4
+    - mAP@0.5
+    - AVG
+  notes: Large-scale real-world surveillance anomaly dataset with video-level anomaly categories and temporal evaluation annotations.
+
+- id: shanghaitech
+  name: ShanghaiTech Campus
+  task_types:
+    - semi-supervised-vad
+    - weakly-supervised-vad
+  links:
+    homepage: https://svip-lab.github.io/dataset/campus_dataset.html
+    paper: https://openaccess.thecvf.com/content_iccv_2017/html/Luo_A_Revisit_of_ICCV_2017_paper.html
+    download: https://svip-lab.github.io/dataset/campus_dataset.html
+    annotation:
+  metrics:
+    - AUC
+    - AP
+  notes: Campus surveillance benchmark commonly reported as STC or ShanghaiTech in VAD papers.
+
+- id: xd-violence
+  name: XD-Violence
+  task_types:
+    - weakly-supervised-vad
+    - multimodal-vad
+  links:
+    homepage: https://roc-ng.github.io/XD-Violence/
+    paper: https://openaccess.thecvf.com/content_CVPR_2020/html/Wu_Not_Only_Look_but_Also_Listen_Learning_Multimodal_Violence_Detection_CVPR_2020_paper.html
+    download: https://roc-ng.github.io/XD-Violence/
+    annotation:
+  metrics:
+    - AP
+    - AUC
+    - mAP@0.1
+    - mAP@0.2
+    - mAP@0.3
+    - mAP@0.4
+    - mAP@0.5
+    - AVG
+  notes: Multimodal violence/anomaly benchmark with visual and audio signals.
+
+- id: nwpu-campus
+  name: NWPU Campus
+  task_types:
+    - semi-supervised-vad
+    - anomaly-anticipation
+  links:
+    homepage: https://arxiv.org/abs/2305.13611
+    paper: https://arxiv.org/pdf/2305.13611
+    download:
+    annotation:
+  metrics:
+    - AUC
+  notes: Scene-dependent semi-supervised VAD and video anomaly anticipation benchmark.
+
+- id: avenue
+  name: CUHK Avenue
+  task_types:
+    - semi-supervised-vad
+  links:
+    homepage: http://www.cse.cuhk.edu.hk/leojia/projects/detectabnormal/dataset.html
+    paper: http://www.cse.cuhk.edu.hk/leojia/projects/detectabnormal/dataset.html
+    download: http://www.cse.cuhk.edu.hk/leojia/projects/detectabnormal/dataset.html
+    annotation:
+  metrics:
+    - AUC
+  notes: Classic small-scale anomaly detection benchmark for frame-level localization.
+
+- id: ucsd-ped2
+  name: UCSD Ped2
+  task_types:
+    - semi-supervised-vad
+  links:
+    homepage: http://www.svcl.ucsd.edu/projects/anomaly/dataset.html
+    paper: http://www.svcl.ucsd.edu/projects/anomaly/dataset.html
+    download: http://www.svcl.ucsd.edu/projects/anomaly/dataset.html
+    annotation:
+  metrics:
+    - AUC
+  notes: Classic pedestrian walkway anomaly benchmark.

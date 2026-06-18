@@ -1,0 +1,166 @@
+dataset_id: xd-violence
+entries:
+  - paper_id: rtfm-2021
+    method: RTFM
+    variant: CLIP
+    track: weakly-supervised-coarse
+    score_source: https://arxiv.org/abs/2308.11681
+    scores:
+      AP: 78.27
+
+  - paper_id: avvd-2022
+    method: AVVD
+    variant: CLIP
+    track: weakly-supervised-coarse
+    score_source: https://arxiv.org/abs/2308.11681
+    scores:
+      AP: 78.10
+
+  - paper_id: dmu-2023
+    method: DMU
+    variant: CLIP
+    track: weakly-supervised-coarse
+    score_source: https://arxiv.org/abs/2308.11681
+    scores:
+      AP: 82.41
+
+  - paper_id: cliptsa-2023
+    method: CLIP-TSA
+    variant: CLIP
+    track: weakly-supervised-coarse
+    score_source: https://arxiv.org/abs/2308.11681
+    scores:
+      AP: 82.17
+
+  - paper_id: vadclip-2024
+    method: VadCLIP
+    variant: CLIP
+    track: weakly-supervised-coarse
+    score_source: https://arxiv.org/abs/2308.11681
+    scores:
+      AP: 84.51
+
+  - paper_id: realad-2018
+    method: RealAD
+    variant: CLIP
+    track: weakly-supervised-coarse
+    score_source: https://arxiv.org/abs/2308.11681
+    scores:
+      AP: 75.18
+
+  - paper_id: realad-2018
+    method: RealAD
+    variant: ""
+    track: weakly-supervised-fine
+    score_source: https://icml.cc/virtual/2025/poster/43589
+    scores:
+      mAP@0.1: 22.72
+      mAP@0.2: 15.57
+      mAP@0.3: 9.98
+      mAP@0.4: 6.20
+      mAP@0.5: 3.78
+      AVG: 11.65
+
+  - paper_id: rtfm-2021
+    method: RTFM
+    variant: ""
+    track: weakly-supervised-fine
+    score_source: https://icml.cc/virtual/2025/poster/43589
+    scores:
+      mAP@0.1: 31.25
+      mAP@0.2: 26.85
+      mAP@0.3: 21.94
+      mAP@0.4: 13.56
+      mAP@0.5: 12.54
+      AVG: 21.23
+
+  - paper_id: avvd-2022
+    method: AVVD
+    variant: ""
+    track: weakly-supervised-fine
+    score_source: https://icml.cc/virtual/2025/poster/43589
+    scores:
+      mAP@0.1: 30.51
+      mAP@0.2: 25.75
+      mAP@0.3: 20.18
+      mAP@0.4: 14.83
+      mAP@0.5: 9.79
+      AVG: 20.21
+
+  - paper_id: dmu-2023
+    method: DMU
+    variant: ""
+    track: weakly-supervised-fine
+    score_source: https://icml.cc/virtual/2025/poster/43589
+    scores:
+      mAP@0.1: 32.33
+      mAP@0.2: 28.88
+      mAP@0.3: 22.57
+      mAP@0.4: 14.33
+      mAP@0.5: 13.68
+      AVG: 22.36
+
+  - paper_id: cliptsa-2023
+    method: CLIP-TSA
+    variant: ""
+    track: weakly-supervised-fine
+    score_source: https://icml.cc/virtual/2025/poster/43589
+    scores:
+      mAP@0.1: 34.53
+      mAP@0.2: 32.88
+      mAP@0.3: 28.11
+      mAP@0.4: 13.65
+      mAP@0.5: 10.01
+      AVG: 23.84
+
+  - paper_id: umil-2023
+    method: UMIL
+    variant: ""
+    track: weakly-supervised-fine
+    score_source: https://icml.cc/virtual/2025/poster/43589
+    scores:
+      mAP@0.1: 34.44
+      mAP@0.2: 27.13
+      mAP@0.3: 22.63
+      mAP@0.4: 19.85
+      mAP@0.5: 13.24
+      AVG: 23.46
+
+  - paper_id: vadclip-2024
+    method: VadCLIP
+    variant: ""
+    track: weakly-supervised-fine
+    score_source: https://icml.cc/virtual/2025/poster/43589
+    scores:
+      mAP@0.1: 37.03
+      mAP@0.2: 30.84
+      mAP@0.3: 23.38
+      mAP@0.4: 17.09
+      mAP@0.5: 14.31
+      AVG: 24.70
+
+  - paper_id: stprompt-2024
+    method: STPrompt
+    variant: ""
+    track: weakly-supervised-fine
+    score_source: https://icml.cc/virtual/2025/poster/43589
+    scores:
+      mAP@0.1: 38.21
+      mAP@0.2: 25.63
+      mAP@0.3: 28.66
+      mAP@0.4: 13.11
+      mAP@0.5: 11.63
+      AVG: 23.44
+
+  - paper_id: exvad-2025
+    method: Ex-VAD
+    variant: ""
+    track: weakly-supervised-fine
+    score_source: https://icml.cc/virtual/2025/poster/43589
+    scores:
+      mAP@0.1: 40.14
+      mAP@0.2: 32.75
+      mAP@0.3: 28.78
+      mAP@0.4: 20.15
+      mAP@0.5: 18.35
+      AVG: 28.23

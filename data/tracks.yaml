@@ -1,0 +1,27 @@
+- id: full-training
+  name: Full Training
+  description: Methods trained on the target benchmark with the full reported training protocol.
+
+- id: weakly-supervised
+  name: Weakly Supervised
+  description: Methods trained with weak labels such as video-level labels, bags, prompts, or partial temporal supervision.
+
+- id: weakly-supervised-coarse
+  name: Weakly Supervised (Coarse)
+  description: Weakly supervised results reported with coarse-grained or primary benchmark metrics such as AUC.
+
+- id: weakly-supervised-fine
+  name: Weakly Supervised (Fine)
+  description: Weakly supervised results reported with fine-grained temporal localization metrics such as mAP at IoU thresholds.
+
+- id: semi-supervised
+  name: Semi-supervised
+  description: Methods trained mainly on normal videos under the target benchmark protocol.
+
+- id: zero-shot
+  name: Zero-shot
+  description: Methods evaluated without target-dataset training, usually relying on pretrained models or external knowledge.
+
+- id: training-free
+  name: Training-free
+  description: Methods using frozen models, prompting, retrieval, or rule-based inference without gradient-based training on the target benchmark.
