@@ -1,0 +1,12 @@
+- id: eventvad-2025
+  short_name: EventVAD
+  title: "EventVAD: Training-Free Event-Aware Video Anomaly Detection"
+  year: 2025
+  venue: ACM MM
+  official_url: https://github.com/YihuaJerry/EventVAD
+  arxiv_url:
+  code_url: https://github.com/YihuaJerry/EventVAD
+  tags:
+    - training-free
+    - vlm
+    - event

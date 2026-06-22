@@ -1,0 +1,12 @@
+- id: exvad-2025
+  short_name: Ex-VAD
+  title: "Ex-VAD: Explainable Fine-grained Video Anomaly Detection Based on Visual-Language Models"
+  year: 2025
+  venue: ICML
+  official_url: https://icml.cc/virtual/2025/poster/43589
+  arxiv_url:
+  code_url:
+  tags:
+    - weakly-supervised
+    - fine-grained
+    - vision-language

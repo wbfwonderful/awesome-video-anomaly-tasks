@@ -1,0 +1,13 @@
+- id: avvd-2022
+  short_name: AVVD
+  title: Weakly Supervised Audio-Visual Violence Detection
+  year: 2022
+  venue: T-MM
+  official_url: https://ieeexplore.ieee.org/document/9699377
+  arxiv_url:
+  code_url:
+    - multimodal-vad
+  tags:
+    - weakly-supervised
+    - audio-visual
+    - violence-detection

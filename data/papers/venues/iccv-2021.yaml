@@ -1,0 +1,12 @@
+- id: rtfm-2021
+  short_name: RTFM
+  title: Weakly-supervised Video Anomaly Detection with Robust Temporal Feature Magnitude Learning
+  year: 2021
+  venue: ICCV
+  official_url: https://arxiv.org/abs/2101.10030
+  arxiv_url: https://arxiv.org/abs/2101.10030
+  code_url: https://github.com/tianyu0207/RTFM
+  tags:
+    - weakly-supervised
+    - mil
+    - temporal-feature

@@ -2,7 +2,7 @@
 
 ## Goal
 
-Move paper records out of the single `data/papers.yaml` file into smaller YAML files grouped by publication venue and year, with a separate preprint area. The paper record schema stays unchanged.
+Move paper records out of the single `data/papers.yaml` file into smaller YAML files grouped by publication venue and year, with a separate preprint area. Paper records are moved with their current committed fields unchanged.
 
 ## Data Layout
 
@@ -32,7 +32,7 @@ files:
   - preprints/2026-q2.yaml
 ```
 
-Each listed file contains the same array shape currently used by `data/papers.yaml`. Each paper still carries its own `id`, `short_name`, `title`, `year`, `venue`, `status`, `official_url`, `task_types`, and `tags` fields.
+Each listed file contains the same array shape currently used by the committed paper records. Records are moved as-is; no venue, year, or status fields are inferred from file paths.
 
 ## Filing Rules
 
@@ -62,5 +62,4 @@ Node leaderboard model tests should not need behavior changes because the model 
 
 ## Compatibility
 
-No page URLs, result files, dataset files, track files, or paper field meanings change. This is a storage layout change only.
-
+No page URLs, result files, dataset files, track files, or paper record contents change. This is a storage layout change only.

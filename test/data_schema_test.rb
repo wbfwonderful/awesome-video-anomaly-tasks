@@ -8,9 +8,19 @@ def load_yaml(path)
   YAML.load_file(File.join(ROOT, path))
 end
 
+def load_papers
+  index = load_yaml("data/papers/index.yaml")
+  index.fetch("files").flat_map do |file|
+    paper_file = load_yaml("data/papers/#{file}")
+    raise TypeError, "data/papers/#{file} must contain an array" unless paper_file.is_a?(Array)
+
+    paper_file
+  end
+end
+
 class DataSchemaTest < Minitest::Test
   def setup
-    @papers = load_yaml("data/papers.yaml")
+    @papers = load_papers
     @datasets = load_yaml("data/datasets.yaml")
     @tracks = load_yaml("data/tracks.yaml")
     @result_index = load_yaml("data/results/index.yaml")
@@ -25,11 +35,11 @@ class DataSchemaTest < Minitest::Test
     assert_kind_of Array, @papers
 
     @papers.each do |paper|
-      assert_required_fields paper, %w[id short_name title year venue status official_url task_types tags]
+      assert_required_fields paper, %w[id short_name title year venue official_url tags]
       refute paper.key?("paper_url"), "paper_url is deprecated; use official_url in #{paper.inspect}"
       refute paper.key?(@deprecated_project_url_key), "#{@deprecated_project_url_key} is deprecated; keep paper links to official_url, arxiv_url, and code_url in #{paper.inspect}"
-      assert_includes %w[accepted preprint], paper.fetch("status")
-      assert_kind_of Array, paper.fetch("task_types")
+      assert_includes %w[accepted preprint], paper.fetch("status") if paper.key?("status")
+      assert_kind_of Array, paper.fetch("task_types") if paper.key?("task_types")
       assert_kind_of Array, paper.fetch("tags")
     end
 

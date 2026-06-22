@@ -1,19 +1,24 @@
 import {
   buildIndexes,
+  normalizePaperFiles,
   normalizeResultFiles,
 } from "./model.js";
 
 export async function loadStore(basePath = "") {
-  const [papers, datasets, tracks, resultIndex] = await Promise.all([
-    fetchYaml(`${basePath}data/papers.yaml`),
+  const [paperIndex, datasets, tracks, resultIndex] = await Promise.all([
+    fetchYaml(`${basePath}data/papers/index.yaml`),
     fetchYaml(`${basePath}data/datasets.yaml`),
     fetchYaml(`${basePath}data/tracks.yaml`),
     fetchYaml(`${basePath}data/results/index.yaml`),
   ]);
 
+  const paperFiles = await Promise.all(
+    paperIndex.files.map((file) => fetchYaml(`${basePath}data/papers/${file}`)),
+  );
   const resultFiles = await Promise.all(
     resultIndex.files.map((file) => fetchYaml(`${basePath}data/results/${file}`)),
   );
+  const papers = normalizePaperFiles(paperFiles);
   const entries = normalizeResultFiles(resultFiles);
   const indexes = buildIndexes({ papers, datasets, tracks });
 

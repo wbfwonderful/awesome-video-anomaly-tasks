@@ -1,0 +1,12 @@
+- id: realad-2018
+  short_name: RealAD
+  title: Real-world Anomaly Detection in Surveillance Videos
+  year: 2018
+  venue: CVPR
+  official_url: https://openaccess.thecvf.com/content_cvpr_2018/html/Sultani_Real-World_Anomaly_Detection_CVPR_2018_paper.html
+  arxiv_url:
+  code_url: https://github.com/Roc-Ng/DeepMIL
+  tags:
+    - weakly-supervised
+    - mil
+    - ucf-crime

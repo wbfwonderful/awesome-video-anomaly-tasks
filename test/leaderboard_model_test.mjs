@@ -10,6 +10,7 @@ import {
   getScoreKeysForDataset,
   getScoreValue,
   getTracksForDataset,
+  normalizePaperFiles,
   normalizeResultFiles,
   selectLeaderboardRows,
 } from "../assets/model.js";
@@ -94,6 +95,18 @@ const resultFiles = [
     ],
   },
 ];
+
+test("normalizePaperFiles flattens manifest-scoped paper files", () => {
+  const paperFiles = [
+    [{ id: "paper-a", short_name: "PaperA" }],
+    [{ id: "paper-b", short_name: "PaperB" }],
+  ];
+
+  assert.deepEqual(
+    normalizePaperFiles(paperFiles).map((paper) => paper.id),
+    ["paper-a", "paper-b"],
+  );
+});
 
 test("normalizeResultFiles converts dataset-scoped entries into flat entries", () => {
   const entries = normalizeResultFiles(resultFiles);

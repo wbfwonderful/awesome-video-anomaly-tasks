@@ -1,0 +1,12 @@
+- id: stprompt-2024
+  short_name: STPrompt
+  title: Spatial-Temporal Prompt Learning for Weakly Supervised Video Anomaly Detection
+  year: 2024
+  venue: ACM MM
+  official_url: https://arxiv.org/abs/2408.05905
+  arxiv_url: https://arxiv.org/abs/2408.05905
+  code_url:
+  tags:
+    - weakly-supervised
+    - prompt
+    - clip

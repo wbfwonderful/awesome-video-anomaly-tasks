@@ -1,0 +1,13 @@
+- id: nwpu-campus-2023
+  short_name: NWPU Campus
+  title: A New Comprehensive Benchmark for Semi-supervised Video Anomaly Detection and Anticipation
+  year: 2023
+  venue: preprint
+  status: preprint
+  official_url: https://arxiv.org/pdf/2305.13611
+  arxiv_url: https://arxiv.org/abs/2305.13611
+  code_url:
+  tags:
+    - dataset
+    - benchmark
+    - scene-dependent

@@ -6,7 +6,7 @@ This repository is designed for GitHub Pages. The website reads structured YAML 
 
 ## What This Tracks
 
-- Papers grouped by task, venue, status, and tags.
+- Papers grouped by venue, year, preprint status, and tags.
 - Datasets with key links, supported tasks, metrics, and notes.
 - Comparison tracks such as full training, weakly supervised coarse/fine evaluation, semi-supervised, zero-shot, and training-free.
 - Dataset-scoped leaderboard entries, where each entry represents one method variant and can contain multiple metric scores.
@@ -16,7 +16,13 @@ This repository is designed for GitHub Pages. The website reads structured YAML 
 
 ```text
 data/
-  papers.yaml
+  papers/
+    index.yaml
+    venues/
+      cvpr-2024.yaml
+      acm-mm-2025.yaml
+    preprints/
+      2023-q2.yaml
   datasets.yaml
   tracks.yaml
   results/
@@ -27,21 +33,30 @@ data/
     nwpu-campus.yaml
 ```
 
-`papers.yaml` stores paper metadata:
+Paper files under `data/papers/` store paper metadata. `data/papers/index.yaml` lists the paper files loaded by the site:
 
 ```yaml
-- id: vadclip-2024
-  short_name: VadCLIP
-  title: VadCLIP: Adapting Vision-Language Models for Weakly Supervised Video Anomaly Detection
+files:
+  - venues/cvpr-2024.yaml
+  - venues/acm-mm-2025.yaml
+  - preprints/2023-q2.yaml
+```
+
+Each listed paper file contains an array of paper records:
+
+```yaml
+- id: lavad-2024
+  short_name: LAVAD
+  title: Harnessing Large Language Models for Training-free Video Anomaly Detection
   year: 2024
-  venue: AAAI
-  status: accepted
-  official_url: https://arxiv.org/abs/2308.11681
-  task_types:
-    - weakly-supervised-vad
+  venue: CVPR
+  official_url: https://arxiv.org/abs/2404.01014
+  arxiv_url: https://arxiv.org/abs/2404.01014
+  code_url: https://github.com/lucazanella/lavad
   tags:
-    - weakly-supervised
-    - clip
+    - training-free
+    - llm
+    - vlm
 ```
 
 Each result file is scoped to one dataset:
@@ -85,7 +100,7 @@ Use one `score_source` per entry. This URL should point to the table, paper, ben
 
 Leaderboard rows do not use a separate links column. The visible cells carry the important links:
 
-- Method cell: uses `papers.yaml` links with this priority: `official_url`, then `arxiv_url`, then `code_url`.
+- Method cell: uses paper record links with this priority: `official_url`, then `arxiv_url`, then `code_url`.
 - Score cell: uses the entry-level `score_source`.
 - Dataset summary links: use the dataset homepage, paper, download, and annotation URLs.
 
@@ -100,20 +115,13 @@ leaderboards/
   dataset.html?dataset=shanghaitech
 ```
 
-Each dataset page joins `papers.yaml` with the dataset result file. The table expands every metric available in the current track selection into its own score column, and clicking any metric column sorts by that metric. Track, venue, and variant filters support multi-select with search. It can also sort by displayed fields such as method, track, variant, year, and venue. Tags are shown in paper tables but are not leaderboard sort keys.
-
-Publication status is maintained in `papers.yaml` for paper browsing:
-
-```yaml
-status: accepted
-status: preprint
-```
+Each dataset page joins the flattened paper files with the dataset result file. The table expands every metric available in the current track selection into its own score column, and clicking any metric column sorts by that metric. Track, venue, and variant filters support multi-select with search. It can also sort by displayed fields such as method, track, variant, year, and venue. Tags are shown in paper tables but are not leaderboard sort keys.
 
 Dataset leaderboard pages do not show a separate status column. For preprints, set the paper `venue` to `preprint`; the venue column and venue filter then cover this case without duplicating status in result entries.
 
 ## Adding Data
 
-1. Add a paper to `data/papers.yaml`.
+1. Add a paper to the matching file under `data/papers/`. Update `data/papers/index.yaml` only when creating a new paper file.
 2. Add a dataset to `data/datasets.yaml` if it is new.
 3. Add or update a dataset-scoped file under `data/results/`.
 4. If a new result file is created, add the file name to `data/results/index.yaml`.

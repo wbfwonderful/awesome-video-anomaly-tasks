@@ -72,6 +72,7 @@ class LeaderboardUiStructureTest < Minitest::Test
     html = File.read(File.join(ROOT, "papers/index.html"))
     js = File.read(File.join(ROOT, "assets/papers-page.js"))
     model = File.read(File.join(ROOT, "assets/model.js"))
+    data_js = File.read(File.join(ROOT, "assets/data.js"))
 
     refute_includes html, "<th>Status</th>"
     refute_includes html, "<th>Tasks</th>"
@@ -89,6 +90,8 @@ class LeaderboardUiStructureTest < Minitest::Test
     assert_includes js, 'paper-link-${escapeAttr(link.kind)}'
     assert_includes model, "official paper"
     assert_includes model, "arxiv paper"
+    assert_includes data_js, "data/papers/index.yaml"
+    assert_includes data_js, "data/papers/${file}"
     css = File.read(File.join(ROOT, "assets/styles.css"))
     assert_includes css, ".paper-link-official"
     assert_includes css, ".paper-link-arxiv"

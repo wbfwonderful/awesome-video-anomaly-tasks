@@ -6,6 +6,10 @@ export function buildIndexes({ papers = [], datasets = [], tracks = [] }) {
   };
 }
 
+export function normalizePaperFiles(paperFiles) {
+  return paperFiles.flat();
+}
+
 export function normalizeResultFiles(resultFiles) {
   return resultFiles.flatMap((file) => {
     const datasetId = file.dataset_id;
