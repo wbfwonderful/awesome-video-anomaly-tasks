@@ -16,13 +16,17 @@
 - `assets/model.js`: add small helpers for dataset type checks, source resolution, and label formatting.
 - `assets/datasets-page.js`: render original datasets and derived benchmarks into separate tables.
 - `assets/dataset-page.js`: render provenance metadata for derived benchmark pages.
+- `assets/dataset-page.js`: render multiple track badges for result entries that belong to more than one comparison track.
 - `datasets/index.html`: add the second table and derived benchmark columns.
 - `leaderboards/dataset.html`: add a hidden provenance summary block.
 - `assets/styles.css`: add compact provenance/table label styling if the existing `.tag` and `.meta-pills` classes are not enough.
 - `test/data_schema_test.rb`: validate the new dataset fields and source references.
+- `test/data_schema_test.rb`: validate single-track and multi-track result entry shapes.
 - `test/leaderboard_model_test.mjs`: test the dataset helper functions.
+- `test/leaderboard_model_test.mjs`: test multi-track result normalization, filtering, sorting, and dataset track discovery.
 - `test/leaderboard_ui_structure_test.rb`: assert the two dataset tables and provenance block exist.
 - `README.md`: document original-video vs derived-benchmark dataset records.
+- `README.md`: document `track` vs `tracks` result entries and the shared-score semantic rule.
 
 ### Task 1: Dataset Schema Test
 
@@ -555,7 +559,339 @@ Run:
 
 Expected: PASS.
 
-### Task 6: Documentation and Final Verification
+### Task 6: Multi-Track Result Entries
+
+**Files:**
+- Modify: `test/data_schema_test.rb`
+- Modify: `test/leaderboard_model_test.mjs`
+- Modify: `test/leaderboard_ui_structure_test.rb`
+- Modify: `assets/model.js`
+- Modify: `assets/dataset-page.js`
+
+- [ ] **Step 1: Add failing schema validation for `track` or `tracks`**
+
+In `test_result_files_reference_existing_entities`, replace:
+
+```ruby
+assert_required_fields entry, %w[paper_id method track score_source scores]
+```
+
+with:
+
+```ruby
+assert_required_fields entry, %w[paper_id method score_source scores]
+track_ids = entry_track_ids(entry)
+refute_empty track_ids, "missing track or tracks in #{entry.inspect}"
+assert_equal track_ids.uniq, track_ids, "duplicate tracks in #{entry.inspect}"
+track_ids.each do |track_id|
+  assert_includes @track_ids, track_id
+end
+```
+
+Add this private helper before `assert_required_fields`:
+
+```ruby
+def entry_track_ids(entry)
+  has_track = entry.key?("track")
+  has_tracks = entry.key?("tracks")
+  assert has_track ^ has_tracks, "entry must use exactly one of track or tracks in #{entry.inspect}"
+
+  if has_tracks
+    assert_kind_of Array, entry.fetch("tracks")
+    return entry.fetch("tracks")
+  end
+
+  [entry.fetch("track")]
+end
+```
+
+- [ ] **Step 2: Run schema test and verify it still passes existing single-track files**
+
+Run:
+
+```bash
+/usr/bin/env PATH=/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin /usr/bin/ruby test/data_schema_test.rb
+```
+
+Expected: PASS after Task 2 has added dataset provenance fields.
+
+- [ ] **Step 3: Add failing Node tests for multi-track behavior**
+
+In `test/leaderboard_model_test.mjs`, extend the imports with:
+
+```js
+  countByTrack,
+```
+
+Add this standalone fixture after `resultFiles` so existing tests keep their current assumptions:
+
+```js
+const multiTrackResultFiles = [
+  {
+    dataset_id: "ucf-crime",
+    entries: [
+      {
+        paper_id: "paper-a",
+        method: "PaperA",
+        variant: "MLLM",
+        tracks: ["zero-shot", "training-free"],
+        score_source: "https://source.example/a-multitrack",
+        scores: {
+          AUC: 79.2,
+        },
+      },
+      {
+        paper_id: "paper-b",
+        method: "PaperB",
+        variant: "MLLM",
+        track: "training-free",
+        score_source: "https://source.example/b-training-free",
+        scores: {
+          AUC: 78.4,
+        },
+      },
+    ],
+  },
+];
+```
+
+Add this test after the existing normalization test:
+
+```js
+test("normalizeResultFiles preserves all track IDs on multi-track entries", () => {
+  const entries = normalizeResultFiles(multiTrackResultFiles);
+
+  assert.equal(entries.length, 2);
+  assert.deepEqual(entries[0].trackIds, ["zero-shot", "training-free"]);
+  assert.equal(entries[0].track, "zero-shot");
+  assert.deepEqual(entries[1].trackIds, ["training-free"]);
+});
+```
+
+Add this test after `getTracksForDataset returns only tracks used by the dataset in configured order`:
+
+```js
+test("getTracksForDataset includes all tracks from multi-track entries", () => {
+  const entries = normalizeResultFiles(multiTrackResultFiles);
+
+  assert.deepEqual(
+    getTracksForDataset(entries, tracks, "ucf-crime").map((track) => track.id),
+    ["training-free", "zero-shot"],
+  );
+});
+```
+
+Add this test after the existing multi-select filter test:
+
+```js
+test("selectLeaderboardRows matches multi-track rows by any selected track", () => {
+  const indexes = buildIndexes({ papers, datasets: [], tracks });
+  const entries = normalizeResultFiles(multiTrackResultFiles);
+
+  const zeroShotRows = selectLeaderboardRows({
+    entries,
+    indexes,
+    filters: {
+      datasetId: "ucf-crime",
+      trackIds: ["zero-shot"],
+    },
+  });
+  const trainingFreeRows = selectLeaderboardRows({
+    entries,
+    indexes,
+    filters: {
+      datasetId: "ucf-crime",
+      trackIds: ["training-free"],
+    },
+  });
+
+  assert.deepEqual(zeroShotRows.map((row) => row.method), ["PaperA"]);
+  assert.deepEqual(
+    trainingFreeRows.map((row) => [row.method, row.trackNames]),
+    [
+      ["PaperA", ["Zero-shot", "Training-free"]],
+      ["PaperB", ["Training-free"]],
+    ],
+  );
+});
+```
+
+Add this test after the track count or sorting tests:
+
+```js
+test("countByTrack counts every track on multi-track entries", () => {
+  const entries = normalizeResultFiles(multiTrackResultFiles);
+
+  assert.equal(countByTrack(entries)["zero-shot"], 1);
+  assert.equal(countByTrack(entries)["training-free"], 2);
+});
+```
+
+- [ ] **Step 4: Run Node model test and verify it fails**
+
+Run:
+
+```bash
+/usr/bin/env PATH=/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin /opt/homebrew/bin/node --test test/leaderboard_model_test.mjs
+```
+
+Expected: FAIL because `trackIds`, `trackNames`, and multi-track filtering are not implemented.
+
+- [ ] **Step 5: Implement multi-track normalization and filtering in `assets/model.js`**
+
+Add these helpers near `normalizeResultFiles`:
+
+```js
+function normalizeTrackIds(entry) {
+  if (Array.isArray(entry.tracks)) return entry.tracks;
+  return entry.track ? [entry.track] : [];
+}
+
+function matchesSelectedTrack(trackIds, selectedValues) {
+  return !Array.isArray(selectedValues) ||
+    selectedValues.length === 0 ||
+    trackIds.some((trackId) => selectedValues.includes(trackId));
+}
+```
+
+Update `normalizeResultFiles` entry mapping to include:
+
+```js
+const trackIds = normalizeTrackIds(entry);
+return {
+  ...entry,
+  dataset_id: datasetId,
+  track: entry.track || trackIds[0] || "",
+  trackIds,
+  variant: entry.variant == null ? "" : entry.variant,
+  score_source: entry.score_source || "",
+  scores: entry.scores || {},
+};
+```
+
+Update `getScoreKeysForDataset` track checks:
+
+```js
+const trackIds = normalizeTrackIds(entry);
+if (!matchesSelectedTrack(trackIds, filters.trackIds)) continue;
+if (filters.trackId && filters.trackId !== "all" && !trackIds.includes(filters.trackId)) continue;
+```
+
+Update `getTracksForDataset` to collect all track IDs:
+
+```js
+const usedTrackIds = new Set(
+  entries
+    .filter((entry) => entry.dataset_id === datasetId)
+    .flatMap((entry) => entry.trackIds || normalizeTrackIds(entry)),
+);
+```
+
+Update `countByTrack`:
+
+```js
+export function countByTrack(entries) {
+  return entries.reduce((counts, entry) => {
+    for (const trackId of entry.trackIds || normalizeTrackIds(entry)) {
+      counts[trackId] = (counts[trackId] || 0) + 1;
+    }
+    return counts;
+  }, {});
+}
+```
+
+Update `enrichEntry`:
+
+```js
+const trackIds = entry.trackIds || normalizeTrackIds(entry);
+const trackInfos = trackIds.map((trackId) => indexes.tracksById[trackId] || { id: trackId, name: trackId });
+const track = trackInfos[0] || {};
+```
+
+and include:
+
+```js
+trackIds,
+trackInfos,
+trackNames: trackInfos.map((trackInfo) => trackInfo.name || trackInfo.id),
+trackName: trackInfos.map((trackInfo) => trackInfo.name || trackInfo.id).join(", ") || entry.track,
+```
+
+Update `matchesFilters` track checks:
+
+```js
+if (filters.trackId && filters.trackId !== "all" && !row.trackIds.includes(filters.trackId)) {
+  return false;
+}
+if (!matchesSelectedTrack(row.trackIds, filters.trackIds)) {
+  return false;
+}
+```
+
+- [ ] **Step 6: Update dataset page track rendering**
+
+In `assets/dataset-page.js`, update `getVenueOptions` and `getVariantOptions` filter checks from `matchesSelected(entry.track, state.trackIds)` to:
+
+```js
+matchesSelectedTrack(entry.trackIds || [entry.track], state.trackIds)
+```
+
+Replace the local `matchesSelected` helper with:
+
+```js
+function matchesSelected(value, selectedValues) {
+  return selectedValues.length === 0 || selectedValues.includes(value);
+}
+
+function matchesSelectedTrack(trackIds, selectedValues) {
+  return selectedValues.length === 0 || trackIds.some((trackId) => selectedValues.includes(trackId));
+}
+```
+
+In `renderRow`, replace:
+
+```js
+<td><span class="badge">${escapeHtml(row.trackName)}</span></td>
+```
+
+with:
+
+```js
+<td>${renderTrackBadges(row)}</td>
+```
+
+Add:
+
+```js
+function renderTrackBadges(row) {
+  return row.trackNames.map((trackName) => `
+    <span class="badge">${escapeHtml(trackName)}</span>
+  `).join("");
+}
+```
+
+- [ ] **Step 7: Add UI structure assertion for multi-track badge rendering**
+
+In `test_dataset_leaderboard_uses_compact_columns`, add:
+
+```ruby
+assert_includes js, "function renderTrackBadges"
+assert_includes js, "row.trackNames.map"
+```
+
+- [ ] **Step 8: Run tests and verify multi-track support passes**
+
+Run:
+
+```bash
+/usr/bin/env PATH=/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin /usr/bin/ruby test/data_schema_test.rb
+/usr/bin/env PATH=/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin /usr/bin/ruby test/leaderboard_ui_structure_test.rb
+/usr/bin/env PATH=/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin /opt/homebrew/bin/node --test test/leaderboard_model_test.mjs
+```
+
+Expected: all three commands PASS.
+
+### Task 7: Documentation and Final Verification
 
 **Files:**
 - Modify: `README.md`
@@ -586,7 +922,27 @@ contribution_types:
 
 Mention that `source_dataset_ids` references other records in `data/datasets.yaml`.
 
-- [ ] **Step 2: Run the full test suite**
+- [ ] **Step 2: Document multi-track result entries**
+
+In the Track vs Metric section, add this text:
+
+Use `track` for a single comparison track:
+
+```yaml
+track: zero-shot
+```
+
+Use `tracks` when one entry belongs to multiple tracks under the same score set and evaluation protocol:
+
+```yaml
+tracks:
+  - zero-shot
+  - training-free
+```
+
+Do not use `tracks` to combine results with different scores or protocols; those should remain separate entries.
+
+- [ ] **Step 3: Run the full test suite**
 
 Run:
 
@@ -596,7 +952,7 @@ Run:
 
 Expected: PASS.
 
-- [ ] **Step 3: Inspect changed files**
+- [ ] **Step 4: Inspect changed files**
 
 Run:
 
@@ -607,7 +963,7 @@ Run:
 
 Expected: changes are limited to dataset data, dataset rendering, shared model helpers, tests, README, and this plan.
 
-- [ ] **Step 4: Commit the implementation**
+- [ ] **Step 5: Commit the implementation**
 
 Run:
 
@@ -617,4 +973,3 @@ Run:
 ```
 
 Expected: commit succeeds on `main`.
-
