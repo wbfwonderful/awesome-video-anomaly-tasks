@@ -201,6 +201,31 @@ test("getScoreKeysForDataset reports the metrics available on a dataset page", (
   );
 });
 
+test("getScoreKeysForDataset matches normalized multi-track entries by secondary track", () => {
+  const entries = normalizeResultFiles([
+    {
+      dataset_id: "ucf-crime",
+      entries: [
+        {
+          paper_id: "paper-a",
+          method: "PaperA",
+          variant: "MLLM",
+          tracks: ["zero-shot", "training-free"],
+          score_source: "https://source.example/a-multitrack",
+          scores: {
+            "Secondary-only": 79.2,
+          },
+        },
+      ],
+    },
+  ]).map(({ tracks: _tracks, ...entry }) => entry);
+
+  assert.deepEqual(
+    getScoreKeysForDataset(entries, "ucf-crime", { trackIds: ["training-free"] }),
+    ["Secondary-only"],
+  );
+});
+
 test("getTracksForDataset returns only tracks used by the dataset in configured order", () => {
   const entries = normalizeResultFiles(resultFiles);
 

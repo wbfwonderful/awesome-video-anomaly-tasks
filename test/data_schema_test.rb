@@ -160,7 +160,7 @@ class DataSchemaTest < Minitest::Test
     expected.each do |file, method_scores|
       result_file = load_yaml("data/results/#{file}")
       fine_entries = result_file.fetch("entries")
-        .select { |entry| entry.fetch("track") == "weakly-supervised-fine" }
+        .select { |entry| entry_track_ids(entry).include?("weakly-supervised-fine") }
         .each_with_object({}) { |entry, index| index[entry.fetch("method")] = entry }
 
       method_scores.each do |method, scores|

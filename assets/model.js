@@ -44,7 +44,7 @@ export function getScoreKeysForDataset(entries, datasetId, filters = {}) {
 
   for (const entry of entries) {
     if (entry.dataset_id !== datasetId) continue;
-    const trackIds = normalizeTrackIds(entry);
+    const trackIds = entry.trackIds || normalizeTrackIds(entry);
     if (!matchesSelectedTrack(trackIds, filters.trackIds)) continue;
     if (filters.trackId && filters.trackId !== "all" && !trackIds.includes(filters.trackId)) continue;
     Object.keys(entry.scores || {}).forEach((key) => keys.add(key));
