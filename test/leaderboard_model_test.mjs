@@ -3,13 +3,16 @@ import assert from "node:assert/strict";
 
 import {
   buildIndexes,
+  formatDatasetLabel,
   getEntryLinks,
+  getDatasetSources,
   getPaperLinks,
   getPaperPrimaryUrl,
   getScoreLabel,
   getScoreKeysForDataset,
   getScoreValue,
   getTracksForDataset,
+  isDerivedDataset,
   normalizePaperFiles,
   normalizeResultFiles,
   selectLeaderboardRows,
@@ -46,6 +49,29 @@ const tracks = [
   { id: "training-free", name: "Training-free" },
   { id: "zero-shot", name: "Zero-shot" },
 ];
+
+test("dataset helpers identify derived benchmarks and resolve source datasets", () => {
+  const datasets = [
+    { id: "ucf-crime", name: "UCF-Crime", dataset_type: "original-video" },
+    { id: "xd-violence", name: "XD-Violence", dataset_type: "original-video" },
+    {
+      id: "vad-reasoning",
+      name: "VAD-Reasoning",
+      dataset_type: "derived-benchmark",
+      source_dataset_ids: ["ucf-crime", "xd-violence"],
+    },
+  ];
+  const indexes = buildIndexes({ papers, datasets, tracks });
+  const derived = datasets[2];
+
+  assert.equal(isDerivedDataset(derived), true);
+  assert.equal(isDerivedDataset(datasets[0]), false);
+  assert.deepEqual(
+    getDatasetSources(derived, indexes).map((dataset) => dataset.name),
+    ["UCF-Crime", "XD-Violence"],
+  );
+  assert.equal(formatDatasetLabel("reasoning-annotations"), "Reasoning annotations");
+});
 
 const resultFiles = [
   {

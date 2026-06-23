@@ -63,6 +63,32 @@ export function countByTrack(entries) {
   }, {});
 }
 
+export function isDerivedDataset(dataset = {}) {
+  return dataset.dataset_type === "derived-benchmark";
+}
+
+export function getDatasetSources(dataset = {}, indexes = {}) {
+  const datasetsById = indexes.datasetsById || {};
+  return (dataset.source_dataset_ids || [])
+    .map((datasetId) => datasetsById[datasetId])
+    .filter(Boolean);
+}
+
+export function formatDatasetLabel(value) {
+  return String(value ?? "")
+    .split("-")
+    .filter(Boolean)
+    .map((word, index) => (
+      index === 0 ? capitalize(word) : word
+    ))
+    .join(" ");
+}
+
+function capitalize(value) {
+  if (!value) return "";
+  return value.charAt(0).toUpperCase() + value.slice(1);
+}
+
 const PAPER_LINK_TYPES = [
   { key: "official_url", kind: "official", label: "official paper" },
   { key: "arxiv_url", kind: "arxiv", label: "arxiv paper" },
