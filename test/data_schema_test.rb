@@ -93,17 +93,24 @@ class DataSchemaTest < Minitest::Test
       entry_keys = []
 
       result_file.fetch("entries").each do |entry|
-        assert_required_fields entry, %w[paper_id method track score_source scores]
+        assert_required_fields entry, %w[paper_id method score_source scores]
+        track_ids = entry_track_ids(entry)
+        refute_empty track_ids, "missing track or tracks in #{entry.inspect}"
+        assert_equal track_ids.uniq, track_ids, "duplicate tracks in #{entry.inspect}"
+        track_ids.each do |track_id|
+          assert_includes @track_ids, track_id
+        end
         assert entry.key?("variant"), "missing variant in #{entry.inspect}"
         refute entry.key?("feature"), "feature is deprecated; use variant in #{entry.inspect}"
         refute entry.key?("method_url"), "method_url is deprecated; use official_url, arxiv_url, or code_url in papers.yaml"
         assert_includes @paper_ids, entry.fetch("paper_id")
-        assert_includes @track_ids, entry.fetch("track")
         assert_kind_of String, entry.fetch("score_source")
         refute_empty entry.fetch("score_source")
         assert_kind_of Hash, entry.fetch("scores")
         refute_empty entry.fetch("scores")
-        entry_keys << [dataset_id, entry.fetch("paper_id"), entry["variant"].to_s, entry.fetch("track")]
+        track_ids.each do |track_id|
+          entry_keys << [dataset_id, entry.fetch("paper_id"), entry["variant"].to_s, track_id]
+        end
 
         entry.fetch("scores").each do |score_key, score|
           assert_match(/\A[A-Za-z0-9_@.]+\z/, score_key)
@@ -178,7 +185,7 @@ class DataSchemaTest < Minitest::Test
       paper.fetch("tags").each { |tag| counts[tag] += 1 }
     end
     track_counts = entries.each_with_object(Hash.new(0)) do |entry, counts|
-      counts[entry.fetch("track")] += 1
+      entry_track_ids(entry).each { |track_id| counts[track_id] += 1 }
     end
 
     assert_equal(
@@ -210,6 +217,19 @@ class DataSchemaTest < Minitest::Test
   end
 
   private
+
+  def entry_track_ids(entry)
+    has_track = entry.key?("track")
+    has_tracks = entry.key?("tracks")
+    assert has_track ^ has_tracks, "entry must use exactly one of track or tracks in #{entry.inspect}"
+
+    if has_tracks
+      assert_kind_of Array, entry.fetch("tracks")
+      return entry.fetch("tracks")
+    end
+
+    [entry.fetch("track")]
+  end
 
   def assert_required_fields(record, fields)
     fields.each do |field|

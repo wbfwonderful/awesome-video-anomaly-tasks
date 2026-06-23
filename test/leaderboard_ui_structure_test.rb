@@ -28,6 +28,8 @@ class LeaderboardUiStructureTest < Minitest::Test
     assert_includes js, "source_dataset_ids"
     assert_includes js, "has_new_videos"
     assert_includes js, "scoreKeys.map((scoreKey) => renderScoreCell(row, scoreKey))"
+    assert_includes js, "function renderTrackBadges"
+    assert_includes js, "row.trackNames.map"
     refute_includes js, '<div class="muted">${escapeHtml(row.variant)}</div>'
     refute_includes js, '<td class="link-list">'
   end

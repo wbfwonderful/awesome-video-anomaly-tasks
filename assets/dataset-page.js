@@ -252,7 +252,7 @@ function getFilterOptions(name) {
 function getVenueOptions() {
   return unique(
     getDatasetEntries()
-      .filter((entry) => matchesSelected(entry.track, state.trackIds))
+      .filter((entry) => matchesSelectedTrack(entry.trackIds || [entry.track], state.trackIds))
       .map((entry) => getEntryVenue(entry)),
   ).map((venue) => ({ value: venue, label: venue }));
 }
@@ -260,7 +260,7 @@ function getVenueOptions() {
 function getVariantOptions() {
   return unique(
     getDatasetEntries()
-      .filter((entry) => matchesSelected(entry.track, state.trackIds))
+      .filter((entry) => matchesSelectedTrack(entry.trackIds || [entry.track], state.trackIds))
       .filter((entry) => matchesSelected(getEntryVenue(entry), state.venues))
       .map((entry) => entry.variant)
       .filter(Boolean),
@@ -342,6 +342,10 @@ function matchesSelected(value, selectedValues) {
   return selectedValues.length === 0 || selectedValues.includes(value);
 }
 
+function matchesSelectedTrack(trackIds, selectedValues) {
+  return selectedValues.length === 0 || trackIds.some((trackId) => selectedValues.includes(trackId));
+}
+
 function renderLeaderboard() {
   syncControlState();
   const scoreKeys = getScoreKeysForDataset(store.entries, state.datasetId, { trackIds: state.trackIds });
@@ -401,13 +405,19 @@ function renderRow(row, index, scoreKeys) {
       <td>
         <a href="${escapeAttr(methodLinks.methodUrl)}" target="_blank" rel="noreferrer">${escapeHtml(row.method)}</a>
       </td>
-      <td><span class="badge">${escapeHtml(row.trackName)}</span></td>
+      <td>${renderTrackBadges(row)}</td>
       <td>${escapeHtml(row.variant || "-")}</td>
       ${metricCells}
       <td>${escapeHtml(row.year)}</td>
       <td>${escapeHtml(row.venue)}</td>
     </tr>
   `;
+}
+
+function renderTrackBadges(row) {
+  return row.trackNames.map((trackName) => `
+    <span class="badge">${escapeHtml(trackName)}</span>
+  `).join("");
 }
 
 function renderScoreCell(row, scoreKey) {

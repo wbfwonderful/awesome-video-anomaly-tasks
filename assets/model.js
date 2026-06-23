@@ -13,14 +13,30 @@ export function normalizePaperFiles(paperFiles) {
 export function normalizeResultFiles(resultFiles) {
   return resultFiles.flatMap((file) => {
     const datasetId = file.dataset_id;
-    return (file.entries || []).map((entry) => ({
-      ...entry,
-      dataset_id: datasetId,
-      variant: entry.variant == null ? "" : entry.variant,
-      score_source: entry.score_source || "",
-      scores: entry.scores || {},
-    }));
+    return (file.entries || []).map((entry) => {
+      const trackIds = normalizeTrackIds(entry);
+      return {
+        ...entry,
+        dataset_id: datasetId,
+        track: entry.track || trackIds[0] || "",
+        trackIds,
+        variant: entry.variant == null ? "" : entry.variant,
+        score_source: entry.score_source || "",
+        scores: entry.scores || {},
+      };
+    });
   });
+}
+
+function normalizeTrackIds(entry) {
+  if (Array.isArray(entry.tracks)) return entry.tracks;
+  return entry.track ? [entry.track] : [];
+}
+
+function matchesSelectedTrack(trackIds, selectedValues) {
+  return !Array.isArray(selectedValues) ||
+    selectedValues.length === 0 ||
+    trackIds.some((trackId) => selectedValues.includes(trackId));
 }
 
 export function getScoreKeysForDataset(entries, datasetId, filters = {}) {
@@ -28,8 +44,9 @@ export function getScoreKeysForDataset(entries, datasetId, filters = {}) {
 
   for (const entry of entries) {
     if (entry.dataset_id !== datasetId) continue;
-    if (!matchesSelected(entry.track, filters.trackIds)) continue;
-    if (filters.trackId && filters.trackId !== "all" && entry.track !== filters.trackId) continue;
+    const trackIds = normalizeTrackIds(entry);
+    if (!matchesSelectedTrack(trackIds, filters.trackIds)) continue;
+    if (filters.trackId && filters.trackId !== "all" && !trackIds.includes(filters.trackId)) continue;
     Object.keys(entry.scores || {}).forEach((key) => keys.add(key));
   }
 
@@ -40,7 +57,7 @@ export function getTracksForDataset(entries, tracks, datasetId) {
   const usedTrackIds = new Set(
     entries
       .filter((entry) => entry.dataset_id === datasetId)
-      .map((entry) => entry.track),
+      .flatMap((entry) => entry.trackIds || normalizeTrackIds(entry)),
   );
 
   return tracks.filter((track) => usedTrackIds.has(track.id));
@@ -58,7 +75,9 @@ export function selectLeaderboardRows({ entries = [], indexes, filters = {}, sor
 
 export function countByTrack(entries) {
   return entries.reduce((counts, entry) => {
-    counts[entry.track] = (counts[entry.track] || 0) + 1;
+    for (const trackId of entry.trackIds || normalizeTrackIds(entry)) {
+      counts[trackId] = (counts[trackId] || 0) + 1;
+    }
     return counts;
   }, {});
 }
@@ -154,19 +173,25 @@ export function sortRows(rows, field, direction, scoreKey = "auc") {
 function enrichEntry(entry, indexes) {
   const paper = indexes.papersById[entry.paper_id] || {};
   const dataset = indexes.datasetsById[entry.dataset_id] || {};
-  const track = indexes.tracksById[entry.track] || {};
+  const trackIds = entry.trackIds || normalizeTrackIds(entry);
+  const trackInfos = trackIds.map((trackId) => indexes.tracksById[trackId] || { id: trackId, name: trackId });
+  const track = trackInfos[0] || {};
+  const trackNames = trackInfos.map((trackInfo) => trackInfo.name || trackInfo.id);
 
   return {
     ...entry,
     paper,
     dataset,
+    trackIds,
+    trackInfos,
     trackInfo: track,
+    trackNames,
     paperStatus: paper.status || "unknown",
     paperTitle: paper.title || entry.paper_id,
     paperUrl: paper.official_url || paper.arxiv_url || "",
     venue: paper.venue || "",
     year: paper.year || "",
-    trackName: track.name || entry.track,
+    trackName: trackNames.join(", ") || entry.track,
   };
 }
 
@@ -174,10 +199,10 @@ function matchesFilters(row, filters) {
   if (filters.datasetId && filters.datasetId !== "all" && row.dataset_id !== filters.datasetId) {
     return false;
   }
-  if (filters.trackId && filters.trackId !== "all" && row.track !== filters.trackId) {
+  if (filters.trackId && filters.trackId !== "all" && !row.trackIds.includes(filters.trackId)) {
     return false;
   }
-  if (!matchesSelected(row.track, filters.trackIds)) {
+  if (!matchesSelectedTrack(row.trackIds, filters.trackIds)) {
     return false;
   }
   if (filters.status && filters.status !== "all" && row.paperStatus !== filters.status) {

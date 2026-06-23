@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 
 import {
   buildIndexes,
+  countByTrack,
   formatDatasetLabel,
   getEntryLinks,
   getDatasetSources,
@@ -122,6 +123,34 @@ const resultFiles = [
   },
 ];
 
+const multiTrackResultFiles = [
+  {
+    dataset_id: "ucf-crime",
+    entries: [
+      {
+        paper_id: "paper-a",
+        method: "PaperA",
+        variant: "MLLM",
+        tracks: ["zero-shot", "training-free"],
+        score_source: "https://source.example/a-multitrack",
+        scores: {
+          AUC: 79.2,
+        },
+      },
+      {
+        paper_id: "paper-b",
+        method: "PaperB",
+        variant: "MLLM",
+        track: "training-free",
+        score_source: "https://source.example/b-training-free",
+        scores: {
+          AUC: 78.4,
+        },
+      },
+    ],
+  },
+];
+
 test("normalizePaperFiles flattens manifest-scoped paper files", () => {
   const paperFiles = [
     [{ id: "paper-a", short_name: "PaperA" }],
@@ -143,6 +172,15 @@ test("normalizeResultFiles converts dataset-scoped entries into flat entries", (
   assert.equal(entries[2].scores["mAP@0.1"], 11.72);
   assert.equal(entries[3].variant, "");
   assert.equal(entries[3].score_source, "https://source.example/b");
+});
+
+test("normalizeResultFiles preserves all track IDs on multi-track entries", () => {
+  const entries = normalizeResultFiles(multiTrackResultFiles);
+
+  assert.equal(entries.length, 2);
+  assert.deepEqual(entries[0].trackIds, ["zero-shot", "training-free"]);
+  assert.equal(entries[0].track, "zero-shot");
+  assert.deepEqual(entries[1].trackIds, ["training-free"]);
 });
 
 test("getScoreKeysForDataset reports the metrics available on a dataset page", () => {
@@ -171,6 +209,15 @@ test("getTracksForDataset returns only tracks used by the dataset in configured 
     ["weakly-supervised-coarse", "weakly-supervised-fine", "training-free"],
   );
   assert.deepEqual(getTracksForDataset(entries, tracks, "shanghaitech"), []);
+});
+
+test("getTracksForDataset includes all tracks from multi-track entries", () => {
+  const entries = normalizeResultFiles(multiTrackResultFiles);
+
+  assert.deepEqual(
+    getTracksForDataset(entries, tracks, "ucf-crime").map((track) => track.id),
+    ["training-free", "zero-shot"],
+  );
 });
 
 test("score helpers read direct numeric scores and preserve metric labels", () => {
@@ -274,6 +321,37 @@ test("selectLeaderboardRows supports multi-select track, venue, and variant filt
   );
 });
 
+test("selectLeaderboardRows matches multi-track rows by any selected track", () => {
+  const indexes = buildIndexes({ papers, datasets: [], tracks });
+  const entries = normalizeResultFiles(multiTrackResultFiles);
+
+  const zeroShotRows = selectLeaderboardRows({
+    entries,
+    indexes,
+    filters: {
+      datasetId: "ucf-crime",
+      trackIds: ["zero-shot"],
+    },
+  });
+  const trainingFreeRows = selectLeaderboardRows({
+    entries,
+    indexes,
+    filters: {
+      datasetId: "ucf-crime",
+      trackIds: ["training-free"],
+    },
+  });
+
+  assert.deepEqual(zeroShotRows.map((row) => row.method), ["PaperA"]);
+  assert.deepEqual(
+    trainingFreeRows.map((row) => [row.method, row.trackNames]),
+    [
+      ["PaperA", ["Zero-shot", "Training-free"]],
+      ["PaperB", ["Training-free"]],
+    ],
+  );
+});
+
 test("getScoreKeysForDataset accepts multiple selected tracks", () => {
   const entries = normalizeResultFiles(resultFiles);
 
@@ -321,6 +399,13 @@ test("selectLeaderboardRows sorts by joined paper fields and variant", () => {
     },
   });
   assert.equal(byVenue[0].venue, "preprint");
+});
+
+test("countByTrack counts every track on multi-track entries", () => {
+  const entries = normalizeResultFiles(multiTrackResultFiles);
+
+  assert.equal(countByTrack(entries)["zero-shot"], 1);
+  assert.equal(countByTrack(entries)["training-free"], 2);
 });
 
 test("selectLeaderboardRows keeps rows that do not report the active sort metric", () => {
