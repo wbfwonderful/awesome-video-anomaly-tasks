@@ -86,11 +86,51 @@ entries:
       AVG: 6.68
 ```
 
+## Dataset Metadata
+
+Use `dataset_type` to distinguish original video datasets from derived benchmarks. Original video dataset records use:
+
+```yaml
+dataset_type: original-video
+source_dataset_ids: []
+has_new_videos: true
+contribution_types: []
+```
+
+Derived benchmark records use `source_dataset_ids` to reference other records in `data/datasets.yaml`:
+
+```yaml
+dataset_type: derived-benchmark
+source_dataset_ids:
+  - ucf-crime
+  - xd-violence
+has_new_videos: false
+contribution_types:
+  - reasoning-annotations
+  - instruction-data
+```
+
 ## Track vs Metric
 
 `track` is the comparison view. It answers whether a result belongs to full training, semi-supervision, zero-shot, training-free evaluation, or a more specific weakly supervised view such as coarse-grained AUC versus fine-grained temporal localization.
 
 The score key is the metric label shown in the leaderboard, such as `AUC`, `AP`, `mAP@0.1`, or `AVG`. A single leaderboard entry can contain multiple metrics under `scores`.
+
+Use `track` for a single comparison track:
+
+```yaml
+track: zero-shot
+```
+
+Use `tracks` when one entry belongs to multiple tracks under the same score set and evaluation protocol:
+
+```yaml
+tracks:
+  - zero-shot
+  - training-free
+```
+
+Do not use `tracks` to combine results with different scores or protocols; those should remain separate entries.
 
 Use `variant` for feature extractor, backbone, model size, modality combination, or any other method variant label. Different variants remain separate entries. `variant` can be blank when a paper reports only one unnamed setting.
 
