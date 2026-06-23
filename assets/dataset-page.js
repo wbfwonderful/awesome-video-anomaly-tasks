@@ -4,12 +4,15 @@ import {
   loadStore,
 } from "./data.js";
 import {
+  formatDatasetLabel,
   formatList,
+  getDatasetSources,
   getEntryLinks,
   getScoreKeysForDataset,
   getScoreLabel,
   getScoreValue,
   getTracksForDataset,
+  isDerivedDataset,
   selectLeaderboardRows,
 } from "./model.js";
 
@@ -80,6 +83,8 @@ function cacheElements() {
   els.notes = document.querySelector("#dataset-notes");
   els.meta = document.querySelector("#dataset-meta");
   els.links = document.querySelector("#dataset-links");
+  els.provenance = document.querySelector("#dataset-provenance");
+  els.provenanceBody = document.querySelector("#dataset-provenance-body");
   els.filters = {
     track: cacheFilter("track"),
     venue: cacheFilter("venue"),
@@ -217,6 +222,7 @@ function render() {
     pageLink("Annotation", dataset.links.annotation),
   ].filter(Boolean).join("");
 
+  renderDatasetProvenance(dataset);
   renderControls();
   renderLeaderboard();
 }
@@ -436,6 +442,53 @@ function updateSortIndicators() {
 function pageLink(label, url) {
   if (!url) return "";
   return `<a href="${escapeAttr(url)}" target="_blank" rel="noreferrer">${escapeHtml(label)}</a>`;
+}
+
+function renderDatasetProvenance(dataset) {
+  if (!isDerivedDataset(dataset)) {
+    els.provenance.hidden = true;
+    els.provenanceBody.innerHTML = "";
+    return;
+  }
+
+  els.provenance.hidden = false;
+  const sourceDatasetIds = dataset.source_dataset_ids || [];
+  const sources = getDatasetSources(
+    { ...dataset, source_dataset_ids: sourceDatasetIds },
+    store.indexes,
+  );
+  els.provenanceBody.innerHTML = [
+    provenanceRow("Built from", renderSourceDatasetLinks(sources)),
+    provenanceRow("Adds", renderContributionTypes(dataset.contribution_types)),
+    provenanceRow("New videos", escapeHtml(dataset.has_new_videos ? "Yes" : "No")),
+  ].join("");
+}
+
+function provenanceRow(label, value) {
+  return `
+    <div class="provenance-row">
+      <span>${escapeHtml(label)}</span>
+      <div>${value}</div>
+    </div>
+  `;
+}
+
+function renderSourceDatasetLinks(sources) {
+  if (sources.length === 0) return `<span class="muted">-</span>`;
+
+  return sources.map((source) => `
+    <a class="tag" href="dataset.html?dataset=${escapeAttr(source.id)}">
+      ${escapeHtml(source.name)}
+    </a>
+  `).join("");
+}
+
+function renderContributionTypes(types = []) {
+  if (types.length === 0) return `<span class="muted">-</span>`;
+
+  return types.map((type) => `
+    <span class="tag">${escapeHtml(formatDatasetLabel(type))}</span>
+  `).join("");
 }
 
 function unique(values) {

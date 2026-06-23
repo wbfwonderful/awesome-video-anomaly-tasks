@@ -15,12 +15,18 @@ class LeaderboardUiStructureTest < Minitest::Test
     assert_includes html, 'id="track-filter-search"'
     assert_includes html, 'id="venue-filter-search"'
     assert_includes html, 'id="variant-filter-search"'
+    assert_includes html, 'id="dataset-provenance"'
+    assert_includes html, 'id="dataset-provenance-body"'
     assert_includes html, 'class="multi-select-options"'
     refute_includes html, 'data-sort="status"'
     refute_includes html, "<th>Links</th>"
     assert_includes html, 'id="leaderboard-head"'
     assert_includes js, "function renderMetricHeaders"
     assert_includes js, "function renderFilterControl"
+    assert_includes js, "function renderDatasetProvenance"
+    assert_includes js, "Built from"
+    assert_includes js, "source_dataset_ids"
+    assert_includes js, "has_new_videos"
     assert_includes js, "scoreKeys.map((scoreKey) => renderScoreCell(row, scoreKey))"
     refute_includes js, '<div class="muted">${escapeHtml(row.variant)}</div>'
     refute_includes js, '<td class="link-list">'

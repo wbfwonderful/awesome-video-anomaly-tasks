@@ -263,7 +263,7 @@ main {
 
 .dataset-summary {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 16px;
   margin-bottom: 18px;
 }
@@ -283,6 +283,23 @@ main {
 .dataset-summary h2 {
   margin: 0 0 12px;
   font-size: 18px;
+}
+
+.provenance-list {
+  display: grid;
+  gap: 10px;
+}
+
+.provenance-row {
+  display: grid;
+  gap: 4px;
+}
+
+.provenance-row > span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
 }
 
 .meta-pills {
