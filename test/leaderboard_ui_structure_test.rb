@@ -108,11 +108,20 @@ class LeaderboardUiStructureTest < Minitest::Test
 
     assert_includes html, 'id="datasets"'
     assert_includes html, 'id="datasets-body"'
+    assert_includes html, 'id="derived-datasets"'
+    assert_includes html, 'id="derived-datasets-body"'
     assert_includes html, "<th>Dataset</th>"
     assert_includes html, "<th>Tasks</th>"
     assert_includes html, "<th>Metrics</th>"
+    assert_includes html, "<th>Benchmark</th>"
+    assert_includes html, "<th>Based On</th>"
+    assert_includes html, "<th>Adds</th>"
+    assert_includes html, "<th>New Videos</th>"
     assert_includes html, "<th>Links</th>"
+    assert_includes js, "renderOriginalDatasets"
+    assert_includes js, "renderDerivedDatasets"
+    assert_includes js, "source_dataset_ids"
+    assert_includes js, "has_new_videos"
     assert_includes js, "leaderboards/dataset.html?dataset="
-    assert_includes js, "function renderDatasets"
   end
 end
