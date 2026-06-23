@@ -3,6 +3,7 @@ require "json"
 require "yaml"
 
 ROOT = File.expand_path("..", __dir__)
+VALID_DATASET_TYPES = %w[original-video derived-benchmark].freeze
 
 def load_yaml(path)
   YAML.load_file(File.join(ROOT, path))
@@ -50,7 +51,14 @@ class DataSchemaTest < Minitest::Test
     assert_kind_of Array, @datasets
 
     @datasets.each do |dataset|
-      assert_required_fields dataset, %w[id name task_types links metrics notes]
+      assert_required_fields dataset, %w[id name dataset_type source_dataset_ids has_new_videos contribution_types task_types links metrics notes]
+      assert_includes VALID_DATASET_TYPES, dataset.fetch("dataset_type")
+      assert_kind_of Array, dataset.fetch("source_dataset_ids")
+      dataset.fetch("source_dataset_ids").each do |source_id|
+        assert_includes @dataset_ids, source_id, "unknown source dataset #{source_id} in #{dataset.inspect}"
+      end
+      assert_includes [true, false], dataset.fetch("has_new_videos")
+      assert_kind_of Array, dataset.fetch("contribution_types")
       assert_kind_of Array, dataset.fetch("task_types")
       assert_kind_of Hash, dataset.fetch("links")
       assert_kind_of Array, dataset.fetch("metrics")
