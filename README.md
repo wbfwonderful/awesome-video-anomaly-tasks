@@ -1,5 +1,7 @@
 # Awesome Video Anomaly Tasks
 
+[English](README.md) | [中文](README.zh-CN.md)
+
 A data-driven catalog for video anomaly tasks, papers, datasets, and leaderboards.
 
 This repository is designed for GitHub Pages. The website reads structured YAML files under `data/`, joins paper, dataset, track, and result records in the browser, and renders searchable paper tables plus dataset-specific leaderboards.

@@ -118,14 +118,14 @@ export function getPaperPrimaryUrl(paper = {}) {
   return paper.official_url || paper.arxiv_url || paper.code_url || "";
 }
 
-export function getPaperLinks(paper = {}) {
+export function getPaperLinks(paper = {}, labels = {}) {
   return PAPER_LINK_TYPES.flatMap((linkType) => {
     const url = paper[linkType.key];
     if (!url) return [];
 
     return [{
       kind: linkType.kind,
-      label: linkType.label,
+      label: labels[linkType.kind] || linkType.label,
       url,
     }];
   });

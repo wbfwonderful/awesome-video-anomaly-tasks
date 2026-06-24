@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="zh-CN" data-base-path="../../">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>论文 | Awesome Video Anomaly Tasks</title>
+    <link rel="stylesheet" href="../../assets/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <div>
+        <p class="eyebrow">文献目录</p>
+        <h1>论文</h1>
+        <p class="subtitle">视频异常检测任务的论文元数据。预印本通过 Venue 表示。</p>
+        <p id="load-status" class="status">加载数据中</p>
+      </div>
+      <nav aria-label="Primary">
+        <a href="../">首页</a>
+        <a href="../leaderboards/">排行榜</a>
+        <a href="../datasets/">数据集</a>
+        <a class="language-link" href="../../papers/">English</a>
+      </nav>
+    </header>
+
+    <main>
+      <section id="papers" class="section-block" aria-labelledby="papers-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">索引</p>
+            <h2 id="papers-title">论文</h2>
+          </div>
+          <div class="toolbar">
+            <label>
+              搜索
+              <input id="paper-query" type="search" placeholder="方法、Venue、标签">
+            </label>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>论文</th>
+                <th>年份</th>
+                <th>Venue</th>
+                <th>标签</th>
+                <th>链接</th>
+              </tr>
+            </thead>
+            <tbody id="papers-body"></tbody>
+          </table>
+          <p id="papers-empty" class="empty" hidden>没有匹配的论文。</p>
+        </div>
+      </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+    <script type="module" src="../../assets/papers-page.js"></script>
+  </body>
+</html>

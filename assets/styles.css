@@ -97,6 +97,12 @@ nav a {
   font-weight: 700;
 }
 
+nav a.language-link {
+  border-color: #b9d8d3;
+  background: #eef7f4;
+  color: var(--green);
+}
+
 main {
   width: min(1480px, 100%);
   margin: 0 auto;

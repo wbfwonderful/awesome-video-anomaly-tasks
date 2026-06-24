@@ -1,35 +1,35 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN" data-base-path="../../">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Dataset Leaderboards | Awesome Video Anomaly Tasks</title>
-    <link rel="stylesheet" href="../assets/styles.css">
+    <title>数据集排行榜 | Awesome Video Anomaly Tasks</title>
+    <link rel="stylesheet" href="../../assets/styles.css">
   </head>
   <body>
     <header class="site-header">
       <div>
         <p class="eyebrow">Leaderboards</p>
-        <h1>Dataset Leaderboards</h1>
-        <p class="subtitle">Choose a dataset to inspect its benchmark notes, links, and compact method comparison table.</p>
+        <h1>数据集排行榜</h1>
+        <p class="subtitle">选择数据集，查看 Benchmark 说明、链接和紧凑的方法对比表。</p>
       </div>
       <nav aria-label="Primary">
-        <a href="../">Home</a>
-        <a href="../papers/">Papers</a>
-        <a href="../datasets/">Datasets</a>
-        <a class="language-link" href="../zh/leaderboards/">中文</a>
+        <a href="../">首页</a>
+        <a href="../papers/">论文</a>
+        <a href="../datasets/">数据集</a>
+        <a class="language-link" href="../../leaderboards/">English</a>
       </nav>
     </header>
 
     <main>
       <section class="overview" aria-labelledby="overview-title">
         <div>
-          <h2 id="overview-title">Status</h2>
-          <p id="load-status" class="status">Loading data</p>
+          <h2 id="overview-title">状态</h2>
+          <p id="load-status" class="status">加载数据中</p>
         </div>
-        <div id="stats" class="stats" aria-label="Leaderboard statistics"></div>
+        <div id="stats" class="stats" aria-label="排行榜统计"></div>
         <div class="track-panel">
-          <h3>Track Coverage</h3>
+          <h3>Track 覆盖</h3>
           <div id="track-bars" class="track-bars"></div>
         </div>
       </section>
@@ -38,17 +38,17 @@
         <div class="section-heading">
           <div>
             <p class="eyebrow">Benchmarks</p>
-            <h2 id="datasets-title">Datasets</h2>
+            <h2 id="datasets-title">数据集</h2>
           </div>
         </div>
         <div class="table-wrap">
           <table>
             <thead>
               <tr>
-                <th>Dataset</th>
-                <th>Tasks</th>
-                <th>Metrics</th>
-                <th>Links</th>
+                <th>数据集</th>
+                <th>任务</th>
+                <th>指标</th>
+                <th>链接</th>
               </tr>
             </thead>
             <tbody id="datasets-body"></tbody>
@@ -58,6 +58,6 @@
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
-    <script type="module" src="../assets/leaderboard-index.js"></script>
+    <script type="module" src="../../assets/leaderboard-index.js"></script>
   </body>
 </html>

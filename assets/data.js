@@ -25,6 +25,13 @@ export async function loadStore(basePath = "") {
   return { papers, datasets, tracks, entries, indexes };
 }
 
+export function getBasePath(
+  defaultBasePath = "",
+  documentRef = typeof document === "undefined" ? null : document,
+) {
+  return documentRef?.documentElement?.dataset?.basePath || defaultBasePath;
+}
+
 export async function fetchYaml(path) {
   const response = await fetch(path);
   if (!response.ok) {

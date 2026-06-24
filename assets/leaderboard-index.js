@@ -1,12 +1,19 @@
 import {
   escapeAttr,
   escapeHtml,
+  getBasePath,
   loadStore,
 } from "./data.js";
+import {
+  getLanguage,
+  getText,
+} from "./i18n.js";
 import {
   countByTrack,
   formatList,
 } from "./model.js";
+
+const lang = getLanguage(document);
 
 let store = {
   datasets: [],
@@ -20,10 +27,10 @@ document.addEventListener("DOMContentLoaded", async () => {
   cacheElements();
 
   try {
-    store = await loadStore("../");
+    store = await loadStore(getBasePath("../"));
     render();
   } catch (error) {
-    els.status.textContent = `Failed to load data: ${error.message}`;
+    els.status.textContent = `${getText("status.failed", lang)}: ${error.message}`;
     els.status.className = "status error";
   }
 });
@@ -36,7 +43,7 @@ function cacheElements() {
 }
 
 function render() {
-  els.status.textContent = "Data loaded";
+  els.status.textContent = getText("status.loaded", lang);
   els.status.className = "status ready";
   renderStats();
   renderTrackBars();
@@ -45,10 +52,10 @@ function render() {
 
 function renderStats() {
   els.stats.innerHTML = [
-    statTile("Datasets", store.datasets.length),
-    statTile("Tracks", store.tracks.length),
-    statTile("Rows", store.entries.length),
-    statTile("Score cells", countScores(store.entries)),
+    statTile(getText("stats.datasets", lang), store.datasets.length),
+    statTile(getText("stats.tracks", lang), store.tracks.length),
+    statTile(getText("stats.rows", lang), store.entries.length),
+    statTile(getText("stats.scoreCells", lang), countScores(store.entries)),
   ].join("");
 }
 
@@ -82,9 +89,9 @@ function renderDatasets() {
       <td>${escapeHtml(formatList(dataset.task_types))}</td>
       <td>${escapeHtml(formatList(dataset.metrics))}</td>
       <td class="link-list">
-        <a href="dataset.html?dataset=${escapeAttr(dataset.id)}">leaderboard</a>
-        ${pageLink("paper", dataset.links.paper)}
-        ${pageLink("download", dataset.links.download)}
+        <a href="dataset.html?dataset=${escapeAttr(dataset.id)}">${escapeHtml(getText("links.leaderboard", lang))}</a>
+        ${pageLink(getText("links.paper", lang), dataset.links.paper)}
+        ${pageLink(getText("links.download", lang), dataset.links.download)}
       </td>
     </tr>
   `).join("");

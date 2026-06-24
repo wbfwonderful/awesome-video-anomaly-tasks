@@ -1,8 +1,13 @@
 import {
   escapeAttr,
   escapeHtml,
+  getBasePath,
   loadStore,
 } from "./data.js";
+import {
+  getLanguage,
+  getText,
+} from "./i18n.js";
 import {
   formatDatasetLabel,
   formatList,
@@ -17,6 +22,7 @@ import {
 } from "./model.js";
 
 const params = new URLSearchParams(window.location.search);
+const lang = getLanguage(document);
 
 const state = {
   datasetId: params.get("dataset") || "",
@@ -38,18 +44,18 @@ const filterQueries = {
 const filterConfig = {
   track: {
     stateKey: "trackIds",
-    allLabel: "All tracks",
-    countLabel: "tracks",
+    allLabelKey: "filters.allTracks",
+    countLabelKey: "filters.tracks",
   },
   venue: {
     stateKey: "venues",
-    allLabel: "All venues",
-    countLabel: "venues",
+    allLabelKey: "filters.allVenues",
+    countLabelKey: "filters.venues",
   },
   variant: {
     stateKey: "variants",
-    allLabel: "All variants",
-    countLabel: "variants",
+    allLabelKey: "filters.allVariants",
+    countLabelKey: "filters.variants",
   },
 };
 
@@ -66,13 +72,15 @@ const els = {};
 document.addEventListener("DOMContentLoaded", async () => {
   cacheElements();
   bindControls();
+  updateLanguageSwitch();
 
   try {
-    store = await loadStore("../");
+    store = await loadStore(getBasePath("../"));
     initializeDataset();
+    updateLanguageSwitch();
     render();
   } catch (error) {
-    els.status.textContent = `Failed to load data: ${error.message}`;
+    els.status.textContent = `${getText("status.failed", lang)}: ${error.message}`;
     els.status.className = "status error";
   }
 });
@@ -85,6 +93,7 @@ function cacheElements() {
   els.links = document.querySelector("#dataset-links");
   els.provenance = document.querySelector("#dataset-provenance");
   els.provenanceBody = document.querySelector("#dataset-provenance-body");
+  els.languageSwitch = document.querySelector("#language-switch");
   els.filters = {
     track: cacheFilter("track"),
     venue: cacheFilter("venue"),
@@ -94,6 +103,7 @@ function cacheElements() {
   els.head = document.querySelector("#leaderboard-head");
   els.body = document.querySelector("#leaderboard-body");
   els.empty = document.querySelector("#leaderboard-empty");
+  els.empty.textContent = getText("empty.noMatchingResults", lang);
 }
 
 function cacheFilter(name) {
@@ -206,20 +216,20 @@ function render() {
     throw new Error(`Unknown dataset: ${state.datasetId}`);
   }
 
-  document.title = `${dataset.name} Leaderboard | Awesome Video Anomaly Tasks`;
-  els.status.textContent = "Data loaded";
+  document.title = `${dataset.name} ${getText("leaderboard.pageTitle", lang)} | Awesome Video Anomaly Tasks`;
+  els.status.textContent = getText("status.loaded", lang);
   els.status.className = "status ready";
-  els.title.textContent = `${dataset.name} Leaderboard`;
+  els.title.textContent = `${dataset.name} ${getText("leaderboard.pageTitle", lang)}`;
   els.notes.textContent = dataset.notes || "";
   els.meta.innerHTML = `
     <span>${escapeHtml(formatList(dataset.task_types))}</span>
     <span>${escapeHtml(formatList(dataset.metrics))}</span>
   `;
   els.links.innerHTML = [
-    pageLink("Homepage", dataset.links.homepage),
-    pageLink("Paper", dataset.links.paper),
-    pageLink("Download", dataset.links.download),
-    pageLink("Annotation", dataset.links.annotation),
+    pageLink(getText("links.homepage", lang), dataset.links.homepage),
+    pageLink(getText("links.paperTitle", lang), dataset.links.paper),
+    pageLink(getText("links.download", lang), dataset.links.download),
+    pageLink(getText("links.annotation", lang), dataset.links.annotation),
   ].filter(Boolean).join("");
 
   renderDatasetProvenance(dataset);
@@ -279,14 +289,14 @@ function renderFilterControl(name, options) {
   control.button.textContent = summarizeFilterSelection(config, options, selected);
   control.search.value = filterQueries[name];
   control.options.innerHTML = [
-    renderFilterOption("__all", config.allLabel, selected.length === 0),
+    renderFilterOption("__all", getText(config.allLabelKey, lang), selected.length === 0),
     filteredOptions.length > 0
       ? filteredOptions.map((option) => renderFilterOption(
         option.value,
         option.label,
         selected.includes(option.value),
       )).join("")
-      : '<div class="multi-select-empty">No matches</div>',
+      : `<div class="multi-select-empty">${escapeHtml(getText("empty.noMatches", lang))}</div>`,
   ].join("");
 }
 
@@ -301,7 +311,7 @@ function renderFilterOption(value, label, checked) {
 
 function summarizeFilterSelection(config, options, selected) {
   if (selected.length === 0) {
-    return config.allLabel;
+    return getText(config.allLabelKey, lang);
   }
 
   const labels = selected
@@ -310,7 +320,7 @@ function summarizeFilterSelection(config, options, selected) {
   if (labels.length === 1) {
     return labels[0];
   }
-  return `${labels.length} ${config.countLabel}`;
+  return `${labels.length} ${getText(config.countLabelKey, lang)}`;
 }
 
 function syncControlState() {
@@ -375,13 +385,13 @@ function renderLeaderboard() {
 
 function renderHeader(scoreKeys) {
   els.head.innerHTML = `
-    <th>Rank</th>
-    <th><button type="button" data-sort="method">Method</button></th>
-    <th><button type="button" data-sort="track">Track</button></th>
-    <th><button type="button" data-sort="variant">Variant</button></th>
+    <th>${escapeHtml(getText("leaderboard.rank", lang))}</th>
+    <th><button type="button" data-sort="method">${escapeHtml(getText("leaderboard.method", lang))}</button></th>
+    <th><button type="button" data-sort="track">${escapeHtml(getText("leaderboard.track", lang))}</button></th>
+    <th><button type="button" data-sort="variant">${escapeHtml(getText("leaderboard.variant", lang))}</button></th>
     ${renderMetricHeaders(scoreKeys)}
-    <th><button type="button" data-sort="year">Year</button></th>
-    <th><button type="button" data-sort="venue">Venue</button></th>
+    <th><button type="button" data-sort="year">${escapeHtml(getText("leaderboard.year", lang))}</button></th>
+    <th><button type="button" data-sort="venue">${escapeHtml(getText("leaderboard.venue", lang))}</button></th>
   `;
 }
 
@@ -406,7 +416,7 @@ function renderRow(row, index, scoreKeys) {
         <a href="${escapeAttr(methodLinks.methodUrl)}" target="_blank" rel="noreferrer">${escapeHtml(row.method)}</a>
       </td>
       <td>${renderTrackBadges(row)}</td>
-      <td>${escapeHtml(row.variant || "-")}</td>
+      <td>${escapeHtml(row.variant || getText("common.none", lang))}</td>
       ${metricCells}
       <td>${escapeHtml(row.year)}</td>
       <td>${escapeHtml(row.venue)}</td>
@@ -468,9 +478,9 @@ function renderDatasetProvenance(dataset) {
     store.indexes,
   );
   els.provenanceBody.innerHTML = [
-    provenanceRow("Built from", renderSourceDatasetLinks(sources)),
-    provenanceRow("Adds", renderContributionTypes(dataset.contribution_types)),
-    provenanceRow("New videos", escapeHtml(dataset.has_new_videos ? "Yes" : "No")),
+    provenanceRow(getText("provenance.builtFrom", lang), renderSourceDatasetLinks(sources)),
+    provenanceRow(getText("provenance.adds", lang), renderContributionTypes(dataset.contribution_types)),
+    provenanceRow(getText("provenance.newVideos", lang), escapeHtml(dataset.has_new_videos ? getText("common.yes", lang) : getText("common.no", lang))),
   ].join("");
 }
 
@@ -484,7 +494,7 @@ function provenanceRow(label, value) {
 }
 
 function renderSourceDatasetLinks(sources) {
-  if (sources.length === 0) return `<span class="muted">-</span>`;
+  if (sources.length === 0) return `<span class="muted">${escapeHtml(getText("common.none", lang))}</span>`;
 
   return sources.map((source) => `
     <a class="tag" href="dataset.html?dataset=${escapeAttr(source.id)}">
@@ -494,7 +504,7 @@ function renderSourceDatasetLinks(sources) {
 }
 
 function renderContributionTypes(types = []) {
-  if (types.length === 0) return `<span class="muted">-</span>`;
+  if (types.length === 0) return `<span class="muted">${escapeHtml(getText("common.none", lang))}</span>`;
 
   return types.map((type) => `
     <span class="tag">${escapeHtml(formatDatasetLabel(type))}</span>
@@ -503,4 +513,17 @@ function renderContributionTypes(types = []) {
 
 function unique(values) {
   return [...new Set(values.filter(Boolean))].sort();
+}
+
+function updateLanguageSwitch() {
+  if (!els.languageSwitch) return;
+
+  const target = els.languageSwitch.getAttribute("data-lang-target");
+  if (!target) return;
+
+  const query = new URLSearchParams();
+  if (state.datasetId) {
+    query.set("dataset", state.datasetId);
+  }
+  els.languageSwitch.href = `${target}${query.toString() ? `?${query}` : ""}`;
 }

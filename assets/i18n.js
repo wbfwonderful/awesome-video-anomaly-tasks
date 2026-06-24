@@ -1,0 +1,142 @@
+const DEFAULT_LANG = "en";
+const ZH_LANG = "zh-CN";
+
+const TEXT = {
+  en: {
+    "status.loading": "Loading data",
+    "status.loaded": "Data loaded",
+    "status.failed": "Failed to load data",
+    "stats.papers": "Papers",
+    "stats.published": "Published",
+    "stats.preprints": "Preprints",
+    "stats.tags": "Tags",
+    "stats.datasets": "Datasets",
+    "stats.withResults": "With Results",
+    "stats.tracks": "Tracks",
+    "stats.rows": "Rows",
+    "stats.scoreCells": "Score cells",
+    "links.leaderboard": "leaderboard",
+    "links.paper": "paper",
+    "links.download": "download",
+    "links.annotation": "annotation",
+    "links.homepage": "Homepage",
+    "links.paperTitle": "Paper",
+    "paperLinks.official": "official paper",
+    "paperLinks.arxiv": "arxiv paper",
+    "paperLinks.code": "code",
+    "common.yes": "Yes",
+    "common.no": "No",
+    "common.none": "-",
+    "empty.noDerivedDatasets": "No derived benchmarks yet.",
+    "empty.noMatchingPapers": "No matching papers.",
+    "empty.noMatchingResults": "No matching results.",
+    "empty.noMatches": "No matches",
+    "filters.track": "Track",
+    "filters.venue": "Venue",
+    "filters.variant": "Variant",
+    "filters.allTracks": "All tracks",
+    "filters.allVenues": "All venues",
+    "filters.allVariants": "All variants",
+    "filters.tracks": "tracks",
+    "filters.venues": "venues",
+    "filters.variants": "variants",
+    "filters.searchTracks": "Search tracks",
+    "filters.searchVenues": "Search venues",
+    "filters.searchVariants": "Search variants",
+    "filters.bestPerPaper": "Best per paper",
+    "leaderboard.rank": "Rank",
+    "leaderboard.method": "Method",
+    "leaderboard.track": "Track",
+    "leaderboard.variant": "Variant",
+    "leaderboard.year": "Year",
+    "leaderboard.venue": "Venue",
+    "leaderboard.pageTitle": "Leaderboard",
+    "dataset.dataset": "Dataset",
+    "dataset.links": "Links",
+    "dataset.provenance": "Provenance",
+    "provenance.builtFrom": "Built from",
+    "provenance.adds": "Adds",
+    "provenance.newVideos": "New videos",
+  },
+  "zh-CN": {
+    "status.loading": "加载数据中",
+    "status.loaded": "数据已加载",
+    "status.failed": "数据加载失败",
+    "stats.papers": "论文",
+    "stats.published": "已发表",
+    "stats.preprints": "预印本",
+    "stats.tags": "标签",
+    "stats.datasets": "数据集",
+    "stats.withResults": "已有结果",
+    "stats.tracks": "Track",
+    "stats.rows": "结果行",
+    "stats.scoreCells": "分数项",
+    "links.leaderboard": "排行榜",
+    "links.paper": "论文",
+    "links.download": "下载",
+    "links.annotation": "标注",
+    "links.homepage": "主页",
+    "links.paperTitle": "论文",
+    "paperLinks.official": "论文主页",
+    "paperLinks.arxiv": "arXiv",
+    "paperLinks.code": "代码",
+    "common.yes": "是",
+    "common.no": "否",
+    "common.none": "-",
+    "empty.noDerivedDatasets": "暂无衍生 Benchmark。",
+    "empty.noMatchingPapers": "没有匹配的论文。",
+    "empty.noMatchingResults": "没有匹配的结果。",
+    "empty.noMatches": "没有匹配项",
+    "filters.track": "Track",
+    "filters.venue": "Venue",
+    "filters.variant": "Variant",
+    "filters.allTracks": "全部 Track",
+    "filters.allVenues": "全部 Venue",
+    "filters.allVariants": "全部 Variant",
+    "filters.tracks": "个 Track",
+    "filters.venues": "个 Venue",
+    "filters.variants": "个 Variant",
+    "filters.searchTracks": "搜索 Track",
+    "filters.searchVenues": "搜索 Venue",
+    "filters.searchVariants": "搜索 Variant",
+    "filters.bestPerPaper": "每篇论文仅保留最佳结果",
+    "leaderboard.rank": "排名",
+    "leaderboard.method": "方法",
+    "leaderboard.track": "Track",
+    "leaderboard.variant": "Variant",
+    "leaderboard.year": "年份",
+    "leaderboard.venue": "Venue",
+    "leaderboard.pageTitle": "排行榜",
+    "dataset.dataset": "数据集",
+    "dataset.links": "链接",
+    "dataset.provenance": "来源",
+    "provenance.builtFrom": "基于",
+    "provenance.adds": "新增",
+    "provenance.newVideos": "新增视频",
+  },
+};
+
+export function getLanguage(documentRef = typeof document === "undefined" ? null : document) {
+  return normalizeLanguage(documentRef?.documentElement?.lang);
+}
+
+export function getText(key, lang = DEFAULT_LANG) {
+  const normalizedLang = normalizeLanguage(lang);
+  return TEXT[normalizedLang]?.[key] || TEXT[DEFAULT_LANG][key] || key;
+}
+
+export function getPaperLinkLabel(kind, lang = DEFAULT_LANG) {
+  return getText(`paperLinks.${kind}`, lang);
+}
+
+export function getPaperLinkLabels(lang = DEFAULT_LANG) {
+  return {
+    official: getPaperLinkLabel("official", lang),
+    arxiv: getPaperLinkLabel("arxiv", lang),
+    code: getPaperLinkLabel("code", lang),
+  };
+}
+
+function normalizeLanguage(lang) {
+  return String(lang || DEFAULT_LANG).toLowerCase().startsWith("zh") ? ZH_LANG : DEFAULT_LANG;
+}

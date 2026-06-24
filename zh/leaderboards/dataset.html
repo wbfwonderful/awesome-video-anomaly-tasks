@@ -1,40 +1,40 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN" data-base-path="../../">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Dataset Leaderboard | Awesome Video Anomaly Tasks</title>
-    <link rel="stylesheet" href="../assets/styles.css">
+    <title>数据集排行榜 | Awesome Video Anomaly Tasks</title>
+    <link rel="stylesheet" href="../../assets/styles.css">
   </head>
   <body>
     <header class="site-header">
       <div>
         <p class="eyebrow">Dataset Leaderboard</p>
-        <h1 id="dataset-title">Leaderboard</h1>
+        <h1 id="dataset-title">排行榜</h1>
         <p id="dataset-notes" class="subtitle"></p>
-        <p id="load-status" class="status">Loading data</p>
+        <p id="load-status" class="status">加载数据中</p>
       </div>
       <nav aria-label="Primary">
-        <a href="../">Home</a>
-        <a href="./">All Leaderboards</a>
-        <a href="../papers/">Papers</a>
-        <a href="../datasets/">Datasets</a>
-        <a id="language-switch" class="language-link" href="../zh/leaderboards/dataset.html" data-lang-target="../zh/leaderboards/dataset.html">中文</a>
+        <a href="../">首页</a>
+        <a href="./">全部排行榜</a>
+        <a href="../papers/">论文</a>
+        <a href="../datasets/">数据集</a>
+        <a id="language-switch" class="language-link" href="../../leaderboards/dataset.html" data-lang-target="../../leaderboards/dataset.html">English</a>
       </nav>
     </header>
 
     <main>
-      <section class="dataset-summary" aria-label="Dataset summary">
+      <section class="dataset-summary" aria-label="数据集概览">
         <div>
-          <h2>Dataset</h2>
+          <h2>数据集</h2>
           <div id="dataset-meta" class="meta-pills"></div>
         </div>
         <div>
-          <h2>Links</h2>
+          <h2>链接</h2>
           <div id="dataset-links" class="link-list"></div>
         </div>
         <div id="dataset-provenance" hidden>
-          <h2>Provenance</h2>
+          <h2>来源</h2>
           <div id="dataset-provenance-body" class="provenance-list"></div>
         </div>
       </section>
@@ -42,16 +42,16 @@
       <section class="section-block leaderboard-section" aria-labelledby="leaderboard-title">
         <div class="section-heading">
           <div>
-            <p class="eyebrow">Comparable Results</p>
-            <h2 id="leaderboard-title">Leaderboard</h2>
-            <p class="hint">Click a score to open the source paper or table for that result.</p>
+            <p class="eyebrow">可比结果</p>
+            <h2 id="leaderboard-title">排行榜</h2>
+            <p class="hint">点击分数可打开该结果对应的论文、表格或来源。</p>
           </div>
           <div class="toolbar">
             <div class="filter-control" data-filter="track">
               <span class="filter-label">Track</span>
               <button id="track-filter-button" class="multi-select-button" type="button" aria-expanded="false" aria-controls="track-filter-menu"></button>
               <div id="track-filter-menu" class="multi-select-menu" hidden>
-                <input id="track-filter-search" type="search" placeholder="Search tracks" autocomplete="off">
+                <input id="track-filter-search" type="search" placeholder="搜索 Track" autocomplete="off">
                 <div id="track-filter-options" class="multi-select-options"></div>
               </div>
             </div>
@@ -59,7 +59,7 @@
               <span class="filter-label">Venue</span>
               <button id="venue-filter-button" class="multi-select-button" type="button" aria-expanded="false" aria-controls="venue-filter-menu"></button>
               <div id="venue-filter-menu" class="multi-select-menu" hidden>
-                <input id="venue-filter-search" type="search" placeholder="Search venues" autocomplete="off">
+                <input id="venue-filter-search" type="search" placeholder="搜索 Venue" autocomplete="off">
                 <div id="venue-filter-options" class="multi-select-options"></div>
               </div>
             </div>
@@ -67,13 +67,13 @@
               <span class="filter-label">Variant</span>
               <button id="variant-filter-button" class="multi-select-button" type="button" aria-expanded="false" aria-controls="variant-filter-menu"></button>
               <div id="variant-filter-menu" class="multi-select-menu" hidden>
-                <input id="variant-filter-search" type="search" placeholder="Search variants" autocomplete="off">
+                <input id="variant-filter-search" type="search" placeholder="搜索 Variant" autocomplete="off">
                 <div id="variant-filter-options" class="multi-select-options"></div>
               </div>
             </div>
             <label class="toggle">
               <input id="best-per-paper" type="checkbox">
-              Best per paper
+              每篇论文仅保留最佳结果
             </label>
           </div>
         </div>
@@ -84,12 +84,12 @@
             </thead>
             <tbody id="leaderboard-body"></tbody>
           </table>
-          <p id="leaderboard-empty" class="empty" hidden>No matching results.</p>
+          <p id="leaderboard-empty" class="empty" hidden>没有匹配的结果。</p>
         </div>
       </section>
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
-    <script type="module" src="../assets/dataset-page.js"></script>
+    <script type="module" src="../../assets/dataset-page.js"></script>
   </body>
 </html>

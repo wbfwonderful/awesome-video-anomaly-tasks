@@ -2,6 +2,12 @@ import test from "node:test";
 import assert from "node:assert/strict";
 
 import {
+  getLanguage,
+  getPaperLinkLabel,
+  getText,
+} from "../assets/i18n.js";
+
+import {
   buildIndexes,
   countByTrack,
   formatDatasetLabel,
@@ -72,6 +78,13 @@ test("dataset helpers identify derived benchmarks and resolve source datasets", 
     ["UCF-Crime", "XD-Violence"],
   );
   assert.equal(formatDatasetLabel("reasoning-annotations"), "Reasoning annotations");
+});
+
+test("i18n helpers read page language and return Chinese UI labels", () => {
+  assert.equal(getLanguage({ documentElement: { lang: "zh-CN" } }), "zh-CN");
+  assert.equal(getText("status.loaded", "zh-CN"), "数据已加载");
+  assert.equal(getText("filters.allTracks", "zh-CN"), "全部 Track");
+  assert.equal(getPaperLinkLabel("official", "zh-CN"), "论文主页");
 });
 
 const resultFiles = [
@@ -519,4 +532,15 @@ test("paper links expose official, arxiv, and code text links", () => {
       ["code", "code", "https://code.example/paper"],
     ],
   );
+});
+
+test("paper links accept localized labels without changing default English labels", () => {
+  const defaultLinks = getPaperLinks({ official_url: "https://official.example/paper" });
+  const zhLinks = getPaperLinks(
+    { official_url: "https://official.example/paper" },
+    { official: "论文主页" },
+  );
+
+  assert.equal(defaultLinks[0].label, "official paper");
+  assert.equal(zhLinks[0].label, "论文主页");
 });

@@ -1,12 +1,20 @@
 import {
   escapeAttr,
   escapeHtml,
+  getBasePath,
   loadStore,
 } from "./data.js";
+import {
+  getLanguage,
+  getPaperLinkLabels,
+  getText,
+} from "./i18n.js";
 import {
   getPaperLinks,
   getPaperPrimaryUrl,
 } from "./model.js";
+
+const lang = getLanguage(document);
 
 const state = {
   query: "",
@@ -23,12 +31,12 @@ document.addEventListener("DOMContentLoaded", async () => {
   bindControls();
 
   try {
-    store = await loadStore("../");
+    store = await loadStore(getBasePath("../"));
     renderPapers();
-    els.status.textContent = "Data loaded";
+    els.status.textContent = getText("status.loaded", lang);
     els.status.className = "status ready";
   } catch (error) {
-    els.status.textContent = `Failed to load data: ${error.message}`;
+    els.status.textContent = `${getText("status.failed", lang)}: ${error.message}`;
     els.status.className = "status error";
   }
 });
@@ -38,6 +46,7 @@ function cacheElements() {
   els.query = document.querySelector("#paper-query");
   els.body = document.querySelector("#papers-body");
   els.empty = document.querySelector("#papers-empty");
+  els.empty.textContent = getText("empty.noMatchingPapers", lang);
 }
 
 function bindControls() {
@@ -85,7 +94,7 @@ function renderPaperPrimaryLink(paper) {
 }
 
 function renderPaperLinks(paper) {
-  const links = getPaperLinks(paper);
+  const links = getPaperLinks(paper, getPaperLinkLabels(lang));
   if (links.length === 0) return `<span class="muted">-</span>`;
 
   return `<div class="paper-text-links">${links.map((link) => `

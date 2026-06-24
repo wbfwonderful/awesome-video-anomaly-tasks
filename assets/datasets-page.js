@@ -1,14 +1,21 @@
 import {
   escapeAttr,
   escapeHtml,
+  getBasePath,
   loadStore,
 } from "./data.js";
+import {
+  getLanguage,
+  getText,
+} from "./i18n.js";
 import {
   formatDatasetLabel,
   formatList,
   getDatasetSources,
   isDerivedDataset,
 } from "./model.js";
+
+const lang = getLanguage(document);
 
 let store = {
   datasets: [],
@@ -21,12 +28,12 @@ document.addEventListener("DOMContentLoaded", async () => {
   cacheElements();
 
   try {
-    store = await loadStore("../");
+    store = await loadStore(getBasePath("../"));
     renderDatasets();
-    els.status.textContent = "Data loaded";
+    els.status.textContent = getText("status.loaded", lang);
     els.status.className = "status ready";
   } catch (error) {
-    els.status.textContent = `Failed to load data: ${error.message}`;
+    els.status.textContent = `${getText("status.failed", lang)}: ${error.message}`;
     els.status.className = "status error";
   }
 });
@@ -36,6 +43,7 @@ function cacheElements() {
   els.body = document.querySelector("#datasets-body");
   els.derivedBody = document.querySelector("#derived-datasets-body");
   els.derivedEmpty = document.querySelector("#derived-datasets-empty");
+  els.derivedEmpty.textContent = getText("empty.noDerivedDatasets", lang);
 }
 
 function renderDatasets() {
@@ -71,7 +79,7 @@ function renderDerivedDatasets(datasets) {
       </td>
       <td>${renderSourceDatasets(dataset)}</td>
       <td>${renderContributionTypes(dataset.contribution_types)}</td>
-      <td>${escapeHtml(dataset.has_new_videos ? "Yes" : "No")}</td>
+      <td>${escapeHtml(dataset.has_new_videos ? getText("common.yes", lang) : getText("common.no", lang))}</td>
       <td>${escapeHtml(formatList(dataset.task_types))}</td>
       <td class="link-list">
         ${datasetLinks(dataset)}
@@ -83,10 +91,10 @@ function renderDerivedDatasets(datasets) {
 
 function renderSourceDatasets(dataset) {
   const sourceDatasetIds = dataset.source_dataset_ids || [];
-  if (sourceDatasetIds.length === 0) return `<span class="muted">-</span>`;
+  if (sourceDatasetIds.length === 0) return `<span class="muted">${escapeHtml(getText("common.none", lang))}</span>`;
 
   const sources = getDatasetSources(dataset, store.indexes);
-  if (sources.length === 0) return `<span class="muted">-</span>`;
+  if (sources.length === 0) return `<span class="muted">${escapeHtml(getText("common.none", lang))}</span>`;
 
   return sources.map((source) => `
     <a class="tag" href="../leaderboards/dataset.html?dataset=${escapeAttr(source.id)}">
@@ -96,7 +104,7 @@ function renderSourceDatasets(dataset) {
 }
 
 function renderContributionTypes(types = []) {
-  if (types.length === 0) return `<span class="muted">-</span>`;
+  if (types.length === 0) return `<span class="muted">${escapeHtml(getText("common.none", lang))}</span>`;
 
   return types.map((type) => `
     <span class="tag">${escapeHtml(formatDatasetLabel(type))}</span>
@@ -105,11 +113,15 @@ function renderContributionTypes(types = []) {
 
 function datasetLinks(dataset) {
   return `
-    <a href="../leaderboards/dataset.html?dataset=${escapeAttr(dataset.id)}">leaderboard</a>
-    ${datasetLink("paper", dataset.links.paper)}
-    ${datasetLink("download", dataset.links.download)}
-    ${datasetLink("annotation", dataset.links.annotation)}
+    <a href="${escapeAttr(leaderboardPath(dataset.id))}">${escapeHtml(getText("links.leaderboard", lang))}</a>
+    ${datasetLink(getText("links.paper", lang), dataset.links.paper)}
+    ${datasetLink(getText("links.download", lang), dataset.links.download)}
+    ${datasetLink(getText("links.annotation", lang), dataset.links.annotation)}
   `;
+}
+
+function leaderboardPath(datasetId) {
+  return `../leaderboards/dataset.html?dataset=${encodeURIComponent(datasetId)}`;
 }
 
 function datasetLink(label, url) {

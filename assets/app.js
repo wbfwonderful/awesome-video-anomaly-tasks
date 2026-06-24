@@ -1,8 +1,14 @@
 import {
   escapeHtml,
+  getBasePath,
 } from "./data.js";
+import {
+  getLanguage,
+  getText,
+} from "./i18n.js";
 
-const SUMMARY_PATH = "data/home-summary.json";
+const lang = getLanguage(document);
+const SUMMARY_PATH = `${getBasePath()}data/home-summary.json`;
 
 const els = {};
 
@@ -13,7 +19,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const summary = await fetchSummary();
     render(summary);
   } catch (error) {
-    console.error(`Failed to load homepage data: ${error.message}`);
+    console.error(`${getText("status.failed", lang)}: ${error.message}`);
   }
 });
 
@@ -40,20 +46,20 @@ function render(summary) {
 
 function renderPaperSummary(stats, topTags) {
   els.paperStats.innerHTML = [
-    statTile("Papers", stats.papers),
-    statTile("Published", stats.published),
-    statTile("Preprints", stats.preprints),
-    statTile("Tags", stats.tags),
+    statTile(getText("stats.papers", lang), stats.papers),
+    statTile(getText("stats.published", lang), stats.published),
+    statTile(getText("stats.preprints", lang), stats.preprints),
+    statTile(getText("stats.tags", lang), stats.tags),
   ].join("");
   els.paperTags.innerHTML = renderTopTags(topTags);
 }
 
 function renderDatasetSummary(stats) {
   els.datasetStats.innerHTML = [
-    statTile("Datasets", stats.datasets),
-    statTile("With Results", stats.with_results),
-    statTile("Tracks", stats.tracks),
-    statTile("Rows", stats.rows),
+    statTile(getText("stats.datasets", lang), stats.datasets),
+    statTile(getText("stats.withResults", lang), stats.with_results),
+    statTile(getText("stats.tracks", lang), stats.tracks),
+    statTile(getText("stats.rows", lang), stats.rows),
   ].join("");
 }
 

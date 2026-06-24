@@ -24,7 +24,7 @@ class LeaderboardUiStructureTest < Minitest::Test
     assert_includes js, "function renderMetricHeaders"
     assert_includes js, "function renderFilterControl"
     assert_includes js, "function renderDatasetProvenance"
-    assert_includes js, "Built from"
+    assert_includes js, "provenance.builtFrom"
     assert_includes js, "source_dataset_ids"
     assert_includes js, "has_new_videos"
     assert_includes js, "scoreKeys.map((scoreKey) => renderScoreCell(row, scoreKey))"
@@ -42,7 +42,8 @@ class LeaderboardUiStructureTest < Minitest::Test
     assert_includes html, 'id="paper-stats"'
     assert_includes html, 'id="dataset-stats"'
     refute_includes html, 'id="load-status"'
-    refute_includes html, "<nav"
+    assert_includes html, "<nav"
+    assert_includes html, 'href="zh/"'
     assert_includes html, "Datasets &amp; Leaderboards"
     assert_includes html, 'href="papers/"'
     assert_includes html, 'href="datasets/"'
@@ -131,5 +132,73 @@ class LeaderboardUiStructureTest < Minitest::Test
     assert_includes js, "source_dataset_ids"
     assert_includes js, "has_new_videos"
     assert_includes js, "leaderboards/dataset.html?dataset="
+  end
+
+  def test_shared_page_scripts_use_i18n_and_configurable_data_base_path
+    scripts = %w[
+      assets/app.js
+      assets/papers-page.js
+      assets/datasets-page.js
+      assets/leaderboard-index.js
+      assets/dataset-page.js
+    ]
+
+    scripts.each do |path|
+      js = File.read(File.join(ROOT, path))
+      assert_includes js, "getLanguage"
+      assert_includes js, "getText"
+    end
+
+    data_js = File.read(File.join(ROOT, "assets/data.js"))
+    assert_includes data_js, "function getBasePath"
+    assert_includes File.read(File.join(ROOT, "assets/app.js")), "getBasePath"
+    assert_includes File.read(File.join(ROOT, "assets/papers-page.js")), "getBasePath"
+    assert_includes File.read(File.join(ROOT, "assets/datasets-page.js")), "getBasePath"
+    assert_includes File.read(File.join(ROOT, "assets/leaderboard-index.js")), "getBasePath"
+    assert_includes File.read(File.join(ROOT, "assets/dataset-page.js")), "getBasePath"
+
+    dataset_js = File.read(File.join(ROOT, "assets/dataset-page.js"))
+    assert_includes dataset_js, "function updateLanguageSwitch"
+    assert_includes dataset_js, "language-switch"
+    assert_includes dataset_js, "data-lang-target"
+  end
+
+  def test_chinese_site_pages_share_assets_and_link_back_to_english
+    pages = {
+      "zh/index.html" => ['href="../"', 'src="../assets/app.js"', 'href="../assets/styles.css"', '<html lang="zh-CN" data-base-path="../">'],
+      "zh/papers/index.html" => ['href="../../papers/"', 'src="../../assets/papers-page.js"', 'href="../../assets/styles.css"', '<html lang="zh-CN" data-base-path="../../">'],
+      "zh/datasets/index.html" => ['href="../../datasets/"', 'src="../../assets/datasets-page.js"', 'href="../../assets/styles.css"', '<html lang="zh-CN" data-base-path="../../">'],
+      "zh/leaderboards/index.html" => ['href="../../leaderboards/"', 'src="../../assets/leaderboard-index.js"', 'href="../../assets/styles.css"', '<html lang="zh-CN" data-base-path="../../">'],
+      "zh/leaderboards/dataset.html" => ['id="language-switch"', 'src="../../assets/dataset-page.js"', 'href="../../assets/styles.css"', '<html lang="zh-CN" data-base-path="../../">']
+    }
+
+    pages.each do |path, snippets|
+      html = File.read(File.join(ROOT, path))
+      snippets.each { |snippet| assert_includes html, snippet }
+    end
+  end
+
+  def test_english_pages_link_to_chinese_counterparts
+    expectations = {
+      "index.html" => 'href="zh/"',
+      "papers/index.html" => 'href="../zh/papers/"',
+      "datasets/index.html" => 'href="../zh/datasets/"',
+      "leaderboards/index.html" => 'href="../zh/leaderboards/"',
+      "leaderboards/dataset.html" => 'id="language-switch"'
+    }
+
+    expectations.each do |path, snippet|
+      assert_includes File.read(File.join(ROOT, path)), snippet
+    end
+  end
+
+  def test_readmes_have_language_links
+    english = File.read(File.join(ROOT, "README.md"))
+    chinese = File.read(File.join(ROOT, "README.zh-CN.md"))
+
+    assert_includes english, "[English](README.md) | [中文](README.zh-CN.md)"
+    assert_includes chinese, "[English](README.md) | [中文](README.zh-CN.md)"
+    assert_includes chinese, "# Awesome Video Anomaly Tasks"
+    assert_includes chinese, "## 数据布局"
   end
 end
