@@ -172,22 +172,22 @@ Dataset leaderboard pages do not show a separate status column. For preprints, s
 ## Local Preview
 
 ```bash
-/Users/bytedance/miniconda3/bin/python -m http.server 8000
+npm run dev
 ```
 
-Open `http://localhost:8000` from this repository root.
+Open the local preview URL printed by the command from this repository root.
 
 ## Validation
 
 ```bash
-/opt/homebrew/bin/npm test
+npm test
 ```
 
 or run the checks separately:
 
 ```bash
-/usr/bin/ruby test/data_schema_test.rb
-/opt/homebrew/bin/node --test test/leaderboard_model_test.mjs
+ruby test/data_schema_test.rb
+node --test test/leaderboard_model_test.mjs
 ```
 
 The Ruby test validates YAML shape and cross-file references. The Node test validates leaderboard selection logic, including `best per paper`.

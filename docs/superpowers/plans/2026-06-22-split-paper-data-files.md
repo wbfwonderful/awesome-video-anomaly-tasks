@@ -51,7 +51,7 @@ assert_kind_of Array, paper.fetch("tags")
 Run:
 
 ```bash
-/usr/bin/env PATH=/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin /usr/bin/ruby test/data_schema_test.rb
+ruby test/data_schema_test.rb
 ```
 
 Expected: FAIL with `No such file or directory @ rb_sysopen - ... data/papers/index.yaml`.
@@ -126,7 +126,7 @@ files:
 Run:
 
 ```bash
-/usr/bin/env PATH=/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin /usr/bin/ruby test/data_schema_test.rb
+ruby test/data_schema_test.rb
 ```
 
 Expected: PASS.
@@ -166,7 +166,7 @@ test("normalizePaperFiles flattens manifest-scoped paper files", () => {
 Run:
 
 ```bash
-/usr/bin/env PATH=/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin /opt/homebrew/bin/node --test test/leaderboard_model_test.mjs
+node --test test/leaderboard_model_test.mjs
 ```
 
 Expected: FAIL because `normalizePaperFiles` is not exported.
@@ -202,7 +202,7 @@ const papers = normalizePaperFiles(paperFiles);
 Run:
 
 ```bash
-/usr/bin/env PATH=/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin /opt/homebrew/bin/node --test test/leaderboard_model_test.mjs
+node --test test/leaderboard_model_test.mjs
 ```
 
 Expected: PASS.
@@ -252,7 +252,7 @@ assert_includes data_js, "data/papers/${file}"
 Run:
 
 ```bash
-/usr/bin/env PATH=/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin /usr/bin/ruby test/leaderboard_ui_structure_test.rb
+ruby test/leaderboard_ui_structure_test.rb
 ```
 
 Expected: PASS.
@@ -267,7 +267,7 @@ Expected: PASS.
 Run:
 
 ```bash
-/usr/bin/env PATH=/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin /opt/homebrew/bin/npm test
+npm test
 ```
 
 Expected: PASS.

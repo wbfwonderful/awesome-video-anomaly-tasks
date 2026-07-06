@@ -172,22 +172,22 @@ leaderboards/
 ## 本地预览
 
 ```bash
-/Users/bytedance/miniconda3/bin/python -m http.server 8000
+npm run dev
 ```
 
-从仓库根目录打开 `http://localhost:8000`。
+从仓库根目录打开命令输出的本地预览 URL。
 
 ## 验证
 
 ```bash
-/opt/homebrew/bin/npm test
+npm test
 ```
 
 也可以单独运行检查：
 
 ```bash
-/usr/bin/ruby test/data_schema_test.rb
-/opt/homebrew/bin/node --test test/leaderboard_model_test.mjs
+ruby test/data_schema_test.rb
+node --test test/leaderboard_model_test.mjs
 ```
 
 Ruby 测试验证 YAML 结构和跨文件引用。Node 测试验证排行榜选择逻辑，包括 `best per paper`。

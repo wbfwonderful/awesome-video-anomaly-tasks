@@ -62,7 +62,7 @@ assert_kind_of Array, dataset.fetch("metrics")
 Run:
 
 ```bash
-/usr/bin/env PATH=/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin /usr/bin/ruby test/data_schema_test.rb
+ruby test/data_schema_test.rb
 ```
 
 Expected: FAIL with `missing dataset_type` on the first dataset record.
@@ -90,7 +90,7 @@ Keep every existing `id`, `name`, `task_types`, `links`, `metrics`, and `notes` 
 Run:
 
 ```bash
-/usr/bin/env PATH=/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin /usr/bin/ruby test/data_schema_test.rb
+ruby test/data_schema_test.rb
 ```
 
 Expected: PASS.
@@ -143,7 +143,7 @@ test("dataset helpers identify derived benchmarks and resolve source datasets", 
 Run:
 
 ```bash
-/usr/bin/env PATH=/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin /opt/homebrew/bin/node --test test/leaderboard_model_test.mjs
+node --test test/leaderboard_model_test.mjs
 ```
 
 Expected: FAIL because the new helper exports do not exist.
@@ -185,7 +185,7 @@ function capitalize(value) {
 Run:
 
 ```bash
-/usr/bin/env PATH=/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin /opt/homebrew/bin/node --test test/leaderboard_model_test.mjs
+node --test test/leaderboard_model_test.mjs
 ```
 
 Expected: PASS.
@@ -229,7 +229,7 @@ assert_includes js, "leaderboards/dataset.html?dataset="
 Run:
 
 ```bash
-/usr/bin/env PATH=/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin /usr/bin/ruby test/leaderboard_ui_structure_test.rb
+ruby test/leaderboard_ui_structure_test.rb
 ```
 
 Expected: FAIL because `derived-datasets` markup and render functions are not present.
@@ -398,7 +398,7 @@ function datasetLink(label, url) {
 Run:
 
 ```bash
-/usr/bin/env PATH=/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin /usr/bin/ruby test/leaderboard_ui_structure_test.rb
+ruby test/leaderboard_ui_structure_test.rb
 ```
 
 Expected: PASS.
@@ -429,7 +429,7 @@ assert_includes js, "has_new_videos"
 Run:
 
 ```bash
-/usr/bin/env PATH=/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin /usr/bin/ruby test/leaderboard_ui_structure_test.rb
+ruby test/leaderboard_ui_structure_test.rb
 ```
 
 Expected: FAIL because the provenance markup and renderer are not present.
@@ -554,7 +554,7 @@ Add:
 Run:
 
 ```bash
-/usr/bin/env PATH=/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin /usr/bin/ruby test/leaderboard_ui_structure_test.rb
+ruby test/leaderboard_ui_structure_test.rb
 ```
 
 Expected: PASS.
@@ -610,7 +610,7 @@ end
 Run:
 
 ```bash
-/usr/bin/env PATH=/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin /usr/bin/ruby test/data_schema_test.rb
+ruby test/data_schema_test.rb
 ```
 
 Expected: PASS after Task 2 has added dataset provenance fields.
@@ -732,7 +732,7 @@ test("countByTrack counts every track on multi-track entries", () => {
 Run:
 
 ```bash
-/usr/bin/env PATH=/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin /opt/homebrew/bin/node --test test/leaderboard_model_test.mjs
+node --test test/leaderboard_model_test.mjs
 ```
 
 Expected: FAIL because `trackIds`, `trackNames`, and multi-track filtering are not implemented.
@@ -884,9 +884,9 @@ assert_includes js, "row.trackNames.map"
 Run:
 
 ```bash
-/usr/bin/env PATH=/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin /usr/bin/ruby test/data_schema_test.rb
-/usr/bin/env PATH=/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin /usr/bin/ruby test/leaderboard_ui_structure_test.rb
-/usr/bin/env PATH=/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin /opt/homebrew/bin/node --test test/leaderboard_model_test.mjs
+ruby test/data_schema_test.rb
+ruby test/leaderboard_ui_structure_test.rb
+node --test test/leaderboard_model_test.mjs
 ```
 
 Expected: all three commands PASS.
@@ -947,7 +947,7 @@ Do not use `tracks` to combine results with different scores or protocols; those
 Run:
 
 ```bash
-/usr/bin/env PATH=/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin /opt/homebrew/bin/npm test
+npm test
 ```
 
 Expected: PASS.

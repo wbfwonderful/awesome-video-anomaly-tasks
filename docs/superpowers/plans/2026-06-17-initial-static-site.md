@@ -63,9 +63,9 @@
 ### Task 5: Verification
 
 **Commands:**
-- `/usr/bin/ruby test/data_schema_test.rb`
-- `/opt/homebrew/bin/node --test test/leaderboard_model_test.mjs`
-- `/Users/bytedance/miniconda3/bin/python -m http.server 8000`
+- `ruby test/data_schema_test.rb`
+- `node --test test/leaderboard_model_test.mjs`
+- `python -m http.server 8000`
 
 - [ ] Run the data schema validation.
 - [ ] Run the Node model tests.

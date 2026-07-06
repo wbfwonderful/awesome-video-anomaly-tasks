@@ -69,7 +69,7 @@ end
 
 - [ ] **Step 2: Run the structure test to verify it fails**
 
-Run: `/usr/bin/ruby test/leaderboard_ui_structure_test.rb`
+Run: `ruby test/leaderboard_ui_structure_test.rb`
 
 Expected: failures because `zh/` pages and language switch links do not exist yet.
 
@@ -111,7 +111,7 @@ test("paper links accept localized labels without changing default English label
 
 - [ ] **Step 2: Run the model test to verify it fails**
 
-Run: `/opt/homebrew/bin/node --test test/leaderboard_model_test.mjs`
+Run: `node --test test/leaderboard_model_test.mjs`
 
 Expected: failure because `assets/i18n.js` and localized paper link labels are not implemented yet.
 
@@ -131,7 +131,7 @@ Change `getPaperLinks(paper = {})` to `getPaperLinks(paper = {}, labels = {})` a
 
 - [ ] **Step 3: Run model tests**
 
-Run: `/opt/homebrew/bin/node --test test/leaderboard_model_test.mjs`
+Run: `node --test test/leaderboard_model_test.mjs`
 
 Expected: all Node model tests pass.
 
@@ -159,7 +159,7 @@ Mirror each English shell under `zh/` with Chinese static text, `<html lang="zh-
 
 - [ ] **Step 3: Run structure tests**
 
-Run: `/usr/bin/ruby test/leaderboard_ui_structure_test.rb`
+Run: `ruby test/leaderboard_ui_structure_test.rb`
 
 Expected: structure tests pass.
 
@@ -186,7 +186,7 @@ In `assets/dataset-page.js`, update `#language-switch.href` from its `data-lang-
 
 - [ ] **Step 4: Run all tests**
 
-Run: `/usr/bin/env PATH=/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin /opt/homebrew/bin/npm test`
+Run: `npm test`
 
 Expected: all Ruby and Node tests pass.
 
@@ -206,7 +206,7 @@ Translate the current README prose into Chinese while preserving code blocks, pa
 
 - [ ] **Step 3: Run all tests**
 
-Run: `/usr/bin/env PATH=/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin /opt/homebrew/bin/npm test`
+Run: `npm test`
 
 Expected: all tests pass.
 
@@ -223,7 +223,7 @@ Expected: no whitespace errors and only expected files changed.
 
 - [ ] **Step 2: Run full test suite**
 
-Run: `/usr/bin/env PATH=/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin /opt/homebrew/bin/npm test`
+Run: `npm test`
 
 Expected: all tests pass.
 
