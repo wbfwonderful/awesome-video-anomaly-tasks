@@ -8,6 +8,7 @@ import {
 } from "../assets/i18n.js";
 
 import {
+  buildHomeSummary,
   buildIndexes,
   countByTrack,
   formatDatasetLabel,
@@ -22,6 +23,7 @@ import {
   isDerivedDataset,
   normalizePaperFiles,
   normalizeResultFiles,
+  selectPaperRows,
   selectLeaderboardRows,
 } from "../assets/model.js";
 
@@ -46,6 +48,15 @@ const papers = [
     venue: "preprint",
     arxiv_url: "https://arxiv.example/b",
     code_url: "https://code.example/b",
+  },
+  {
+    id: "paper-c",
+    short_name: "PaperC",
+    title: "Code Only Method",
+    status: "preprint",
+    year: 2026,
+    venue: "preprint",
+    code_url: "https://code.example/c",
   },
 ];
 
@@ -93,7 +104,6 @@ const resultFiles = [
     entries: [
       {
         paper_id: "paper-a",
-        method: "PaperA",
         variant: "I3D",
         track: "weakly-supervised-coarse",
         score_source: "https://source.example/a-i3d",
@@ -103,7 +113,6 @@ const resultFiles = [
       },
       {
         paper_id: "paper-a",
-        method: "PaperA",
         variant: "CLIP",
         track: "weakly-supervised-coarse",
         score_source: "https://source.example/a-clip",
@@ -113,7 +122,6 @@ const resultFiles = [
       },
       {
         paper_id: "paper-a",
-        method: "PaperA",
         variant: "CLIP",
         track: "weakly-supervised-fine",
         score_source: "https://source.example/a-clip-fine",
@@ -124,7 +132,6 @@ const resultFiles = [
       },
       {
         paper_id: "paper-b",
-        method: "PaperB",
         variant: null,
         track: "training-free",
         score_source: "https://source.example/b",
@@ -142,7 +149,6 @@ const multiTrackResultFiles = [
     entries: [
       {
         paper_id: "paper-a",
-        method: "PaperA",
         variant: "MLLM",
         tracks: ["zero-shot", "training-free"],
         score_source: "https://source.example/a-multitrack",
@@ -152,7 +158,6 @@ const multiTrackResultFiles = [
       },
       {
         paper_id: "paper-b",
-        method: "PaperB",
         variant: "MLLM",
         track: "training-free",
         score_source: "https://source.example/b-training-free",
@@ -161,6 +166,45 @@ const multiTrackResultFiles = [
         },
       },
     ],
+  },
+];
+
+const groupedResultFiles = [
+  {
+    dataset_id: "ucf-crime",
+    entry_groups: {
+      "weakly-supervised-coarse": [
+        {
+          paper_id: "paper-a",
+          variant: "CLIP",
+          score_source: "https://source.example/a-clip",
+          scores: {
+            AUC: 88.2,
+          },
+        },
+      ],
+      "weakly-supervised-fine": [
+        {
+          paper_id: "paper-a",
+          variant: "",
+          score_source: "https://source.example/a-fine",
+          scores: {
+            "mAP@0.1": 11.72,
+            AVG: 6.68,
+          },
+        },
+      ],
+      "training-free": [
+        {
+          paper_id: "paper-b",
+          variant: null,
+          score_source: "https://source.example/b",
+          scores: {
+            AUC: 78.4,
+          },
+        },
+      ],
+    },
   },
 ];
 
@@ -173,6 +217,84 @@ test("normalizePaperFiles flattens manifest-scoped paper files", () => {
   assert.deepEqual(
     normalizePaperFiles(paperFiles).map((paper) => paper.id),
     ["paper-a", "paper-b"],
+  );
+});
+
+test("selectPaperRows filters papers by query and multi-select metadata", () => {
+  const paperRows = [
+    {
+      id: "paper-z",
+      short_name: "Zeta",
+      title: "Vision-language Detector",
+      year: 2024,
+      venue: "CVPR",
+      presentation: "oral",
+      tags: ["clip", "vision-language"],
+    },
+    {
+      id: "paper-a",
+      short_name: "Alpha",
+      title: "Training-Free Video Reasoning",
+      year: 2026,
+      venue: "ICML",
+      presentation: "spotlight",
+      tags: ["training-free", "MLLM"],
+    },
+    {
+      id: "paper-b",
+      short_name: "Beta",
+      title: "Clip Baseline",
+      year: 2025,
+      venue: "preprint",
+      tags: ["clip"],
+    },
+  ];
+
+  const filtered = selectPaperRows({
+    papers: paperRows,
+    filters: {
+      query: "training",
+      venues: ["ICML", "CVPR"],
+      years: ["2026"],
+      tags: ["MLLM"],
+      presentations: ["spotlight"],
+    },
+    sort: {
+      field: "paper",
+      direction: "asc",
+    },
+  });
+
+  assert.deepEqual(filtered.map((paper) => paper.short_name), ["Alpha"]);
+});
+
+test("selectPaperRows sorts papers by clicked columns", () => {
+  const paperRows = [
+    { id: "paper-z", short_name: "Zeta", title: "Zeta", year: 2024, venue: "CVPR", tags: ["clip"] },
+    { id: "paper-a", short_name: "Alpha", title: "Alpha", year: 2026, venue: "ICML", tags: ["training-free"] },
+    { id: "paper-b", short_name: "Beta", title: "Beta", year: 2025, venue: "AAAI", tags: ["benchmark"] },
+  ];
+
+  assert.deepEqual(
+    selectPaperRows({
+      papers: paperRows,
+      sort: { field: "year", direction: "desc" },
+    }).map((paper) => paper.short_name),
+    ["Alpha", "Beta", "Zeta"],
+  );
+  assert.deepEqual(
+    selectPaperRows({
+      papers: paperRows,
+      sort: { field: "venue", direction: "asc" },
+    }).map((paper) => paper.short_name),
+    ["Beta", "Zeta", "Alpha"],
+  );
+  assert.deepEqual(
+    selectPaperRows({
+      papers: paperRows,
+      sort: { field: "tags", direction: "asc" },
+    }).map((paper) => paper.short_name),
+    ["Beta", "Zeta", "Alpha"],
   );
 });
 
@@ -194,6 +316,22 @@ test("normalizeResultFiles preserves all track IDs on multi-track entries", () =
   assert.deepEqual(entries[0].trackIds, ["zero-shot", "training-free"]);
   assert.equal(entries[0].track, "zero-shot");
   assert.deepEqual(entries[1].trackIds, ["training-free"]);
+});
+
+test("normalizeResultFiles expands entry_groups into track-scoped entries", () => {
+  const entries = normalizeResultFiles(groupedResultFiles);
+
+  assert.equal(entries.length, 3);
+  assert.deepEqual(
+    entries.map((entry) => [entry.dataset_id, entry.track, entry.trackIds, entry.variant]),
+    [
+      ["ucf-crime", "weakly-supervised-coarse", ["weakly-supervised-coarse"], "CLIP"],
+      ["ucf-crime", "weakly-supervised-fine", ["weakly-supervised-fine"], ""],
+      ["ucf-crime", "training-free", ["training-free"], ""],
+    ],
+  );
+  assert.equal(entries[0].scores.AUC, 88.2);
+  assert.equal(entries[1].scores["mAP@0.1"], 11.72);
 });
 
 test("getScoreKeysForDataset reports the metrics available on a dataset page", () => {
@@ -221,7 +359,6 @@ test("getScoreKeysForDataset matches normalized multi-track entries by secondary
       entries: [
         {
           paper_id: "paper-a",
-          method: "PaperA",
           variant: "MLLM",
           tracks: ["zero-shot", "training-free"],
           score_source: "https://source.example/a-multitrack",
@@ -286,6 +423,38 @@ test("selectLeaderboardRows ranks all variants by the selected score", () => {
     rows.map((row) => row.variant),
     ["CLIP", "I3D"],
   );
+});
+
+test("selectLeaderboardRows derives method names from paper short_name", () => {
+  const indexes = buildIndexes({ papers, datasets: [], tracks: [] });
+  const entries = normalizeResultFiles([
+    {
+      dataset_id: "ucf-crime",
+      entry_groups: {
+        "training-free": [
+          {
+            paper_id: "paper-a",
+            variant: "",
+            score_source: "",
+            scores: {
+              AUC: 88.2,
+            },
+          },
+        ],
+      },
+    },
+  ]);
+
+  const rows = selectLeaderboardRows({
+    entries,
+    indexes,
+    filters: {
+      datasetId: "ucf-crime",
+      trackIds: ["training-free"],
+    },
+  });
+
+  assert.equal(rows[0].method, "PaperA");
 });
 
 test("selectLeaderboardRows can keep the best variant per paper for the selected score", () => {
@@ -390,6 +559,27 @@ test("selectLeaderboardRows matches multi-track rows by any selected track", () 
   );
 });
 
+test("selectLeaderboardRows filters rows expanded from entry_groups by track", () => {
+  const indexes = buildIndexes({ papers, datasets: [], tracks });
+  const entries = normalizeResultFiles(groupedResultFiles);
+
+  const rows = selectLeaderboardRows({
+    entries,
+    indexes,
+    filters: {
+      datasetId: "ucf-crime",
+      trackIds: ["weakly-supervised-fine"],
+    },
+    sort: {
+      scoreKey: "AVG",
+    },
+  });
+
+  assert.deepEqual(rows.map((row) => [row.method, row.trackName, row.scores.AVG]), [
+    ["PaperA", "Weakly Supervised (Fine)", 6.68],
+  ]);
+});
+
 test("getScoreKeysForDataset accepts multiple selected tracks", () => {
   const entries = normalizeResultFiles(resultFiles);
 
@@ -444,6 +634,52 @@ test("countByTrack counts every track on multi-track entries", () => {
 
   assert.equal(countByTrack(entries)["zero-shot"], 1);
   assert.equal(countByTrack(entries)["training-free"], 2);
+});
+
+test("buildHomeSummary derives homepage statistics from source data", () => {
+  const entries = normalizeResultFiles([
+    ...resultFiles,
+    ...multiTrackResultFiles,
+  ]);
+  const datasets = [
+    { id: "ucf-crime", name: "UCF-Crime" },
+    { id: "shanghaitech", name: "ShanghaiTech" },
+  ];
+  const taggedPapers = [
+    { ...papers[0], tags: ["weakly-supervised", "clip"] },
+    { ...papers[1], tags: ["weakly-supervised"] },
+    { ...papers[2], tags: ["training-free", "clip"] },
+  ];
+
+  assert.deepEqual(
+    buildHomeSummary({ papers: taggedPapers, datasets, tracks, entries }),
+    {
+      paper_stats: {
+        papers: 3,
+        published: 1,
+        preprints: 2,
+        tags: 3,
+      },
+      dataset_stats: {
+        datasets: 2,
+        with_results: 1,
+        tracks: 5,
+        rows: 6,
+      },
+      top_tags: [
+        { tag: "clip", count: 2 },
+        { tag: "weakly-supervised", count: 2 },
+        { tag: "training-free", count: 1 },
+      ],
+      track_coverage: [
+        { id: "full-training", name: "Full Training", count: 0 },
+        { id: "weakly-supervised-coarse", name: "Weakly Supervised (Coarse)", count: 2 },
+        { id: "weakly-supervised-fine", name: "Weakly Supervised (Fine)", count: 1 },
+        { id: "training-free", name: "Training-free", count: 3 },
+        { id: "zero-shot", name: "Zero-shot", count: 1 },
+      ],
+    },
+  );
 });
 
 test("selectLeaderboardRows keeps rows that do not report the active sort metric", () => {
@@ -508,6 +744,64 @@ test("getEntryLinks falls back from official URL to arxiv before code", () => {
   assert.equal(links.methodUrl, "https://arxiv.example/b");
   assert.equal(links.paperUrl, "https://arxiv.example/b");
   assert.equal(links.codeUrl, "https://code.example/b");
+});
+
+test("getEntryLinks falls back to the paper URL when score_source is empty", () => {
+  const indexes = buildIndexes({ papers, datasets: [], tracks: [] });
+  const entries = normalizeResultFiles([
+    {
+      dataset_id: "ucf-crime",
+      entry_groups: {
+        "training-free": [
+          {
+            paper_id: "paper-a",
+            variant: "",
+            score_source: "",
+            scores: {
+              AUC: 88.2,
+            },
+          },
+          {
+            paper_id: "paper-b",
+            variant: "",
+            score_source: "",
+            scores: {
+              AUC: 78.4,
+            },
+          },
+          {
+            paper_id: "paper-c",
+            variant: "",
+            score_source: "",
+            scores: {
+              AUC: 70.1,
+            },
+          },
+        ],
+      },
+    },
+  ]);
+  const rows = selectLeaderboardRows({
+    entries,
+    indexes,
+    filters: {
+      datasetId: "ucf-crime",
+      trackIds: ["training-free"],
+    },
+    sort: {
+      field: "method",
+      direction: "asc",
+    },
+  });
+
+  assert.deepEqual(
+    rows.map((row) => getEntryLinks(row, "AUC").scoreSourceUrl),
+    [
+      "https://official.example/a",
+      "https://arxiv.example/b",
+      "https://code.example/c",
+    ],
+  );
 });
 
 test("paper primary links prefer official and arxiv destinations before code links", () => {

@@ -26,22 +26,8 @@
             <h2 id="overview-title">Papers</h2>
             <p class="panel-copy">Browse accepted papers and preprints by method name, venue, year, and tags.</p>
           </div>
-          <div id="paper-stats" class="stats compact-stats" aria-label="Paper statistics">
-            <div class="stat-tile"><span>Papers</span><strong>14</strong></div>
-            <div class="stat-tile"><span>Published</span><strong>13</strong></div>
-            <div class="stat-tile"><span>Preprints</span><strong>1</strong></div>
-            <div class="stat-tile"><span>Tags</span><strong>23</strong></div>
-          </div>
-          <div id="paper-tags" class="tag-cloud" aria-label="Common paper tags">
-            <span class="tag">weakly-supervised <strong>11</strong></span>
-            <span class="tag">clip <strong>3</strong></span>
-            <span class="tag">mil <strong>3</strong></span>
-            <span class="tag">audio-visual <strong>2</strong></span>
-            <span class="tag">prompt <strong>2</strong></span>
-            <span class="tag">training-free <strong>2</strong></span>
-            <span class="tag">vision-language <strong>2</strong></span>
-            <span class="tag">vlm <strong>2</strong></span>
-          </div>
+          <div id="paper-stats" class="stats compact-stats" aria-label="Paper statistics"></div>
+          <div id="paper-tags" class="tag-cloud" aria-label="Common paper tags"></div>
           <a class="button-link" href="papers/">Browse Papers</a>
         </article>
 
@@ -51,44 +37,10 @@
             <h2>Datasets &amp; Leaderboards</h2>
             <p class="panel-copy">Open dataset pages with benchmark links, tracks, compact tables, filters, and score-source links.</p>
           </div>
-          <div id="dataset-stats" class="stats compact-stats" aria-label="Dataset and leaderboard statistics">
-            <div class="stat-tile"><span>Datasets</span><strong>6</strong></div>
-            <div class="stat-tile"><span>With Results</span><strong>2</strong></div>
-            <div class="stat-tile"><span>Tracks</span><strong>7</strong></div>
-            <div class="stat-tile"><span>Rows</span><strong>32</strong></div>
-          </div>
+          <div id="dataset-stats" class="stats compact-stats" aria-label="Dataset and leaderboard statistics"></div>
           <div class="track-panel">
             <h3>Track Coverage</h3>
-            <div id="track-bars" class="track-bars">
-              <div class="track-bar">
-                <div class="track-bar-label"><span>Full Training</span><strong>0</strong></div>
-                <div class="track-bar-rail"><span style="width: 4%"></span></div>
-              </div>
-              <div class="track-bar">
-                <div class="track-bar-label"><span>Weakly Supervised</span><strong>0</strong></div>
-                <div class="track-bar-rail"><span style="width: 4%"></span></div>
-              </div>
-              <div class="track-bar">
-                <div class="track-bar-label"><span>Weakly Supervised (Coarse)</span><strong>13</strong></div>
-                <div class="track-bar-rail"><span style="width: 72%"></span></div>
-              </div>
-              <div class="track-bar">
-                <div class="track-bar-label"><span>Weakly Supervised (Fine)</span><strong>18</strong></div>
-                <div class="track-bar-rail"><span style="width: 100%"></span></div>
-              </div>
-              <div class="track-bar">
-                <div class="track-bar-label"><span>Semi-supervised</span><strong>0</strong></div>
-                <div class="track-bar-rail"><span style="width: 4%"></span></div>
-              </div>
-              <div class="track-bar">
-                <div class="track-bar-label"><span>Zero-shot</span><strong>0</strong></div>
-                <div class="track-bar-rail"><span style="width: 4%"></span></div>
-              </div>
-              <div class="track-bar">
-                <div class="track-bar-label"><span>Training-free</span><strong>1</strong></div>
-                <div class="track-bar-rail"><span style="width: 6%"></span></div>
-              </div>
-            </div>
+            <div id="track-bars" class="track-bars"></div>
           </div>
           <div class="link-cards">
             <a class="button-link secondary" href="datasets/">Browse Datasets</a>
@@ -114,6 +66,7 @@
       </section>
     </main>
 
+    <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
     <script type="module" src="assets/app.js"></script>
   </body>
 </html>

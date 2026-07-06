@@ -48,7 +48,7 @@ class LeaderboardUiStructureTest < Minitest::Test
     assert_includes html, 'href="papers/"'
     assert_includes html, 'href="datasets/"'
     assert_includes html, 'href="leaderboards/"'
-    refute_includes html, "js-yaml"
+    assert_includes html, "js-yaml"
     refute_includes html, 'id="leaderboards"'
     refute_includes html, 'id="data-index-title"'
     refute_includes html, 'id="papers"'
@@ -57,24 +57,26 @@ class LeaderboardUiStructureTest < Minitest::Test
     refute_includes html, 'id="datasets-body"'
     assert_includes js, "renderPaperSummary"
     assert_includes js, "renderDatasetSummary"
-    assert_includes js, "fetchSummary"
-    assert_includes js, "home-summary.json"
+    assert_includes js, "loadStore"
+    assert_includes js, "buildHomeSummary"
+    assert_includes js, "loadStore(getBasePath())"
+    refute_includes js, "fetchSummary"
+    refute_includes js, "home-summary.json"
     refute_includes js, "els.status"
-    refute_includes js, "loadStore"
     refute_includes js, "renderPapers"
     refute_includes js, "renderDatasets"
   end
 
-  def test_homepage_has_static_summary_fallback
+  def test_homepage_defers_summary_to_live_data
     html = File.read(File.join(ROOT, "index.html"))
 
-    refute_includes html, "<strong>-</strong>"
-    assert_includes html, "<strong>14</strong>"
-    assert_includes html, "<strong>13</strong>"
-    assert_includes html, "<strong>6</strong>"
-    assert_includes html, "weakly-supervised"
-    assert_includes html, "Weakly Supervised (Fine)"
-    assert_includes html, 'class="track-bar"'
+    assert_includes html, 'id="paper-stats"'
+    assert_includes html, 'id="paper-tags"'
+    assert_includes html, 'id="dataset-stats"'
+    assert_includes html, 'id="track-bars"'
+    refute_includes html, '<div class="stat-tile">'
+    refute_includes html, '<span class="tag">weakly-supervised'
+    refute_includes html, 'class="track-bar"'
   end
 
   def test_papers_page_uses_tags_and_text_links
@@ -88,13 +90,28 @@ class LeaderboardUiStructureTest < Minitest::Test
     refute_includes html, 'id="paper-status-filter"'
     assert_includes html, 'id="papers"'
     assert_includes html, 'id="paper-query"'
-    assert_includes html, "<th>Tags</th>"
+    assert_includes html, 'id="venue-filter-search"'
+    assert_includes html, 'id="year-filter-search"'
+    assert_includes html, 'id="tag-filter-search"'
+    assert_includes html, 'id="presentation-filter-search"'
+    assert_includes html, 'class="multi-select-options"'
+    assert_includes html, 'id="papers-head"'
+    assert_includes html, 'data-sort="paper"'
+    assert_includes html, 'data-sort="year"'
+    assert_includes html, 'data-sort="venue"'
+    assert_includes html, 'data-sort="tags"'
     assert_includes html, "<th>Links</th>"
     refute_includes js, "state.paperStatus"
     refute_includes js, "paper.task_types"
     refute_includes js, "status-pill"
+    assert_includes js, "selectPaperRows"
+    assert_includes js, "function renderFilterControl"
+    assert_includes js, "function updateSortIndicators"
     assert_includes js, "getPaperPrimaryUrl"
     assert_includes js, "getPaperLinks"
+    assert_includes js, "renderPresentationTag"
+    assert_includes js, "paper.presentation"
+    assert_includes js, 'class="paper-title-row"'
     assert_includes js, 'class="paper-text-links"'
     assert_includes js, 'paper-link-${escapeAttr(link.kind)}'
     assert_includes model, "official paper"
@@ -105,6 +122,9 @@ class LeaderboardUiStructureTest < Minitest::Test
     assert_includes css, ".paper-link-official"
     assert_includes css, ".paper-link-arxiv"
     assert_includes css, ".paper-link-code"
+    assert_includes css, ".paper-title-row"
+    assert_includes css, ".presentation-tag.oral"
+    assert_includes css, ".presentation-tag.spotlight"
     refute_includes js, "paper-badge-row"
     refute_includes js, "shield-link"
     refute_includes model, "img.shields.io"
@@ -165,7 +185,7 @@ class LeaderboardUiStructureTest < Minitest::Test
 
   def test_chinese_site_pages_share_assets_and_link_back_to_english
     pages = {
-      "zh/index.html" => ['href="../"', 'src="../assets/app.js"', 'href="../assets/styles.css"', '<html lang="zh-CN" data-base-path="../">'],
+      "zh/index.html" => ['href="../"', 'src="../assets/app.js"', 'href="../assets/styles.css"', 'js-yaml', '<html lang="zh-CN" data-base-path="../">'],
       "zh/papers/index.html" => ['href="../../papers/"', 'src="../../assets/papers-page.js"', 'href="../../assets/styles.css"', '<html lang="zh-CN" data-base-path="../../">'],
       "zh/datasets/index.html" => ['href="../../datasets/"', 'src="../../assets/datasets-page.js"', 'href="../../assets/styles.css"', '<html lang="zh-CN" data-base-path="../../">'],
       "zh/leaderboards/index.html" => ['href="../../leaderboards/"', 'src="../../assets/leaderboard-index.js"', 'href="../../assets/styles.css"', '<html lang="zh-CN" data-base-path="../../">'],

@@ -1,4 +1,5 @@
 files:
+  - venues/icml-2026.yaml
   - venues/acm-mm-2025.yaml
   - venues/icml-2025.yaml
   - venues/aaai-2024.yaml

@@ -1,0 +1,15 @@
+dataset_id: ubnormal
+entry_groups:
+  training-free:
+    - paper_id: lrpo-2026
+      variant: ""
+      score_source: ""
+      scores:
+        AUC: 76.24
+
+  tuned-mllm:
+    - paper_id: anom-π-2026
+      variant: ""
+      score_source: ""
+      scores:
+        AUC: 78.75

@@ -267,6 +267,10 @@ main {
   overflow: visible;
 }
 
+.papers-section {
+  overflow: visible;
+}
+
 .dataset-summary {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -583,6 +587,13 @@ tbody tr:hover {
   font-weight: 800;
 }
 
+.paper-title-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
 .score-cell a {
   display: inline-flex;
   min-width: 64px;
@@ -630,6 +641,28 @@ tbody tr:hover {
 .status-pill.unknown {
   background: #eef0f2;
   color: var(--muted);
+}
+
+.presentation-tag {
+  display: inline-flex;
+  min-height: 21px;
+  align-items: center;
+  padding: 2px 7px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 900;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.presentation-tag.oral {
+  background: #e9f7ee;
+  color: #166534;
+}
+
+.presentation-tag.spotlight {
+  background: #eff6ff;
+  color: #1d4ed8;
 }
 
 .link-list {

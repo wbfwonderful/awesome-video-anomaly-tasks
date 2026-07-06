@@ -1,0 +1,16 @@
+entry_groups:
+  weakly-supervised-coarse:
+    - paper_id: vadclip-2024
+      method: VadCLIP
+      variant: ""
+      score_source: ...
+      scores:
+        AUC: 88.02
+
+  weakly-supervised-fine:
+    - paper_id: realad-2018
+      method: RealAD
+      variant: ""
+      score_source: ...
+      scores:
+        AVG: 3.24

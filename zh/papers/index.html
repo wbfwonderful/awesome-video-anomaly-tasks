@@ -23,7 +23,7 @@
     </header>
 
     <main>
-      <section id="papers" class="section-block" aria-labelledby="papers-title">
+      <section id="papers" class="section-block papers-section" aria-labelledby="papers-title">
         <div class="section-heading">
           <div>
             <p class="eyebrow">索引</p>
@@ -34,16 +34,48 @@
               搜索
               <input id="paper-query" type="search" placeholder="方法、Venue、标签">
             </label>
+            <div class="filter-control" data-filter="venue">
+              <span class="filter-label">Venue</span>
+              <button id="venue-filter-button" class="multi-select-button" type="button" aria-expanded="false" aria-controls="venue-filter-menu"></button>
+              <div id="venue-filter-menu" class="multi-select-menu" hidden>
+                <input id="venue-filter-search" type="search" placeholder="搜索 Venue" autocomplete="off">
+                <div id="venue-filter-options" class="multi-select-options"></div>
+              </div>
+            </div>
+            <div class="filter-control" data-filter="year">
+              <span class="filter-label">年份</span>
+              <button id="year-filter-button" class="multi-select-button" type="button" aria-expanded="false" aria-controls="year-filter-menu"></button>
+              <div id="year-filter-menu" class="multi-select-menu" hidden>
+                <input id="year-filter-search" type="search" placeholder="搜索年份" autocomplete="off">
+                <div id="year-filter-options" class="multi-select-options"></div>
+              </div>
+            </div>
+            <div class="filter-control" data-filter="tag">
+              <span class="filter-label">标签</span>
+              <button id="tag-filter-button" class="multi-select-button" type="button" aria-expanded="false" aria-controls="tag-filter-menu"></button>
+              <div id="tag-filter-menu" class="multi-select-menu" hidden>
+                <input id="tag-filter-search" type="search" placeholder="搜索标签" autocomplete="off">
+                <div id="tag-filter-options" class="multi-select-options"></div>
+              </div>
+            </div>
+            <div class="filter-control" data-filter="presentation">
+              <span class="filter-label">报告类型</span>
+              <button id="presentation-filter-button" class="multi-select-button" type="button" aria-expanded="false" aria-controls="presentation-filter-menu"></button>
+              <div id="presentation-filter-menu" class="multi-select-menu" hidden>
+                <input id="presentation-filter-search" type="search" placeholder="搜索报告类型" autocomplete="off">
+                <div id="presentation-filter-options" class="multi-select-options"></div>
+              </div>
+            </div>
           </div>
         </div>
         <div class="table-wrap">
           <table>
             <thead>
-              <tr>
-                <th>论文</th>
-                <th>年份</th>
-                <th>Venue</th>
-                <th>标签</th>
+              <tr id="papers-head">
+                <th><button type="button" data-sort="paper">论文</button></th>
+                <th><button type="button" data-sort="year">年份</button></th>
+                <th><button type="button" data-sort="venue">Venue</button></th>
+                <th><button type="button" data-sort="tags">标签</button></th>
                 <th>链接</th>
               </tr>
             </thead>

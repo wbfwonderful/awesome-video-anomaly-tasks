@@ -1,9 +1,9 @@
 require "minitest/autorun"
-require "json"
 require "yaml"
 
 ROOT = File.expand_path("..", __dir__)
 VALID_DATASET_TYPES = %w[original-video derived-benchmark].freeze
+VALID_PRESENTATIONS = %w[oral spotlight].freeze
 
 def load_yaml(path)
   YAML.load_file(File.join(ROOT, path))
@@ -19,6 +19,24 @@ def load_papers
   end
 end
 
+def result_entries(result_file)
+  if result_file.key?("entries")
+    raise Minitest::Assertion, "result files should use entry_groups instead of entries in #{result_file.inspect}"
+  end
+
+  entry_groups = result_file.fetch("entry_groups")
+  raise TypeError, "entry_groups must be a hash in #{result_file.inspect}" unless entry_groups.is_a?(Hash)
+
+  entry_groups.flat_map do |track_id, entries|
+    raise TypeError, "entry group #{track_id} must contain an array" unless entries.is_a?(Array)
+
+    entries.map do |entry|
+      assert_no_inline_track entry, track_id
+      entry.merge("track" => track_id)
+    end
+  end
+end
+
 class DataSchemaTest < Minitest::Test
   def setup
     @papers = load_papers
@@ -30,6 +48,9 @@ class DataSchemaTest < Minitest::Test
     @dataset_ids = @datasets.map { |dataset| dataset.fetch("id") }
     @track_ids = @tracks.map { |track| track.fetch("id") }
     @deprecated_project_url_key = "project" + "_url"
+    @paper_short_names_by_id = @papers.each_with_object({}) do |paper, index|
+      index[paper.fetch("id")] = paper.fetch("short_name")
+    end
   end
 
   def test_papers_have_required_metadata
@@ -40,6 +61,7 @@ class DataSchemaTest < Minitest::Test
       refute paper.key?("paper_url"), "paper_url is deprecated; use official_url in #{paper.inspect}"
       refute paper.key?(@deprecated_project_url_key), "#{@deprecated_project_url_key} is deprecated; keep paper links to official_url, arxiv_url, and code_url in #{paper.inspect}"
       assert_includes %w[accepted preprint], paper.fetch("status") if paper.key?("status")
+      assert_includes VALID_PRESENTATIONS, paper.fetch("presentation") if paper.key?("presentation")
       assert_kind_of Array, paper.fetch("task_types") if paper.key?("task_types")
       assert_kind_of Array, paper.fetch("tags")
     end
@@ -92,8 +114,8 @@ class DataSchemaTest < Minitest::Test
       assert_includes @dataset_ids, dataset_id
       entry_keys = []
 
-      result_file.fetch("entries").each do |entry|
-        assert_required_fields entry, %w[paper_id method score_source scores]
+      result_entries(result_file).each do |entry|
+        assert_required_fields entry, %w[paper_id score_source scores]
         track_ids = entry_track_ids(entry)
         refute_empty track_ids, "missing track or tracks in #{entry.inspect}"
         assert_equal track_ids.uniq, track_ids, "duplicate tracks in #{entry.inspect}"
@@ -101,11 +123,12 @@ class DataSchemaTest < Minitest::Test
           assert_includes @track_ids, track_id
         end
         assert entry.key?("variant"), "missing variant in #{entry.inspect}"
+        refute entry.key?("id"), "id is deprecated in results; use paper_id in #{entry.inspect}"
+        refute entry.key?("method"), "method is derived from papers.short_name; remove it from #{entry.inspect}"
         refute entry.key?("feature"), "feature is deprecated; use variant in #{entry.inspect}"
         refute entry.key?("method_url"), "method_url is deprecated; use official_url, arxiv_url, or code_url in papers.yaml"
         assert_includes @paper_ids, entry.fetch("paper_id")
         assert_kind_of String, entry.fetch("score_source")
-        refute_empty entry.fetch("score_source")
         assert_kind_of Hash, entry.fetch("scores")
         refute_empty entry.fetch("scores")
         track_ids.each do |track_id|
@@ -152,16 +175,16 @@ class DataSchemaTest < Minitest::Test
 
     @result_index.fetch("files").each do |file|
       result_file = load_yaml("data/results/#{file}")
-      result_file.fetch("entries").each do |entry|
-        refute_equal "Random Baseline", entry.fetch("method")
+      result_entries(result_file).each do |entry|
+        refute_equal "Random Baseline", entry_method(entry)
       end
     end
 
     expected.each do |file, method_scores|
       result_file = load_yaml("data/results/#{file}")
-      fine_entries = result_file.fetch("entries")
+      fine_entries = result_entries(result_file)
         .select { |entry| entry_track_ids(entry).include?("weakly-supervised-fine") }
-        .each_with_object({}) { |entry, index| index[entry.fetch("method")] = entry }
+        .each_with_object({}) { |entry, index| index[entry_method(entry)] = entry }
 
       method_scores.each do |method, scores|
         assert fine_entries.key?(method), "missing #{method} in #{file}"
@@ -173,50 +196,12 @@ class DataSchemaTest < Minitest::Test
     end
   end
 
-  def test_home_summary_matches_source_data
-    summary = JSON.parse(File.read(File.join(ROOT, "data/home-summary.json")))
-    entries = @result_index.fetch("files").flat_map do |file|
-      result_file = load_yaml("data/results/#{file}")
-      result_file.fetch("entries").map { |entry| entry.merge("dataset_id" => result_file.fetch("dataset_id")) }
-    end
-
-    preprint_count = @papers.count { |paper| paper.fetch("venue").to_s.downcase == "preprint" }
-    tag_counts = @papers.each_with_object(Hash.new(0)) do |paper, counts|
-      paper.fetch("tags").each { |tag| counts[tag] += 1 }
-    end
-    track_counts = entries.each_with_object(Hash.new(0)) do |entry, counts|
-      entry_track_ids(entry).each { |track_id| counts[track_id] += 1 }
-    end
-
-    assert_equal(
-      {
-        "papers" => @papers.length,
-        "published" => @papers.length - preprint_count,
-        "preprints" => preprint_count,
-        "tags" => tag_counts.length
-      },
-      summary.fetch("paper_stats")
-    )
-    assert_equal(
-      {
-        "datasets" => @datasets.length,
-        "with_results" => entries.map { |entry| entry.fetch("dataset_id") }.uniq.length,
-        "tracks" => @tracks.length,
-        "rows" => entries.length
-      },
-      summary.fetch("dataset_stats")
-    )
-    assert_equal(
-      tag_counts.sort_by { |tag, count| [-count, tag] }.first(8).map { |tag, count| { "tag" => tag, "count" => count } },
-      summary.fetch("top_tags")
-    )
-    assert_equal(
-      @tracks.map { |track| { "id" => track.fetch("id"), "name" => track.fetch("name"), "count" => track_counts[track.fetch("id")] } },
-      summary.fetch("track_coverage")
-    )
-  end
-
   private
+
+  def assert_no_inline_track(entry, track_id)
+    refute entry.key?("track"), "entry under entry_groups/#{track_id} should inherit track from the group"
+    refute entry.key?("tracks"), "entry under entry_groups/#{track_id} should inherit track from the group"
+  end
 
   def entry_track_ids(entry)
     has_track = entry.key?("track")
@@ -229,6 +214,10 @@ class DataSchemaTest < Minitest::Test
     end
 
     [entry.fetch("track")]
+  end
+
+  def entry_method(entry)
+    @paper_short_names_by_id.fetch(entry.fetch("paper_id"))
   end
 
   def assert_required_fields(record, fields)

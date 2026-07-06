@@ -3,7 +3,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "ruby test/data_schema_test.rb && ruby test/css_structure_test.rb && ruby test/leaderboard_ui_structure_test.rb && node --test test/leaderboard_model_test.mjs",
+    "dev": "node tools/dev-server.mjs",
+    "test": "ruby test/data_schema_test.rb && ruby test/css_structure_test.rb && ruby test/leaderboard_ui_structure_test.rb && node --test test/*_test.mjs",
+    "test:dev": "node --test test/dev_server_test.mjs",
     "test:model": "node --test test/leaderboard_model_test.mjs"
   }
 }

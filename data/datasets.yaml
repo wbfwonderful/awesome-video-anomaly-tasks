@@ -101,6 +101,23 @@
     - AUC
   notes: Classic small-scale anomaly detection benchmark for frame-level localization.
 
+- id: ubnormal
+  name: UBnormal
+  dataset_type: original-video
+  source_dataset_ids: []
+  has_new_videos: true
+  contribution_types: []
+  task_types:
+    - open-set-vad
+  links:
+    homepage: https://github.com/lilygeorgescu/ubnormal
+    paper: https://openaccess.thecvf.com/content/CVPR2022/html/Acsintoae_UBnormal_New_Benchmark_for_Supervised_Open-Set_Video_Anomaly_Detection_CVPR_2022_paper.html
+    download: https://github.com/lilygeorgescu/ubnormal#download
+    annotation:
+  metrics:
+    - AUC
+  notes: Open set vad.
+
 - id: ucsd-ped2
   name: UCSD Ped2
   dataset_type: original-video
@@ -117,3 +134,20 @@
   metrics:
     - AUC
   notes: Classic pedestrian walkway anomaly benchmark.
+
+# - id: csad
+#   name: CSAD
+#   dataset_type: derived-benchmark
+#   source_dataset_ids: []
+#   has_new_videos: true
+#   contribution_types: []
+#   task_types:
+#     - complex-scene
+#   links:
+#     homepage: https://openreview.net/pdf?id=qE3knKF1rz
+#     paper: https://openreview.net/pdf?id=qE3knKF1rz
+#     download: https://openreview.net/pdf?id=qE3knKF1rz
+#     annotation:
+#   metrics:
+#     - AUC
+#   notes: complex-scene from 

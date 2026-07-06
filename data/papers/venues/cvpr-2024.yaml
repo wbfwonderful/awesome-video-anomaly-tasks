@@ -16,7 +16,7 @@
   title: Harnessing Large Language Models for Training-free Video Anomaly Detection
   year: 2024
   venue: CVPR
-  official_url: https://arxiv.org/abs/2404.01014
+  official_url: https://openaccess.thecvf.com/content/CVPR2024/papers/Zanella_Harnessing_Large_Language_Models_for_Training-free_Video_Anomaly_Detection_CVPR_2024_paper.pdf
   arxiv_url: https://arxiv.org/abs/2404.01014
   code_url: https://github.com/lucazanella/lavad
   tags:

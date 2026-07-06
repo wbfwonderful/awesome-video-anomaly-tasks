@@ -1,14 +1,17 @@
 import {
   escapeHtml,
   getBasePath,
+  loadStore,
 } from "./data.js";
 import {
   getLanguage,
   getText,
 } from "./i18n.js";
+import {
+  buildHomeSummary,
+} from "./model.js";
 
 const lang = getLanguage(document);
-const SUMMARY_PATH = `${getBasePath()}data/home-summary.json`;
 
 const els = {};
 
@@ -16,7 +19,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   cacheElements();
 
   try {
-    const summary = await fetchSummary();
+    const store = await loadStore(getBasePath());
+    const summary = buildHomeSummary(store);
     render(summary);
   } catch (error) {
     console.error(`${getText("status.failed", lang)}: ${error.message}`);
@@ -28,14 +32,6 @@ function cacheElements() {
   els.paperTags = document.querySelector("#paper-tags");
   els.datasetStats = document.querySelector("#dataset-stats");
   els.trackBars = document.querySelector("#track-bars");
-}
-
-async function fetchSummary() {
-  const response = await fetch(SUMMARY_PATH);
-  if (!response.ok) {
-    throw new Error(`${SUMMARY_PATH} returned ${response.status}`);
-  }
-  return response.json();
 }
 
 function render(summary) {

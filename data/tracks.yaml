@@ -22,6 +22,14 @@
   name: Zero-shot
   description: Methods evaluated without target-dataset training, usually relying on pretrained models or external knowledge.
 
+- id: tuned-mllm
+  name: Tuned MLLM
+  description: Methods that adapt or tune multimodal large language models for video anomaly tasks.
+
 - id: training-free
   name: Training-free
   description: Methods using frozen models, prompting, retrieval, or rule-based inference without gradient-based training on the target benchmark.
+
+- id: vision-free
+  name: Vision-free
+  description: Methods designed to reduce or avoid direct visual dependence, usually relying on text-driven learning or language-side reasoning.

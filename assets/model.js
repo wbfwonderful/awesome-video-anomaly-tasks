@@ -10,10 +10,62 @@ export function normalizePaperFiles(paperFiles) {
   return paperFiles.flat();
 }
 
+export function selectPaperRows({ papers = [], filters = {}, sort = {} }) {
+  const rows = papers.filter((paper) => matchesPaperFilters(paper, filters));
+  return sortPaperRows(rows, sort.field || "year", sort.direction || "desc");
+}
+
+function matchesPaperFilters(paper, filters = {}) {
+  const query = String(filters.query || "").trim().toLowerCase();
+  if (query) {
+    const haystack = [
+      paper.short_name,
+      paper.title,
+      paper.venue,
+      paper.year,
+      paper.presentation,
+      ...(paper.tags || []),
+    ].join(" ").toLowerCase();
+    if (!haystack.includes(query)) return false;
+  }
+
+  if (!matchesSelected(paper.venue, filters.venues)) return false;
+  if (!matchesSelected(String(paper.year || ""), filters.years)) return false;
+  if (!matchesSelected(paper.presentation || "", filters.presentations)) return false;
+  if (!matchesSelectedAny(paper.tags || [], filters.tags)) return false;
+  return true;
+}
+
+function matchesSelectedAny(values, selectedValues) {
+  return !Array.isArray(selectedValues) ||
+    selectedValues.length === 0 ||
+    values.some((value) => selectedValues.includes(value));
+}
+
+function sortPaperRows(rows, field, direction) {
+  const multiplier = direction === "asc" ? 1 : -1;
+
+  return [...rows].sort((a, b) => {
+    const left = getPaperSortValue(a, field);
+    const right = getPaperSortValue(b, field);
+    const result = compareValues(left, right);
+    if (result !== 0) return result * multiplier;
+    return String(a.short_name || "").localeCompare(String(b.short_name || ""));
+  });
+}
+
+function getPaperSortValue(paper, field) {
+  if (field === "paper") return paper.short_name || "";
+  if (field === "year") return paper.year || "";
+  if (field === "venue") return paper.venue || "";
+  if (field === "tags") return (paper.tags || []).join(", ");
+  return paper[field];
+}
+
 export function normalizeResultFiles(resultFiles) {
   return resultFiles.flatMap((file) => {
     const datasetId = file.dataset_id;
-    return (file.entries || []).map((entry) => {
+    return normalizeResultFileEntries(file).map((entry) => {
       const trackIds = normalizeTrackIds(entry);
       return {
         ...entry,
@@ -26,6 +78,18 @@ export function normalizeResultFiles(resultFiles) {
       };
     });
   });
+}
+
+function normalizeResultFileEntries(file) {
+  const entries = Array.isArray(file.entries) ? file.entries : [];
+  const entryGroups = file.entry_groups || {};
+  const groupedEntries = Object.entries(entryGroups).flatMap(([trackId, groupEntries]) => (
+    (groupEntries || []).map((entry) => (
+      entry.track || entry.tracks ? entry : { ...entry, track: trackId }
+    ))
+  ));
+
+  return [...entries, ...groupedEntries];
 }
 
 function normalizeTrackIds(entry) {
@@ -82,6 +146,48 @@ export function countByTrack(entries) {
   }, {});
 }
 
+export function buildHomeSummary({ papers = [], datasets = [], tracks = [], entries = [] }) {
+  const preprintCount = papers.filter((paper) => (
+    String(paper.venue || "").toLowerCase() === "preprint"
+  )).length;
+  const tagCounts = papers.reduce((counts, paper) => {
+    for (const tag of paper.tags || []) {
+      counts[tag] = (counts[tag] || 0) + 1;
+    }
+    return counts;
+  }, {});
+  const trackCounts = countByTrack(entries);
+
+  return {
+    paper_stats: {
+      papers: papers.length,
+      published: papers.length - preprintCount,
+      preprints: preprintCount,
+      tags: Object.keys(tagCounts).length,
+    },
+    dataset_stats: {
+      datasets: datasets.length,
+      with_results: new Set(entries.map((entry) => entry.dataset_id)).size,
+      tracks: tracks.length,
+      rows: entries.length,
+    },
+    top_tags: Object.entries(tagCounts)
+      .sort(([leftTag, leftCount], [rightTag, rightCount]) => {
+        if (leftCount !== rightCount) return rightCount - leftCount;
+        if (leftTag < rightTag) return -1;
+        if (leftTag > rightTag) return 1;
+        return 0;
+      })
+      .slice(0, 8)
+      .map(([tag, count]) => ({ tag, count })),
+    track_coverage: tracks.map((track) => ({
+      id: track.id,
+      name: track.name,
+      count: trackCounts[track.id] || 0,
+    })),
+  };
+}
+
 export function isDerivedDataset(dataset = {}) {
   return dataset.dataset_type === "derived-benchmark";
 }
@@ -133,11 +239,12 @@ export function getPaperLinks(paper = {}, labels = {}) {
 
 export function getEntryLinks(row, scoreKey) {
   const score = row.scores?.[scoreKey] || {};
+  const paperPrimaryUrl = getPaperPrimaryUrl(row.paper);
   return {
     methodUrl: row.paperUrl || row.paper?.code_url || "",
     paperUrl: row.paperUrl || "",
     codeUrl: row.paper?.code_url || "",
-    scoreSourceUrl: row.score_source || score.source_url || row.paperUrl || "",
+    scoreSourceUrl: row.score_source || score.source_url || paperPrimaryUrl,
   };
 }
 
@@ -180,6 +287,7 @@ function enrichEntry(entry, indexes) {
 
   return {
     ...entry,
+    method: paper.short_name || entry.paper_id,
     paper,
     dataset,
     trackIds,

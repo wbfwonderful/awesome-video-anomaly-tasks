@@ -23,7 +23,7 @@
     </header>
 
     <main>
-      <section id="papers" class="section-block" aria-labelledby="papers-title">
+      <section id="papers" class="section-block papers-section" aria-labelledby="papers-title">
         <div class="section-heading">
           <div>
             <p class="eyebrow">Index</p>
@@ -34,16 +34,48 @@
               Search
               <input id="paper-query" type="search" placeholder="method, venue, tag">
             </label>
+            <div class="filter-control" data-filter="venue">
+              <span class="filter-label">Venue</span>
+              <button id="venue-filter-button" class="multi-select-button" type="button" aria-expanded="false" aria-controls="venue-filter-menu"></button>
+              <div id="venue-filter-menu" class="multi-select-menu" hidden>
+                <input id="venue-filter-search" type="search" placeholder="Search venues" autocomplete="off">
+                <div id="venue-filter-options" class="multi-select-options"></div>
+              </div>
+            </div>
+            <div class="filter-control" data-filter="year">
+              <span class="filter-label">Year</span>
+              <button id="year-filter-button" class="multi-select-button" type="button" aria-expanded="false" aria-controls="year-filter-menu"></button>
+              <div id="year-filter-menu" class="multi-select-menu" hidden>
+                <input id="year-filter-search" type="search" placeholder="Search years" autocomplete="off">
+                <div id="year-filter-options" class="multi-select-options"></div>
+              </div>
+            </div>
+            <div class="filter-control" data-filter="tag">
+              <span class="filter-label">Tag</span>
+              <button id="tag-filter-button" class="multi-select-button" type="button" aria-expanded="false" aria-controls="tag-filter-menu"></button>
+              <div id="tag-filter-menu" class="multi-select-menu" hidden>
+                <input id="tag-filter-search" type="search" placeholder="Search tags" autocomplete="off">
+                <div id="tag-filter-options" class="multi-select-options"></div>
+              </div>
+            </div>
+            <div class="filter-control" data-filter="presentation">
+              <span class="filter-label">Presentation</span>
+              <button id="presentation-filter-button" class="multi-select-button" type="button" aria-expanded="false" aria-controls="presentation-filter-menu"></button>
+              <div id="presentation-filter-menu" class="multi-select-menu" hidden>
+                <input id="presentation-filter-search" type="search" placeholder="Search presentations" autocomplete="off">
+                <div id="presentation-filter-options" class="multi-select-options"></div>
+              </div>
+            </div>
           </div>
         </div>
         <div class="table-wrap">
           <table>
             <thead>
-              <tr>
-                <th>Paper</th>
-                <th>Year</th>
-                <th>Venue</th>
-                <th>Tags</th>
+              <tr id="papers-head">
+                <th><button type="button" data-sort="paper">Paper</button></th>
+                <th><button type="button" data-sort="year">Year</button></th>
+                <th><button type="button" data-sort="venue">Venue</button></th>
+                <th><button type="button" data-sort="tags">Tags</button></th>
                 <th>Links</th>
               </tr>
             </thead>
