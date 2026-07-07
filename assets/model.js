@@ -1,9 +1,16 @@
 export function buildIndexes({ papers = [], datasets = [], tracks = [] }) {
   return {
-    papersById: Object.fromEntries(papers.map((paper) => [paper.id, paper])),
+    papersById: Object.fromEntries(papers.flatMap((paper) => {
+      const paperId = getPaperId(paper);
+      return paperId ? [[paperId, paper]] : [];
+    })),
     datasetsById: Object.fromEntries(datasets.map((dataset) => [dataset.id, dataset])),
     tracksById: Object.fromEntries(tracks.map((track) => [track.id, track])),
   };
+}
+
+export function getPaperId(paper = {}) {
+  return String(paper.paper_id || paper.id || "").trim();
 }
 
 export function normalizePaperFiles(paperFiles) {
@@ -13,6 +20,15 @@ export function normalizePaperFiles(paperFiles) {
 export function selectPaperRows({ papers = [], filters = {}, sort = {} }) {
   const rows = papers.filter((paper) => matchesPaperFilters(paper, filters));
   return sortPaperRows(rows, sort.field || "year", sort.direction || "desc");
+}
+
+export function matchesFilterOption(option = {}, query = "") {
+  const normalizedQuery = String(query ?? "").trim().toLowerCase();
+  if (!normalizedQuery) return true;
+
+  return [option.label, option.value].some((value) => (
+    String(value ?? "").toLowerCase().includes(normalizedQuery)
+  ));
 }
 
 function matchesPaperFilters(paper, filters = {}) {
@@ -60,6 +76,15 @@ function getPaperSortValue(paper, field) {
   if (field === "venue") return paper.venue || "";
   if (field === "tags") return (paper.tags || []).join(", ");
   return paper[field];
+}
+
+function hashString(value) {
+  let hash = 2166136261;
+  for (let index = 0; index < value.length; index += 1) {
+    hash ^= value.charCodeAt(index);
+    hash = Math.imul(hash, 16777619);
+  }
+  return hash >>> 0;
 }
 
 export function normalizeResultFiles(resultFiles) {
@@ -135,6 +160,18 @@ export function selectLeaderboardRows({ entries = [], indexes, filters = {}, sor
 
   const selectedRows = filters.bestPerPaper ? bestRowsPerPaper(rows, scoreKey) : rows;
   return sortRows(selectedRows, sort.field || "score", sort.direction || "desc", scoreKey);
+}
+
+export function selectPaperResultRows({ entries = [], indexes = {}, paperId = "" }) {
+  const normalizedPaperId = String(paperId || "").trim();
+  return entries
+    .filter((entry) => String(entry.paper_id || "").trim() === normalizedPaperId)
+    .map((entry) => enrichEntry(entry, indexes))
+    .sort((left, right) => (
+      compareValues(left.dataset?.name || left.dataset_id, right.dataset?.name || right.dataset_id) ||
+      compareValues(left.trackName, right.trackName) ||
+      compareValues(left.variant, right.variant)
+    ));
 }
 
 export function countByTrack(entries) {
@@ -224,6 +261,29 @@ export function getPaperPrimaryUrl(paper = {}) {
   return paper.official_url || paper.arxiv_url || paper.code_url || "";
 }
 
+export function getPaperDetailUrl(paper = {}) {
+  const paperId = getPaperId(paper);
+  return paperId ? `detail.html?paper=${encodeURIComponent(paperId)}` : "";
+}
+
+export function getTagStyle(tag) {
+  const normalizedTag = String(tag || "").trim().toLowerCase();
+  if (!normalizedTag) return "";
+
+  const hash = hashString(normalizedTag);
+  const hue = hash % 360;
+  const saturation = 52 + (hash % 18);
+  const backgroundLightness = 90 + ((hash >> 4) % 5);
+  const foregroundLightness = 24 + ((hash >> 8) % 9);
+  const borderLightness = Math.max(backgroundLightness - 12, 72);
+
+  return [
+    `--tag-bg: hsl(${hue} ${saturation}% ${backgroundLightness}%)`,
+    `--tag-fg: hsl(${hue} ${Math.min(saturation + 8, 82)}% ${foregroundLightness}%)`,
+    `--tag-border: hsl(${hue} ${saturation}% ${borderLightness}%)`,
+  ].join("; ");
+}
+
 export function getPaperLinks(paper = {}, labels = {}) {
   return PAPER_LINK_TYPES.flatMap((linkType) => {
     const url = paper[linkType.key];
@@ -278,7 +338,8 @@ export function sortRows(rows, field, direction, scoreKey = "auc") {
 }
 
 function enrichEntry(entry, indexes) {
-  const paper = indexes.papersById[entry.paper_id] || {};
+  const entryPaperId = String(entry.paper_id || "").trim();
+  const paper = indexes.papersById[entryPaperId] || {};
   const dataset = indexes.datasetsById[entry.dataset_id] || {};
   const trackIds = entry.trackIds || normalizeTrackIds(entry);
   const trackInfos = trackIds.map((trackId) => indexes.tracksById[trackId] || { id: trackId, name: trackId });

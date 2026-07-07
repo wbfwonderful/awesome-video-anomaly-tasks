@@ -1,0 +1,11 @@
+- paper_id: holmes-vau-2025
+  short_name: Holmes-VAU
+  title: "Holmes-VAU: Towards Long-term Video Anomaly Understanding at Any Granularity"
+  year: 2025
+  venue: CVPR
+  official_url: https://openaccess.thecvf.com/content/CVPR2025/papers/Zhang_Holmes-VAU_Towards_Long-term_Video_Anomaly_Understanding_at_Any_Granularity_CVPR_2025_paper.pdf
+  arxiv_url: https://arxiv.org/abs/2412.06171
+  code_url: https://github.com/pipixin321/HolmesVAU
+  presentation: highlight
+  tags:
+    - MLLM

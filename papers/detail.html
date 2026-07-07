@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Paper Results | Awesome Video Anomaly Tasks</title>
+    <link rel="stylesheet" href="../assets/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <div>
+        <p class="eyebrow">Paper Results</p>
+        <h1 id="paper-title">Paper</h1>
+        <p id="paper-full-title" class="subtitle"></p>
+        <p id="load-status" class="status">Loading data</p>
+      </div>
+      <nav aria-label="Primary">
+        <a href="../">Home</a>
+        <a href="./">Papers</a>
+        <a href="../leaderboards/">Leaderboards</a>
+        <a href="../datasets/">Datasets</a>
+        <a id="language-switch" class="language-link" href="../zh/papers/detail.html" data-lang-target="../zh/papers/detail.html">中文</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="dataset-summary" aria-label="Paper summary">
+        <div>
+          <h2>Paper</h2>
+          <div id="paper-meta" class="meta-pills"></div>
+        </div>
+        <div>
+          <h2>Links</h2>
+          <div id="paper-links" class="link-list"></div>
+        </div>
+      </section>
+
+      <section class="section-block" aria-labelledby="paper-results-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Dataset Metrics</p>
+            <h2 id="paper-results-title">Results</h2>
+            <p class="hint">Click a metric value to open the source used for that result.</p>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Dataset</th>
+                <th>Track</th>
+                <th>Variant</th>
+                <th>Metrics</th>
+              </tr>
+            </thead>
+            <tbody id="paper-results-body"></tbody>
+          </table>
+          <p id="paper-results-empty" class="empty" hidden>No results found for this paper.</p>
+        </div>
+      </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+    <script type="module" src="../assets/paper-detail-page.js"></script>
+  </body>
+</html>

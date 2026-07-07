@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="zh-CN" data-base-path="../../">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>论文结果 | Awesome Video Anomaly Tasks</title>
+    <link rel="stylesheet" href="../../assets/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <div>
+        <p class="eyebrow">论文结果</p>
+        <h1 id="paper-title">论文</h1>
+        <p id="paper-full-title" class="subtitle"></p>
+        <p id="load-status" class="status">加载数据中</p>
+      </div>
+      <nav aria-label="Primary">
+        <a href="../">首页</a>
+        <a href="./">论文</a>
+        <a href="../leaderboards/">排行榜</a>
+        <a href="../datasets/">数据集</a>
+        <a id="language-switch" class="language-link" href="../../papers/detail.html" data-lang-target="../../papers/detail.html">English</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="dataset-summary" aria-label="论文概览">
+        <div>
+          <h2>论文</h2>
+          <div id="paper-meta" class="meta-pills"></div>
+        </div>
+        <div>
+          <h2>链接</h2>
+          <div id="paper-links" class="link-list"></div>
+        </div>
+      </section>
+
+      <section class="section-block" aria-labelledby="paper-results-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">数据集指标</p>
+            <h2 id="paper-results-title">结果</h2>
+            <p class="hint">点击指标值可打开该结果的来源。</p>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>数据集</th>
+                <th>Track</th>
+                <th>Variant</th>
+                <th>指标</th>
+              </tr>
+            </thead>
+            <tbody id="paper-results-body"></tbody>
+          </table>
+          <p id="paper-results-empty" class="empty" hidden>这篇论文暂无结果。</p>
+        </div>
+      </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+    <script type="module" src="../../assets/paper-detail-page.js"></script>
+  </body>
+</html>

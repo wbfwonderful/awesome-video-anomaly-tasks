@@ -10,8 +10,11 @@ import {
   getText,
 } from "./i18n.js";
 import {
+  getPaperDetailUrl,
+  getPaperId,
   getPaperLinks,
-  getPaperPrimaryUrl,
+  getTagStyle,
+  matchesFilterOption,
   selectPaperRows,
 } from "./model.js";
 
@@ -214,10 +217,8 @@ function renderFilterControl(name, options) {
   const control = els.filters[name];
   const config = filterConfig[name];
   const selected = state[config.stateKey];
-  const query = filterQueries[name].trim().toLowerCase();
-  const filteredOptions = options.filter((option) => (
-    option.label.toLowerCase().includes(query) || option.value.toLowerCase().includes(query)
-  ));
+  const query = filterQueries[name];
+  const filteredOptions = options.filter((option) => matchesFilterOption(option, query));
 
   control.button.textContent = summarizeFilterSelection(config, options, selected);
   control.search.value = filterQueries[name];
@@ -282,13 +283,9 @@ function renderPapers() {
 
   updateSortIndicators();
   els.body.innerHTML = rows.map((paper) => `
-    <tr id="paper-${escapeAttr(paper.id)}">
+    <tr id="paper-${escapeAttr(getPaperId(paper))}">
       <td>
-        <div class="paper-title-row">
-          ${renderPaperPrimaryLink(paper)}
-          ${renderPresentationTag(paper.presentation)}
-        </div>
-        <div class="muted">${escapeHtml(paper.title)}</div>
+        ${renderPaperSummaryLink(paper)}
       </td>
       <td>${escapeHtml(paper.year)}</td>
       <td>${escapeHtml(paper.venue)}</td>
@@ -307,11 +304,22 @@ function updateSortIndicators() {
   });
 }
 
-function renderPaperPrimaryLink(paper) {
-  const primaryUrl = getPaperPrimaryUrl(paper);
-  if (!primaryUrl) return `<span class="paper-name">${escapeHtml(paper.short_name)}</span>`;
+function renderPaperSummaryContent(paper) {
+  return `
+    <div class="paper-title-row">
+      <span class="paper-name">${escapeHtml(paper.short_name)}</span>
+      ${renderPresentationTag(paper.presentation)}
+    </div>
+    <div class="muted">${escapeHtml(paper.title)}</div>
+  `;
+}
 
-  return `<a href="${escapeAttr(primaryUrl)}" target="_blank" rel="noreferrer">${escapeHtml(paper.short_name)}</a>`;
+function renderPaperSummaryLink(paper) {
+  const detailUrl = getPaperDetailUrl(paper);
+  const content = renderPaperSummaryContent(paper);
+  if (!detailUrl) return content;
+
+  return `<a class="paper-summary-link" href="${escapeAttr(detailUrl)}">${content}</a>`;
 }
 
 function renderPaperLinks(paper) {
@@ -334,7 +342,11 @@ function renderPresentationTag(presentation) {
 }
 
 function renderTags(tags) {
-  return tags.map((tag) => `<span class="tag">${escapeHtml(tag)}</span>`).join("");
+  return tags.map(renderTag).join("");
+}
+
+function renderTag(tag) {
+  return `<span class="tag" style="${escapeAttr(getTagStyle(tag))}">${escapeHtml(tag)}</span>`;
 }
 
 function getPresentationLabel(presentation) {

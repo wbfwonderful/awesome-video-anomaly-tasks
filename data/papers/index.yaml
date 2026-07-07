@@ -1,14 +1,17 @@
 files:
   - venues/icml-2026.yaml
-  - venues/acm-mm-2025.yaml
   - venues/icml-2025.yaml
+  - venues/aaai-2026.yaml
   - venues/aaai-2024.yaml
-  - venues/acm-mm-2024.yaml
-  - venues/cvpr-2024.yaml
   - venues/aaai-2023.yaml
+  - venues/acm-mm-2025.yaml
+  - venues/acm-mm-2024.yaml
+  - venues/cvpr-2026.yaml
+  - venues/cvpr-2025.yaml
+  - venues/cvpr-2024.yaml
   - venues/cvpr-2023.yaml
+  - venues/cvpr-2018.yaml
   - venues/icip-2023.yaml
   - venues/t-mm-2022.yaml
   - venues/iccv-2021.yaml
-  - venues/cvpr-2018.yaml
   - preprints/2023-q2.yaml

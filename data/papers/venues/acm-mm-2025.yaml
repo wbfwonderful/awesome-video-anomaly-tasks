@@ -1,4 +1,4 @@
-- id: eventvad-2025
+- paper_id: eventvad-2025
   short_name: EventVAD
   title: "EventVAD: Training-Free Event-Aware Video Anomaly Detection"
   year: 2025
@@ -7,6 +7,4 @@
   arxiv_url:
   code_url: https://github.com/YihuaJerry/EventVAD
   tags:
-    - training-free
-    - vlm
-    - event
+    - Training free

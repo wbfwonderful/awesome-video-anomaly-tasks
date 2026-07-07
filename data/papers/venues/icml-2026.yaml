@@ -1,4 +1,4 @@
-- id: lrpo-2026
+- paper_id: lrpo-2026
   short_name: LRPO
   title: Linguistic Relative Policy Optimization for Video Anomaly Reasoning
   year: 2026
@@ -11,7 +11,7 @@
     - Training free
     - MLLM
 
-- id: td-vad-2026
+- paper_id: td-vad-2026
   short_name: TD-VAD
   title: "TD-VAD: Breaking Visual Dependence in Video Anomaly Detection with Text-Driven Learning"
   year: 2026
@@ -22,7 +22,7 @@
   tags:
     - Vision free
 
-- id: prism-2026
+- paper_id: prism-2026
   short_name: PRISM
   title: "PRISM: Training-Free Video Anomaly Detection via Intrinsic Statistical Modeling"
   year: 2026
@@ -33,7 +33,7 @@
   tags:
     - Training free
 
-- id: opl-2026
+- paper_id: opl-2026
   short_name: OPL
   title: Privacy-Aware Video Anomaly Detection through Orthogonal Subspace Projection
   year: 2026
@@ -45,7 +45,7 @@
   tags:
     - Privacy
 
-- id: cg-coe-2026
+- paper_id: cg-coe-2026
   short_name: CG-CoE
   title: "Towards Trustworthy Video Anomaly Understanding: A Class-Guided Chain-of-Evaluation Metric and An Anomaly-focused Meta-Benchmark"
   year: 2026
@@ -55,9 +55,8 @@
   code_url:
   tags:
     - Benchmark
-    - Evaluation
 
-- id: anom-π-2026
+- paper_id: anom-π-2026
   short_name: Anom-π
   title: "Learning to Watch: Active Video Anomaly Understanding via Interleaved Policy Optimization"
   year: 2026

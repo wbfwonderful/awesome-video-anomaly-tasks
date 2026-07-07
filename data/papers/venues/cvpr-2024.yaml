@@ -1,4 +1,4 @@
-- id: pe-mil-2024
+- paper_id: pe-mil-2024
   short_name: PE-MIL
   title: Prompt-Enhanced Multiple Instance Learning for Weakly Supervised Video Anomaly Detection
   year: 2024
@@ -7,11 +7,10 @@
   arxiv_url: https://arxiv.org/abs/2306.14451
   code_url:
   tags:
-    - weakly-supervised
-    - prompt
-    - audio-visual
+    - Weakly-supervised
+    - CLIP
 
-- id: lavad-2024
+- paper_id: lavad-2024
   short_name: LAVAD
   title: Harnessing Large Language Models for Training-free Video Anomaly Detection
   year: 2024
@@ -20,6 +19,5 @@
   arxiv_url: https://arxiv.org/abs/2404.01014
   code_url: https://github.com/lucazanella/lavad
   tags:
-    - training-free
-    - llm
-    - vlm
+    - Training free
+

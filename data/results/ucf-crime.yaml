@@ -42,6 +42,18 @@ entry_groups:
       score_source: https://arxiv.org/abs/2308.11681
       scores:
         AUC: 84.14
+    
+    - paper_id: dsanet-2026
+      variant: ""
+      score_source: ""
+      scores:
+        AUC: 89.44
+    
+    - paper_id: refinevad-2026
+      variant: ""
+      score_source: ""
+      scores: 
+        AUC: 88.92
 
   weakly-supervised-fine:
     - paper_id: realad-2018
@@ -143,6 +155,28 @@ entry_groups:
         mAP@0.5: 4.65
         AVG: 10.15
 
+    - paper_id: dsanet-2026
+      variant: ""
+      score_source: ""
+      scores:
+        mAP@0.1: 21.39
+        mAP@0.2: 14.96 
+        mAP@0.3: 11.74
+        mAP@0.4: 8.98
+        mAP@0.5: 8.00
+        AVG: 13.01
+
+    - paper_id: refinevad-2026
+      variant: ""
+      score_source: ""
+      scores:
+        mAP@0.1: 20.90
+        mAP@0.2: 13.17
+        mAP@0.3: 8.14
+        mAP@0.4: 4.41
+        mAP@0.5: 3.03
+        AVG: 9.93
+
   training-free:
     - paper_id: lavad-2024
       variant: ""
@@ -168,6 +202,12 @@ entry_groups:
       score_source: ""
       scores:
         AUC: 84.46 
+
+    - paper_id: targetvau-2026
+      variant: ""
+      score_source: ""
+      scores:
+        AUC: 89.57
 
   vision-free:
     - paper_id: td-vad-2026

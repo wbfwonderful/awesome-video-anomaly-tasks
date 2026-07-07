@@ -37,6 +37,18 @@ entry_groups:
       scores:
         AP: 75.18
 
+    - paper_id: dsanet-2026
+      variant: ""
+      score_source: ""
+      scores:
+        AP: 86.95
+
+    - paper_id: refinevad-2026
+      variant: ""
+      score_source: ""
+      scores: 
+        AP: 88.66
+
   weakly-supervised-fine:
     - paper_id: realad-2018
       variant: ""
@@ -137,6 +149,17 @@ entry_groups:
         mAP@0.5: 18.35
         AVG: 28.23
 
+    - paper_id: dsanet-2026
+      variant: ""
+      score_source: ""
+      scores:
+        mAP@0.1: 40.93
+        mAP@0.2: 34.63
+        mAP@0.3: 28.21
+        mAP@0.4: 22.70
+        mAP@0.5: 17.89
+        AVG: 28.87
+     
   training-free:
     - paper_id: lrpo-2026
       variant: ""
@@ -156,6 +179,12 @@ entry_groups:
       score_source: ""
       scores:
         AP: 72.29
+
+    - paper_id: targetvau-2026
+      variant: ""
+      score_source: ""
+      scores:
+        AP: 87.82
 
   vision-free:
     - paper_id: td-vad-2026

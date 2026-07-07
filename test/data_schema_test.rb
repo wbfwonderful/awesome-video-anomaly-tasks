@@ -3,7 +3,7 @@ require "yaml"
 
 ROOT = File.expand_path("..", __dir__)
 VALID_DATASET_TYPES = %w[original-video derived-benchmark].freeze
-VALID_PRESENTATIONS = %w[oral spotlight].freeze
+VALID_PRESENTATIONS = %w[oral spotlight highlight].freeze
 
 def load_yaml(path)
   YAML.load_file(File.join(ROOT, path))
@@ -44,12 +44,12 @@ class DataSchemaTest < Minitest::Test
     @tracks = load_yaml("data/tracks.yaml")
     @result_index = load_yaml("data/results/index.yaml")
 
-    @paper_ids = @papers.map { |paper| paper.fetch("id") }
+    @paper_ids = @papers.map { |paper| paper.fetch("paper_id") }
     @dataset_ids = @datasets.map { |dataset| dataset.fetch("id") }
     @track_ids = @tracks.map { |track| track.fetch("id") }
     @deprecated_project_url_key = "project" + "_url"
     @paper_short_names_by_id = @papers.each_with_object({}) do |paper, index|
-      index[paper.fetch("id")] = paper.fetch("short_name")
+      index[paper.fetch("paper_id")] = paper.fetch("short_name")
     end
   end
 
@@ -57,7 +57,8 @@ class DataSchemaTest < Minitest::Test
     assert_kind_of Array, @papers
 
     @papers.each do |paper|
-      assert_required_fields paper, %w[id short_name title year venue official_url tags]
+      assert_required_fields paper, %w[paper_id short_name title year venue official_url tags]
+      refute paper.key?("id"), "id is deprecated in papers; use paper_id in #{paper.inspect}"
       refute paper.key?("paper_url"), "paper_url is deprecated; use official_url in #{paper.inspect}"
       refute paper.key?(@deprecated_project_url_key), "#{@deprecated_project_url_key} is deprecated; keep paper links to official_url, arxiv_url, and code_url in #{paper.inspect}"
       assert_includes %w[accepted preprint], paper.fetch("status") if paper.key?("status")

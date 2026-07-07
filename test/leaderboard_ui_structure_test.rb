@@ -105,9 +105,14 @@ class LeaderboardUiStructureTest < Minitest::Test
     refute_includes js, "paper.task_types"
     refute_includes js, "status-pill"
     assert_includes js, "selectPaperRows"
+    assert_includes js, "getPaperDetailUrl"
+    assert_includes js, "getPaperId"
+    assert_includes js, "getTagStyle"
     assert_includes js, "function renderFilterControl"
     assert_includes js, "function updateSortIndicators"
-    assert_includes js, "getPaperPrimaryUrl"
+    assert_includes js, "function renderPaperSummaryLink"
+    assert_includes js, 'class="paper-summary-link"'
+    refute_includes js, "getPaperPrimaryUrl"
     assert_includes js, "getPaperLinks"
     assert_includes js, "renderPresentationTag"
     assert_includes js, "paper.presentation"
@@ -122,13 +127,47 @@ class LeaderboardUiStructureTest < Minitest::Test
     assert_includes css, ".paper-link-official"
     assert_includes css, ".paper-link-arxiv"
     assert_includes css, ".paper-link-code"
+    assert_includes css, ".paper-summary-link"
     assert_includes css, ".paper-title-row"
+    assert_includes css, "--tag-bg"
+    assert_includes css, "--tag-fg"
+    assert_includes css, "--tag-border"
     assert_includes css, ".presentation-tag.oral"
     assert_includes css, ".presentation-tag.spotlight"
+    assert_includes css, ".presentation-tag.highlight"
     refute_includes js, "paper-badge-row"
     refute_includes js, "shield-link"
     refute_includes model, "img.shields.io"
     refute_includes model, "project" + "_url"
+  end
+
+  def test_paper_detail_page_uses_single_dynamic_route
+    html = File.read(File.join(ROOT, "papers/detail.html"))
+    zh_html = File.read(File.join(ROOT, "zh/papers/detail.html"))
+    js = File.read(File.join(ROOT, "assets/paper-detail-page.js"))
+    model = File.read(File.join(ROOT, "assets/model.js"))
+
+    assert_includes html, 'id="paper-title"'
+    assert_includes html, 'id="paper-links"'
+    assert_includes html, 'id="paper-results-body"'
+    assert_includes html, 'id="paper-results-empty"'
+    assert_includes html, 'id="language-switch"'
+    assert_includes html, 'data-lang-target="../zh/papers/detail.html"'
+    assert_includes html, 'src="../assets/paper-detail-page.js"'
+    assert_includes html, "js-yaml"
+    assert_includes zh_html, 'src="../../assets/paper-detail-page.js"'
+    assert_includes zh_html, 'data-lang-target="../../papers/detail.html"'
+    assert_includes js, "new URLSearchParams(window.location.search)"
+    assert_includes js, 'params.get("paper")'
+    assert_includes js, "loadStore"
+    assert_includes js, "getPaperId"
+    assert_includes js, "getTagStyle"
+    assert_includes js, "selectPaperResultRows"
+    assert_includes js, "getEntryLinks"
+    assert_includes js, "renderMetricList"
+    assert_includes js, "function renderTags"
+    refute_includes js, "formatList(paper.tags"
+    assert_includes model, "function selectPaperResultRows"
   end
 
   def test_datasets_page_lists_dataset_metadata
@@ -158,6 +197,7 @@ class LeaderboardUiStructureTest < Minitest::Test
     scripts = %w[
       assets/app.js
       assets/papers-page.js
+      assets/paper-detail-page.js
       assets/datasets-page.js
       assets/leaderboard-index.js
       assets/dataset-page.js
@@ -187,6 +227,7 @@ class LeaderboardUiStructureTest < Minitest::Test
     pages = {
       "zh/index.html" => ['href="../"', 'src="../assets/app.js"', 'href="../assets/styles.css"', 'js-yaml', '<html lang="zh-CN" data-base-path="../">'],
       "zh/papers/index.html" => ['href="../../papers/"', 'src="../../assets/papers-page.js"', 'href="../../assets/styles.css"', '<html lang="zh-CN" data-base-path="../../">'],
+      "zh/papers/detail.html" => ['href="../../papers/detail.html"', 'src="../../assets/paper-detail-page.js"', 'href="../../assets/styles.css"', '<html lang="zh-CN" data-base-path="../../">'],
       "zh/datasets/index.html" => ['href="../../datasets/"', 'src="../../assets/datasets-page.js"', 'href="../../assets/styles.css"', '<html lang="zh-CN" data-base-path="../../">'],
       "zh/leaderboards/index.html" => ['href="../../leaderboards/"', 'src="../../assets/leaderboard-index.js"', 'href="../../assets/styles.css"', '<html lang="zh-CN" data-base-path="../../">'],
       "zh/leaderboards/dataset.html" => ['id="language-switch"', 'src="../../assets/dataset-page.js"', 'href="../../assets/styles.css"', '<html lang="zh-CN" data-base-path="../../">']
@@ -202,6 +243,7 @@ class LeaderboardUiStructureTest < Minitest::Test
     expectations = {
       "index.html" => 'href="zh/"',
       "papers/index.html" => 'href="../zh/papers/"',
+      "papers/detail.html" => 'id="language-switch"',
       "datasets/index.html" => 'href="../zh/datasets/"',
       "leaderboards/index.html" => 'href="../zh/leaderboards/"',
       "leaderboards/dataset.html" => 'id="language-switch"'

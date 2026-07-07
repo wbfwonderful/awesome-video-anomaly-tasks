@@ -1,0 +1,21 @@
+dataset_id: hivau-70k
+entry_groups:
+  anomaly-understanding:
+    - paper_id: holmes-vau-2025
+      variant: ""
+      score_source: "https://ojs.aaai.org/index.php/AAAI/article/view/38378"
+      scores:
+        BLEU: 0.566
+        CIDEr: 1.437 
+        METEOR: 0.121 
+        ROUGE: 0.355
+
+    - paper_id: targetvau-2026
+      variant: ""
+      score_source: ""
+      scores:
+        BLEU: 0.613
+        CIDEr: 1.424 
+        METEOR: 0.357 
+        ROUGE: 0.482
+  

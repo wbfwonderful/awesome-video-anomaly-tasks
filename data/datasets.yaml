@@ -135,6 +135,41 @@
     - AUC
   notes: Classic pedestrian walkway anomaly benchmark.
 
+- id: cuebench
+  name: CueBench
+  dataset_type: original-video
+  source_dataset_ids: []
+  has_new_videos: true
+  contribution_types: []
+  task_types:
+    - video anomaly understanding
+  links:
+    homepage: https://github.com/Mia-YatingYu/Cue-R1
+    paper: https://ojs.aaai.org/index.php/AAAI/article/view/38209/
+    download: 
+    annotation:
+  metrics:
+    - Structure, Semantic, Hierachy
+  notes: Context-Aware video anomalies.
+
+- id: hivau-70k
+  name: HIVAU-70K
+  dataset_type: derived-benchmark
+  source_dataset_ids: []
+  has_new_videos: true
+  contribution_types: [XD-Violence, UCF-Crime]
+  task_types:
+    - video anomaly understanding
+  links:
+    homepage: https://openreview.net/pdf?id=qE3knKF1rz
+    paper: https://openreview.net/pdf?id=qE3knKF1rz
+    download: https://openreview.net/pdf?id=qE3knKF1rz
+    annotation:
+  metrics:
+    - BLEU, CIDEr, METEOR, ROUGE
+  notes: Multi-granularity annotations.
+
+
 # - id: csad
 #   name: CSAD
 #   dataset_type: derived-benchmark

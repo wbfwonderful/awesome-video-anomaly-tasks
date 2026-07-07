@@ -14,22 +14,27 @@ import {
   formatDatasetLabel,
   getEntryLinks,
   getDatasetSources,
+  getPaperDetailUrl,
+  getPaperId,
   getPaperLinks,
   getPaperPrimaryUrl,
   getScoreLabel,
   getScoreKeysForDataset,
   getScoreValue,
+  getTagStyle,
   getTracksForDataset,
   isDerivedDataset,
+  matchesFilterOption,
   normalizePaperFiles,
   normalizeResultFiles,
   selectPaperRows,
+  selectPaperResultRows,
   selectLeaderboardRows,
 } from "../assets/model.js";
 
 const papers = [
   {
-    id: "paper-a",
+    paper_id: "paper-a",
     short_name: "PaperA",
     title: "Accepted Method",
     status: "accepted",
@@ -40,7 +45,7 @@ const papers = [
     code_url: "https://code.example/a",
   },
   {
-    id: "paper-b",
+    paper_id: "paper-b",
     short_name: "PaperB",
     title: "Preprint Method",
     status: "preprint",
@@ -50,7 +55,7 @@ const papers = [
     code_url: "https://code.example/b",
   },
   {
-    id: "paper-c",
+    paper_id: "paper-c",
     short_name: "PaperC",
     title: "Code Only Method",
     status: "preprint",
@@ -95,7 +100,7 @@ test("i18n helpers read page language and return Chinese UI labels", () => {
   assert.equal(getLanguage({ documentElement: { lang: "zh-CN" } }), "zh-CN");
   assert.equal(getText("status.loaded", "zh-CN"), "数据已加载");
   assert.equal(getText("filters.allTracks", "zh-CN"), "全部 Track");
-  assert.equal(getPaperLinkLabel("official", "zh-CN"), "论文主页");
+  assert.equal(getPaperLinkLabel("official", "zh-CN"), "正式版论文");
 });
 
 const resultFiles = [
@@ -210,20 +215,27 @@ const groupedResultFiles = [
 
 test("normalizePaperFiles flattens manifest-scoped paper files", () => {
   const paperFiles = [
-    [{ id: "paper-a", short_name: "PaperA" }],
-    [{ id: "paper-b", short_name: "PaperB" }],
+    [{ paper_id: "paper-a", short_name: "PaperA" }],
+    [{ paper_id: "paper-b", short_name: "PaperB" }],
   ];
 
   assert.deepEqual(
-    normalizePaperFiles(paperFiles).map((paper) => paper.id),
+    normalizePaperFiles(paperFiles).map((paper) => paper.paper_id),
     ["paper-a", "paper-b"],
   );
+});
+
+test("getPaperId normalizes paper identifiers and tolerates legacy id while data migrates", () => {
+  assert.equal(getPaperId({ paper_id: " exvad-2025 " }), "exvad-2025");
+  assert.equal(getPaperId({ id: "legacy-paper" }), "legacy-paper");
+  assert.equal(getPaperId({ paper_id: "" }), "");
+  assert.equal(getPaperId({}), "");
 });
 
 test("selectPaperRows filters papers by query and multi-select metadata", () => {
   const paperRows = [
     {
-      id: "paper-z",
+      paper_id: "paper-z",
       short_name: "Zeta",
       title: "Vision-language Detector",
       year: 2024,
@@ -232,7 +244,7 @@ test("selectPaperRows filters papers by query and multi-select metadata", () => 
       tags: ["clip", "vision-language"],
     },
     {
-      id: "paper-a",
+      paper_id: "paper-a",
       short_name: "Alpha",
       title: "Training-Free Video Reasoning",
       year: 2026,
@@ -241,7 +253,7 @@ test("selectPaperRows filters papers by query and multi-select metadata", () => 
       tags: ["training-free", "MLLM"],
     },
     {
-      id: "paper-b",
+      paper_id: "paper-b",
       short_name: "Beta",
       title: "Clip Baseline",
       year: 2025,
@@ -270,9 +282,9 @@ test("selectPaperRows filters papers by query and multi-select metadata", () => 
 
 test("selectPaperRows sorts papers by clicked columns", () => {
   const paperRows = [
-    { id: "paper-z", short_name: "Zeta", title: "Zeta", year: 2024, venue: "CVPR", tags: ["clip"] },
-    { id: "paper-a", short_name: "Alpha", title: "Alpha", year: 2026, venue: "ICML", tags: ["training-free"] },
-    { id: "paper-b", short_name: "Beta", title: "Beta", year: 2025, venue: "AAAI", tags: ["benchmark"] },
+    { paper_id: "paper-z", short_name: "Zeta", title: "Zeta", year: 2024, venue: "CVPR", tags: ["clip"] },
+    { paper_id: "paper-a", short_name: "Alpha", title: "Alpha", year: 2026, venue: "ICML", tags: ["training-free"] },
+    { paper_id: "paper-b", short_name: "Beta", title: "Beta", year: 2025, venue: "AAAI", tags: ["benchmark"] },
   ];
 
   assert.deepEqual(
@@ -295,6 +307,68 @@ test("selectPaperRows sorts papers by clicked columns", () => {
       sort: { field: "tags", direction: "asc" },
     }).map((paper) => paper.short_name),
     ["Beta", "Zeta", "Alpha"],
+  );
+});
+
+test("matchesFilterOption handles non-string option labels and values", () => {
+  assert.equal(matchesFilterOption({ value: 2026, label: 2026 }, "202"), true);
+  assert.equal(matchesFilterOption({ value: null, label: undefined }, "202"), false);
+  assert.equal(matchesFilterOption({ value: "spotlight", label: "Spotlight" }, "light"), true);
+});
+
+test("selectPaperResultRows aggregates one paper across datasets and tracks", () => {
+  const datasets = [
+    { id: "ucf-crime", name: "UCF-Crime" },
+    { id: "xd-violence", name: "XD-Violence" },
+  ];
+  const paperTracks = [
+    { id: "training-free", name: "Training-free" },
+    { id: "weakly-supervised-fine", name: "Weakly Supervised (Fine)" },
+  ];
+  const indexes = buildIndexes({ papers, datasets, tracks: paperTracks });
+  const entries = normalizeResultFiles([
+    {
+      dataset_id: "xd-violence",
+      entry_groups: {
+        "training-free": [
+          {
+            paper_id: "paper-a",
+            variant: "",
+            score_source: "https://source.example/xd",
+            scores: { AP: 77.48 },
+          },
+        ],
+      },
+    },
+    {
+      dataset_id: "ucf-crime",
+      entry_groups: {
+        "weakly-supervised-fine": [
+          {
+            paper_id: "paper-a",
+            variant: "CLIP",
+            score_source: "https://source.example/ucf",
+            scores: { "mAP@0.1": 11.72, AVG: 6.68 },
+          },
+          {
+            paper_id: "paper-b",
+            variant: "",
+            score_source: "https://source.example/other",
+            scores: { AUC: 78.4 },
+          },
+        ],
+      },
+    },
+  ]);
+
+  const rows = selectPaperResultRows({ entries, indexes, paperId: "paper-a" });
+
+  assert.deepEqual(
+    rows.map((row) => [row.dataset.name, row.trackName, row.variant, Object.keys(row.scores)]),
+    [
+      ["UCF-Crime", "Weakly Supervised (Fine)", "CLIP", ["mAP@0.1", "AVG"]],
+      ["XD-Violence", "Training-free", "", ["AP"]],
+    ],
   );
 });
 
@@ -811,6 +885,13 @@ test("paper primary links prefer official and arxiv destinations before code lin
   assert.equal(getPaperPrimaryUrl({}), "");
 });
 
+test("paper detail links are generated from paper_id for every paper row", () => {
+  assert.equal(getPaperDetailUrl({ paper_id: "exvad-2025" }), "detail.html?paper=exvad-2025");
+  assert.equal(getPaperDetailUrl({ paper_id: "anom-π-2026" }), "detail.html?paper=anom-%CF%80-2026");
+  assert.equal(getPaperDetailUrl({ paper_id: "" }), "");
+  assert.equal(getPaperDetailUrl({}), "");
+});
+
 test("paper links expose official, arxiv, and code text links", () => {
   const links = getPaperLinks({
     official_url: "https://official.example/paper",
@@ -828,13 +909,21 @@ test("paper links expose official, arxiv, and code text links", () => {
   );
 });
 
+test("tag styles are deterministic and vary across different tags", () => {
+  assert.equal(getTagStyle("MLLM"), getTagStyle("mllm"));
+  assert.equal(getTagStyle(" Training free "), getTagStyle("training free"));
+  assert.notEqual(getTagStyle("MLLM"), getTagStyle("Training free"));
+  assert.match(getTagStyle("MLLM"), /--tag-bg: hsl\(/);
+  assert.equal(getTagStyle(""), "");
+});
+
 test("paper links accept localized labels without changing default English labels", () => {
   const defaultLinks = getPaperLinks({ official_url: "https://official.example/paper" });
   const zhLinks = getPaperLinks(
     { official_url: "https://official.example/paper" },
-    { official: "论文主页" },
+    { official: "正式版论文" },
   );
 
   assert.equal(defaultLinks[0].label, "official paper");
-  assert.equal(zhLinks[0].label, "论文主页");
+  assert.equal(zhLinks[0].label, "正式版论文");
 });

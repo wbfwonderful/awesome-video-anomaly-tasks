@@ -1,4 +1,4 @@
-- id: realad-2018
+- paper_id: realad-2018
   short_name: RealAD
   title: Real-world Anomaly Detection in Surveillance Videos
   year: 2018
@@ -7,6 +7,5 @@
   arxiv_url:
   code_url: https://github.com/Roc-Ng/DeepMIL
   tags:
-    - weakly-supervised
-    - mil
-    - ucf-crime
+    - Weakly-supervised
+    - Dataset

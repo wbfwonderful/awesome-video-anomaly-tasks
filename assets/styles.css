@@ -330,6 +330,11 @@ main {
   font-weight: 800;
 }
 
+.meta-pills .tag {
+  background: var(--tag-bg, #f3f0e8);
+  color: var(--tag-fg, var(--gold));
+}
+
 .callout {
   margin: 0;
   padding: 18px;
@@ -587,6 +592,16 @@ tbody tr:hover {
   font-weight: 800;
 }
 
+.paper-summary-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.paper-summary-link:hover .paper-name {
+  color: var(--blue);
+}
+
 .paper-title-row {
   display: flex;
   flex-wrap: wrap;
@@ -624,8 +639,9 @@ tbody tr:hover {
 }
 
 .tag {
-  background: #f3f0e8;
-  color: var(--gold);
+  border: 1px solid var(--tag-border, #d9cfae);
+  background: var(--tag-bg, #f3f0e8);
+  color: var(--tag-fg, var(--gold));
 }
 
 .status-pill.accepted {
@@ -663,6 +679,11 @@ tbody tr:hover {
 .presentation-tag.spotlight {
   background: #eff6ff;
   color: #1d4ed8;
+}
+
+.presentation-tag.highlight {
+  background: #fff7ed;
+  color: #9a3412;
 }
 
 .link-list {
@@ -727,6 +748,36 @@ td.link-list a {
   border-color: #d1d5db;
   background: #f3f4f6;
   color: #111827;
+}
+
+.metric-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.metric-chip {
+  display: inline-flex;
+  min-height: 28px;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #fbfcfc;
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+a.metric-chip {
+  border-color: #bfdbfe;
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+
+.metric-chip span {
+  color: var(--ink);
 }
 
 .empty {

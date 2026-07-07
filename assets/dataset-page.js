@@ -18,6 +18,7 @@ import {
   getScoreValue,
   getTracksForDataset,
   isDerivedDataset,
+  matchesFilterOption,
   selectLeaderboardRows,
 } from "./model.js";
 
@@ -281,10 +282,8 @@ function renderFilterControl(name, options) {
   const control = els.filters[name];
   const config = filterConfig[name];
   const selected = state[config.stateKey];
-  const query = filterQueries[name].trim().toLowerCase();
-  const filteredOptions = options.filter((option) => (
-    option.label.toLowerCase().includes(query) || option.value.toLowerCase().includes(query)
-  ));
+  const query = filterQueries[name];
+  const filteredOptions = options.filter((option) => matchesFilterOption(option, query));
 
   control.button.textContent = summarizeFilterSelection(config, options, selected);
   control.search.value = filterQueries[name];
