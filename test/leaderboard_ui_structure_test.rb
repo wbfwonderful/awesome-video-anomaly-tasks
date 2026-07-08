@@ -29,7 +29,8 @@ class LeaderboardUiStructureTest < Minitest::Test
     assert_includes js, "has_new_videos"
     assert_includes js, "scoreKeys.map((scoreKey) => renderScoreCell(row, scoreKey))"
     assert_includes js, "function renderTrackBadges"
-    assert_includes js, "row.trackNames.map"
+    assert_includes js, "row.trackInfos"
+    assert_includes js, "getTrackStyle"
     refute_includes js, '<div class="muted">${escapeHtml(row.variant)}</div>'
     refute_includes js, '<td class="link-list">'
   end
@@ -132,6 +133,9 @@ class LeaderboardUiStructureTest < Minitest::Test
     assert_includes css, "--tag-bg"
     assert_includes css, "--tag-fg"
     assert_includes css, "--tag-border"
+    assert_includes css, "--track-bg"
+    assert_includes css, "--track-fg"
+    assert_includes css, "--track-border"
     assert_includes css, ".presentation-tag.oral"
     assert_includes css, ".presentation-tag.spotlight"
     assert_includes css, ".presentation-tag.highlight"
@@ -162,6 +166,7 @@ class LeaderboardUiStructureTest < Minitest::Test
     assert_includes js, "loadStore"
     assert_includes js, "getPaperId"
     assert_includes js, "getTagStyle"
+    assert_includes js, "getTrackStyle"
     assert_includes js, "selectPaperResultRows"
     assert_includes js, "getEntryLinks"
     assert_includes js, "renderMetricList"

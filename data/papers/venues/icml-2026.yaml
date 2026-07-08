@@ -55,6 +55,7 @@
   code_url:
   tags:
     - Benchmark
+    - Metric
 
 - paper_id: anom-π-2026
   short_name: Anom-π

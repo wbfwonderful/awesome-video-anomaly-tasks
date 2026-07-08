@@ -8,11 +8,12 @@ This repository is designed for GitHub Pages. The website reads structured YAML 
 
 ## What This Tracks
 
-- Papers grouped by venue, year, preprint status, and tags.
+- Papers grouped by venue files, with year, venue, presentation tags, and topic tags.
 - Datasets with key links, supported tasks, metrics, and notes.
 - Comparison tracks such as full training, weakly supervised coarse/fine evaluation, semi-supervised, zero-shot, and training-free.
-- Dataset-scoped leaderboard entries, where each entry represents one method variant and can contain multiple metric scores.
+- Dataset-scoped leaderboard entries grouped by track, where each entry references a paper and can contain multiple metric scores.
 - Dataset leaderboard pages with benchmark notes, links, sortable columns, and filters for track, variant, and venue.
+- Paper detail pages that summarize one method's results across all datasets.
 
 ## Data Layout
 
@@ -30,8 +31,10 @@ data/
   results/
     index.yaml
     ucf-crime.yaml
-    shanghaitech.yaml
+    ubnormal.yaml
     xd-violence.yaml
+    shanghaitech.yaml
+    hivau-70k.yaml
     nwpu-campus.yaml
 ```
 
@@ -47,7 +50,7 @@ files:
 Each listed paper file contains an array of paper records:
 
 ```yaml
-- id: lavad-2024
+- paper_id: lavad-2024
   short_name: LAVAD
   title: Harnessing Large Language Models for Training-free Video Anomaly Detection
   year: 2024
@@ -55,37 +58,38 @@ Each listed paper file contains an array of paper records:
   official_url: https://arxiv.org/abs/2404.01014
   arxiv_url: https://arxiv.org/abs/2404.01014
   code_url: https://github.com/lucazanella/lavad
+  presentation: spotlight
   tags:
     - training-free
     - llm
     - vlm
 ```
 
-Each result file is scoped to one dataset:
+Use `paper_id` as the stable paper identifier. Results reference papers by the same `paper_id`; the UI derives method names from paper `short_name`, so result entries should not repeat a `method` field.
+
+Each result file is scoped to one dataset and groups entries by track under `entry_groups`. The group key is the track id, so entries inside a group do not need to repeat `track`:
 
 ```yaml
 dataset_id: ucf-crime
-entries:
-  - paper_id: vadclip-2024
-    method: VadCLIP
-    variant: CLIP
-    track: weakly-supervised-coarse
-    score_source: https://arxiv.org/abs/2308.11681
-    scores:
-      AUC: 88.02
+entry_groups:
+  weakly-supervised-coarse:
+    - paper_id: vadclip-2024
+      variant: CLIP
+      score_source: https://arxiv.org/abs/2308.11681
+      scores:
+        AUC: 88.02
 
-  - paper_id: vadclip-2024
-    method: VadCLIP
-    variant: CLIP
-    track: weakly-supervised-fine
-    score_source: https://arxiv.org/abs/2308.11681
-    scores:
-      mAP@0.1: 11.72
-      mAP@0.2: 7.83
-      mAP@0.3: 6.40
-      mAP@0.4: 4.53
-      mAP@0.5: 2.93
-      AVG: 6.68
+  weakly-supervised-fine:
+    - paper_id: vadclip-2024
+      variant: CLIP
+      score_source: https://arxiv.org/abs/2308.11681
+      scores:
+        mAP@0.1: 11.72
+        mAP@0.2: 7.83
+        mAP@0.3: 6.40
+        mAP@0.4: 4.53
+        mAP@0.5: 2.93
+        AVG: 6.68
 ```
 
 ## Dataset Metadata
@@ -118,32 +122,47 @@ contribution_types:
 
 The score key is the metric label shown in the leaderboard, such as `AUC`, `AP`, `mAP@0.1`, or `AVG`. A single leaderboard entry can contain multiple metrics under `scores`.
 
-Use `track` for a single comparison track:
+In result files, the `entry_groups` key is the usual way to assign a single comparison track:
 
 ```yaml
-track: zero-shot
+entry_groups:
+  zero-shot:
+    - paper_id: lavad-2024
+      variant: ""
+      score_source: ""
+      scores:
+        AUC: 85.0
 ```
 
-Use `tracks` when one entry belongs to multiple tracks under the same score set and evaluation protocol:
+Use entry-level `tracks` only when one entry belongs to multiple tracks under the same score set and evaluation protocol:
 
 ```yaml
-tracks:
-  - zero-shot
-  - training-free
+entry_groups:
+  zero-shot:
+    - paper_id: lavad-2024
+      variant: ""
+      score_source: ""
+      tracks:
+        - zero-shot
+        - training-free
+      scores:
+        AUC: 85.0
 ```
 
 Do not use `tracks` to combine results with different scores or protocols; those should remain separate entries.
 
 Use `variant` for feature extractor, backbone, model size, modality combination, or any other method variant label. Different variants remain separate entries. `variant` can be blank when a paper reports only one unnamed setting.
 
-Use one `score_source` per entry. This URL should point to the table, paper, benchmark file, or appendix where the scores in that entry come from.
+Write one `score_source` field per entry. When scores come from a specific table, paper, benchmark file, or appendix, put that URL in `score_source`. When it is intentionally left blank, the UI falls back to the paper link priority `official_url`, then `arxiv_url`, then `code_url`.
+
+Tags and tracks use deterministic colors in the UI. The color is generated from the tag text or track id, so the same tag/track keeps the same color across refreshes and pages, and newly added tags/tracks do not require a manual color table.
 
 ## Links
 
 Leaderboard rows do not use a separate links column. The visible cells carry the important links:
 
 - Method cell: uses paper record links with this priority: `official_url`, then `arxiv_url`, then `code_url`.
-- Score cell: uses the entry-level `score_source`.
+- Score cell: uses the entry-level `score_source`, or falls back to the paper link priority when `score_source` is blank.
 - Dataset summary links: use the dataset homepage, paper, download, and annotation URLs.
 
 ## Leaderboard Pages
@@ -161,13 +180,24 @@ Each dataset page joins the flattened paper files with the dataset result file. 
 
 Dataset leaderboard pages do not show a separate status column. For preprints, set the paper `venue` to `preprint`; the venue column and venue filter then cover this case without duplicating status in result entries.
 
+Paper pages live under:
+
+```text
+papers/
+  index.html
+  detail.html?paper=lavad-2024
+```
+
+The paper index supports multi-select filters for venue, year, tag, and presentation, plus sortable columns. Method names link to a single dynamic detail page that renders all result entries for the selected `paper_id`; no per-paper HTML files are created.
+
 ## Adding Data
 
 1. Add a paper to the matching file under `data/papers/`. Update `data/papers/index.yaml` only when creating a new paper file.
 2. Add a dataset to `data/datasets.yaml` if it is new.
-3. Add or update a dataset-scoped file under `data/results/`.
-4. If a new result file is created, add the file name to `data/results/index.yaml`.
-5. Run the validation commands.
+3. Add or update a dataset-scoped file under `data/results/`, grouping entries under `entry_groups` by track id.
+4. If a new track is needed, add it to `data/tracks.yaml`. Existing and future tracks automatically get stable colors in the UI.
+5. If a new result file is created, add the file name to `data/results/index.yaml`.
+6. Run the validation commands.
 
 ## Local Preview
 

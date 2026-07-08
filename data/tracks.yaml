@@ -30,6 +30,11 @@
   name: Tuned MLLM
   description: Methods that adapt or tune multimodal large language models for video anomaly tasks.
 
+- id: tuning-free-mllm
+  name: Tuning-free MLLM
+  description: Methods that keep the MLLM frozen and use prompting, probing, head selection, lightweight scorers, or calibration modules without tuning the MLLM itself.
+
+
 - id: training-free
   name: Training-free
   description: Methods using frozen models, prompting, retrieval, or rule-based inference without gradient-based training on the target benchmark.

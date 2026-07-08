@@ -16,6 +16,7 @@ import {
   getScoreLabel,
   getScoreValue,
   getTagStyle,
+  getTrackStyle,
   selectPaperResultRows,
 } from "./model.js";
 
@@ -132,8 +133,12 @@ function renderResultRow(row) {
 }
 
 function renderTrackBadges(row) {
-  return row.trackNames.map((trackName) => `
-    <span class="badge">${escapeHtml(trackName)}</span>
+  const trackInfos = row.trackInfos?.length
+    ? row.trackInfos
+    : row.trackNames.map((trackName, index) => ({ id: row.trackIds?.[index] || trackName, name: trackName }));
+
+  return trackInfos.map((trackInfo) => `
+    <span class="badge" style="${escapeAttr(getTrackStyle(trackInfo.id))}">${escapeHtml(trackInfo.name || trackInfo.id)}</span>
   `).join("");
 }
 

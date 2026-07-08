@@ -31,9 +31,10 @@
   venue: AAAI
   official_url: https://ojs.aaai.org/index.php/AAAI/article/view/37790/
   arxiv_url: https://arxiv.org/abs/2601.17258
-  code_url: 
+  code_url: https://finevau.github.io
   tags:
     - Benchmark
+    - Metric
 
 - paper_id: dsanet-2026
   short_name: DSANet
@@ -69,4 +70,5 @@
   code_url: https://github.com/CebCai/HeadHunt-VAD
   presentation: oral
   tags:
-    - Training free
+    - Tunning free MLLM
+    - MLLM

@@ -634,8 +634,9 @@ tbody tr:hover {
 }
 
 .badge {
-  background: #eef7f4;
-  color: var(--green);
+  border: 1px solid var(--track-border, #cfe5dc);
+  background: var(--track-bg, #eef7f4);
+  color: var(--track-fg, var(--green));
 }
 
 .tag {

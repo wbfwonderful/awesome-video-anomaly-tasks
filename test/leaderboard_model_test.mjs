@@ -22,6 +22,7 @@ import {
   getScoreKeysForDataset,
   getScoreValue,
   getTagStyle,
+  getTrackStyle,
   getTracksForDataset,
   isDerivedDataset,
   matchesFilterOption,
@@ -913,8 +914,17 @@ test("tag styles are deterministic and vary across different tags", () => {
   assert.equal(getTagStyle("MLLM"), getTagStyle("mllm"));
   assert.equal(getTagStyle(" Training free "), getTagStyle("training free"));
   assert.notEqual(getTagStyle("MLLM"), getTagStyle("Training free"));
+  assert.notEqual(getTagStyle("future-unseen-tag"), getTagStyle("another-future-tag"));
   assert.match(getTagStyle("MLLM"), /--tag-bg: hsl\(/);
   assert.equal(getTagStyle(""), "");
+});
+
+test("track styles are deterministic and vary across different tracks", () => {
+  assert.equal(getTrackStyle("training-free"), getTrackStyle(" training-free "));
+  assert.notEqual(getTrackStyle("training-free"), getTrackStyle("tuned-mllm"));
+  assert.notEqual(getTrackStyle("future-track-a"), getTrackStyle("future-track-b"));
+  assert.match(getTrackStyle("training-free"), /--track-bg: hsl\(/);
+  assert.equal(getTrackStyle(""), "");
 });
 
 test("paper links accept localized labels without changing default English labels", () => {

@@ -209,6 +209,13 @@ entry_groups:
       scores:
         AUC: 89.57
 
+  tuning-free-mllm:
+    - paper_id: headhunt-vad-2026
+      variant: ""
+      score_source: ""
+      scores:
+        AUC: 87.03
+
   vision-free:
     - paper_id: td-vad-2026
       variant: ""

@@ -186,6 +186,13 @@ entry_groups:
       scores:
         AP: 87.82
 
+  tuning-free-mllm:
+    - paper_id: headhunt-vad-2026
+      variant: ""
+      score_source: ""
+      scores:
+        AP: 82.63
+
   vision-free:
     - paper_id: td-vad-2026
       variant: ""

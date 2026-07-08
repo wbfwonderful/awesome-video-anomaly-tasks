@@ -270,7 +270,18 @@ export function getTagStyle(tag) {
   const normalizedTag = String(tag || "").trim().toLowerCase();
   if (!normalizedTag) return "";
 
-  const hash = hashString(normalizedTag);
+  return getTokenStyle("tag", normalizedTag);
+}
+
+export function getTrackStyle(trackId) {
+  const normalizedTrackId = String(trackId || "").trim().toLowerCase();
+  if (!normalizedTrackId) return "";
+
+  return getTokenStyle("track", normalizedTrackId);
+}
+
+function getTokenStyle(prefix, value) {
+  const hash = hashString(`${prefix}:${value}`);
   const hue = hash % 360;
   const saturation = 52 + (hash % 18);
   const backgroundLightness = 90 + ((hash >> 4) % 5);
@@ -278,9 +289,9 @@ export function getTagStyle(tag) {
   const borderLightness = Math.max(backgroundLightness - 12, 72);
 
   return [
-    `--tag-bg: hsl(${hue} ${saturation}% ${backgroundLightness}%)`,
-    `--tag-fg: hsl(${hue} ${Math.min(saturation + 8, 82)}% ${foregroundLightness}%)`,
-    `--tag-border: hsl(${hue} ${saturation}% ${borderLightness}%)`,
+    `--${prefix}-bg: hsl(${hue} ${saturation}% ${backgroundLightness}%)`,
+    `--${prefix}-fg: hsl(${hue} ${Math.min(saturation + 8, 82)}% ${foregroundLightness}%)`,
+    `--${prefix}-border: hsl(${hue} ${saturation}% ${borderLightness}%)`,
   ].join("; ");
 }
 
