@@ -89,12 +89,20 @@ function renderDatasets() {
       <td>${escapeHtml(formatList(dataset.task_types))}</td>
       <td>${escapeHtml(formatList(dataset.metrics))}</td>
       <td class="link-list">
-        <a href="dataset.html?dataset=${escapeAttr(dataset.id)}">${escapeHtml(getText("links.leaderboard", lang))}</a>
-        ${pageLink(getText("links.paper", lang), dataset.links.paper)}
-        ${pageLink(getText("links.download", lang), dataset.links.download)}
+        ${datasetLinks(dataset)}
       </td>
     </tr>
   `).join("");
+}
+
+function datasetLinks(dataset) {
+  const links = [
+    pageLink("leaderboard", getText("links.leaderboard", lang), `dataset.html?dataset=${encodeURIComponent(dataset.id)}`, false),
+    pageLink("paper", getText("links.paper", lang), dataset.links.paper),
+    pageLink("download", getText("links.download", lang), dataset.links.download),
+  ].filter(Boolean).join("");
+
+  return `<div class="dataset-text-links">${links}</div>`;
 }
 
 function statTile(label, value) {
@@ -110,7 +118,8 @@ function countScores(entries) {
   return entries.reduce((total, entry) => total + Object.keys(entry.scores || {}).length, 0);
 }
 
-function pageLink(label, url) {
+function pageLink(kind, label, url, external = true) {
   if (!url) return "";
-  return `<a href="${escapeAttr(url)}" target="_blank" rel="noreferrer">${escapeHtml(label)}</a>`;
+  const attrs = external ? ' target="_blank" rel="noreferrer"' : "";
+  return `<a class="dataset-link-${escapeAttr(kind)}" href="${escapeAttr(url)}"${attrs}>${escapeHtml(label)}</a>`;
 }

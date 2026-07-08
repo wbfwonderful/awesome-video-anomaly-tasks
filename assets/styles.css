@@ -751,6 +751,63 @@ td.link-list a {
   color: #111827;
 }
 
+.dataset-text-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.dataset-text-links a {
+  display: inline-flex;
+  min-height: 26px;
+  align-items: center;
+  padding: 3px 8px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #fbfcfc;
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.dataset-text-links a:hover {
+  border-color: #b8c7c7;
+  color: var(--blue);
+  text-decoration: none;
+}
+
+.dataset-text-links .dataset-link-leaderboard {
+  border-color: #bfdbfe;
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+
+.dataset-text-links .dataset-link-homepage {
+  border-color: #a7f3d0;
+  background: #ecfdf5;
+  color: #047857;
+}
+
+.dataset-text-links .dataset-link-paper {
+  border-color: #c7d2fe;
+  background: #eef2ff;
+  color: #4338ca;
+}
+
+.dataset-text-links .dataset-link-download {
+  border-color: #fde68a;
+  background: #fffbeb;
+  color: #b45309;
+}
+
+.dataset-text-links .dataset-link-annotation {
+  border-color: #fecdd3;
+  background: #fff1f2;
+  color: #be123c;
+}
+
 .metric-list {
   display: flex;
   flex-wrap: wrap;

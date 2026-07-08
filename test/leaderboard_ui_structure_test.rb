@@ -24,6 +24,8 @@ class LeaderboardUiStructureTest < Minitest::Test
     assert_includes js, "function renderMetricHeaders"
     assert_includes js, "function renderFilterControl"
     assert_includes js, "function renderDatasetProvenance"
+    assert_includes js, "dataset-text-links"
+    assert_includes js, "dataset-link-${escapeAttr(kind)}"
     assert_includes js, "provenance.builtFrom"
     assert_includes js, "source_dataset_ids"
     assert_includes js, "has_new_videos"
@@ -193,9 +195,18 @@ class LeaderboardUiStructureTest < Minitest::Test
     assert_includes html, "<th>Links</th>"
     assert_includes js, "renderOriginalDatasets"
     assert_includes js, "renderDerivedDatasets"
+    assert_includes js, "dataset-text-links"
+    assert_includes js, "dataset-link-${escapeAttr(kind)}"
     assert_includes js, "source_dataset_ids"
     assert_includes js, "has_new_videos"
     assert_includes js, "leaderboards/dataset.html?dataset="
+    css = File.read(File.join(ROOT, "assets/styles.css"))
+    assert_includes css, ".dataset-text-links"
+    assert_includes css, ".dataset-link-leaderboard"
+    assert_includes css, ".dataset-link-homepage"
+    assert_includes css, ".dataset-link-paper"
+    assert_includes css, ".dataset-link-download"
+    assert_includes css, ".dataset-link-annotation"
   end
 
   def test_shared_page_scripts_use_i18n_and_configurable_data_base_path

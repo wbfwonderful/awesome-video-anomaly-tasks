@@ -227,12 +227,7 @@ function render() {
     <span>${escapeHtml(formatList(dataset.task_types))}</span>
     <span>${escapeHtml(formatList(dataset.metrics))}</span>
   `;
-  els.links.innerHTML = [
-    pageLink(getText("links.homepage", lang), dataset.links.homepage),
-    pageLink(getText("links.paperTitle", lang), dataset.links.paper),
-    pageLink(getText("links.download", lang), dataset.links.download),
-    pageLink(getText("links.annotation", lang), dataset.links.annotation),
-  ].filter(Boolean).join("");
+  els.links.innerHTML = renderDatasetLinks(dataset);
 
   renderDatasetProvenance(dataset);
   renderControls();
@@ -463,9 +458,20 @@ function updateSortIndicators() {
   });
 }
 
-function pageLink(label, url) {
+function renderDatasetLinks(dataset) {
+  const links = [
+    pageLink("homepage", getText("links.homepage", lang), dataset.links.homepage),
+    pageLink("paper", getText("links.paperTitle", lang), dataset.links.paper),
+    pageLink("download", getText("links.download", lang), dataset.links.download),
+    pageLink("annotation", getText("links.annotation", lang), dataset.links.annotation),
+  ].filter(Boolean).join("");
+
+  return `<div class="dataset-text-links">${links}</div>`;
+}
+
+function pageLink(kind, label, url) {
   if (!url) return "";
-  return `<a href="${escapeAttr(url)}" target="_blank" rel="noreferrer">${escapeHtml(label)}</a>`;
+  return `<a class="dataset-link-${escapeAttr(kind)}" href="${escapeAttr(url)}" target="_blank" rel="noreferrer">${escapeHtml(label)}</a>`;
 }
 
 function renderDatasetProvenance(dataset) {

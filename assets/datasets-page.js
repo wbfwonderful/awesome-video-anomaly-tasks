@@ -112,19 +112,22 @@ function renderContributionTypes(types = []) {
 }
 
 function datasetLinks(dataset) {
-  return `
-    <a href="${escapeAttr(leaderboardPath(dataset.id))}">${escapeHtml(getText("links.leaderboard", lang))}</a>
-    ${datasetLink(getText("links.paper", lang), dataset.links.paper)}
-    ${datasetLink(getText("links.download", lang), dataset.links.download)}
-    ${datasetLink(getText("links.annotation", lang), dataset.links.annotation)}
-  `;
+  const links = [
+    datasetLink("leaderboard", getText("links.leaderboard", lang), leaderboardPath(dataset.id), false),
+    datasetLink("paper", getText("links.paper", lang), dataset.links.paper),
+    datasetLink("download", getText("links.download", lang), dataset.links.download),
+    datasetLink("annotation", getText("links.annotation", lang), dataset.links.annotation),
+  ].filter(Boolean).join("");
+
+  return `<div class="dataset-text-links">${links}</div>`;
 }
 
 function leaderboardPath(datasetId) {
   return `../leaderboards/dataset.html?dataset=${encodeURIComponent(datasetId)}`;
 }
 
-function datasetLink(label, url) {
+function datasetLink(kind, label, url, external = true) {
   if (!url) return "";
-  return `<a href="${escapeAttr(url)}" target="_blank" rel="noreferrer">${escapeHtml(label)}</a>`;
+  const attrs = external ? ' target="_blank" rel="noreferrer"' : "";
+  return `<a class="dataset-link-${escapeAttr(kind)}" href="${escapeAttr(url)}"${attrs}>${escapeHtml(label)}</a>`;
 }
