@@ -5,3 +5,6 @@ files:
   - nwpu-campus.yaml
   - ubnormal.yaml
   - hivau-70k.yaml
+  - avenue.yaml
+  - ped2.yaml
+  - tad.yaml

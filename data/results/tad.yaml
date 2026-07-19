@@ -1,0 +1,14 @@
+dataset_id: tad
+entry_groups:
+  weakly-supervised-coarse:
+    - paper_id: tdsd-2024
+      variant: ""
+      score_source: ""
+      scores:
+        AP: 93.90
+    
+    - paper_id: pseudo-2023
+      variant: ""
+      score_source: ""
+      scores: 
+        AUC: 91.66

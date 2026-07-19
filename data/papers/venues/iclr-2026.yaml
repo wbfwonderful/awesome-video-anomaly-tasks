@@ -1,0 +1,12 @@
+- paper_id: lagovad-2026
+  short_name: LaGoVAD
+  title: "Language-guided Open-world Video Anomaly Detection under Weak Supervision"
+  year: 2026
+  venue: ICLR
+  official_url: https://openreview.net/forum?id=70lFIQG5OB
+  arxiv_url: https://arxiv.org/abs/2503.13160
+  code_url: https://github.com/Kamino666/LaGoVAD-PreVAD
+  tags:
+    - Weakly-supervised
+    - Open-world
+

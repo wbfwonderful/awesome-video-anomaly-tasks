@@ -1,0 +1,11 @@
+- paper_id: mist-2021
+  short_name: MIST
+  title: "MIST: Multiple Instance Self-Training Framework for Video Anomaly Detection"
+  year: 2021
+  venue: CVPR
+  official_url: 
+  arxiv_url:
+  code_url:
+  tags:
+    - Weakly-supervised
+

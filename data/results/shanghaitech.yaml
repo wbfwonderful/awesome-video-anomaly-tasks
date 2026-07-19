@@ -1,2 +1,51 @@
 dataset_id: shanghaitech
-entry_groups: {}
+entry_groups: 
+  semi-supervised:
+    - paper_id: pdmag-vad-2025
+      variant: ""
+      score_source: ""
+      scores:
+        AUC: 79.2
+    
+    - paper_id: erf-2023
+      variant: ""
+      score_source: ""
+      scores:
+        AUC: 78.6
+
+  weakly-supervised-coarse:
+    - paper_id: stprompt-2024
+      variant: ""
+      score_source: ""
+      scores: 
+        AUC: 97.81   
+
+    - paper_id: vadclip-2024
+      variant: ""
+      score_source: "https://arxiv.org/abs/2408.05905"
+      scores: 
+        AUC: 97.49
+
+    - paper_id: dmu-2023
+      variant: ""
+      score_source: "https://arxiv.org/abs/2408.05905"
+      scores: 
+        AUC: 96.78
+
+    - paper_id: rtfm-2023
+      variant: ""
+      score_source: "https://arxiv.org/abs/2408.05905"
+      scores: 
+        AUC: 96.76
+
+    - paper_id: gcn-2019
+      variant: ""
+      score_source: ""
+      scores: 
+        AUC: 84.44 
+
+    - paper_id: pe-mil-2024
+      variant: ""
+      score_source: ""
+      scores: 
+        AUC: 98.35

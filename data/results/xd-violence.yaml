@@ -49,6 +49,90 @@ entry_groups:
       scores: 
         AP: 88.66
 
+    - paper_id: fed-wsvad-2025
+      variant: ""
+      score_source: ""
+      scores: 
+        AP: 75.32
+
+    - paper_id: dmu-2023
+      variant: ""
+      score_source: ""
+      scores: 
+        AP: 81.77
+
+    - paper_id: mgfn-2023
+      variant: ""
+      score_source: ""
+      scores: 
+        AP: 80.11
+    
+    - paper_id: cmhkf-2023
+      variant: ""
+      score_source: ""
+      scores:
+        AP: 86.57
+
+    - paper_id: tdsd-2024
+      variant: ""
+      score_source: ""
+      scores:
+        AP: 84.69
+
+    - paper_id: pseudo-2023
+      variant: ""
+      score_source: ""
+      scores: 
+        AP: 81.43
+
+    - paper_id: pe-mil-2024
+      variant: ""
+      score_source: ""
+      scores: 
+        AP: 88.21
+
+    - paper_id: π-vad-2025
+      variant: ""
+      score_source: ""
+      scores:
+        AP: 85.37
+
+    - paper_id: π-vad-2025
+      variant: ""
+      score_source: ""
+      scores:
+        AP: 85.37
+
+    - paper_id: ovvad-2024
+      variant: "Open-vocabulary"
+      score_source: ""
+      scores: 
+        AP: 66.53
+
+    - paper_id: anomize-2025
+      variant: "Open-vocabulary"
+      score_source: ""
+      scores: 
+        AP: 69.31
+
+    - paper_id: las-vad-2026
+      variant: "I3D"
+      score_source: ""
+      scores:
+        AP: 89.96
+
+    - paper_id: las-vad-2026
+      variant: "CLIP"
+      score_source: ""
+      scores:
+        AP: 87.92
+
+    - paper_id: tlma-2026
+      variant: ""
+      score_source: ""
+      scores:
+        AP: 87.92
+
   weakly-supervised-fine:
     - paper_id: realad-2018
       variant: ""
@@ -160,6 +244,39 @@ entry_groups:
         mAP@0.5: 17.89
         AVG: 28.87
      
+    - paper_id: cmhkf-2023
+      variant: ""
+      score_source: ""
+      scores:
+        mAP@0.1: 38.31
+        mAP@0.2:  32.12
+        mAP@0.3: 25.68
+        mAP@0.4: 20.93 
+        mAP@0.5: 16.47 
+        AVG: 26.70
+
+    - paper_id: fine-vad-2026
+      variant: ""
+      score_source: ""
+      scores:
+        mAP@0.1: 44.06 
+        mAP@0.2: 36.69 
+        mAP@0.3: 31.22 
+        mAP@0.4: 25.80 
+        mAP@0.5: 21.58 
+        AVG: 31.87
+
+    - paper_id: las-vad-2026
+      variant: ""
+      score_source: ""
+      scores:
+        mAP@0.1: 50.18
+        mAP@0.2: 44.09 
+        mAP@0.3: 36.00 
+        mAP@0.4: 29.51 
+        mAP@0.5: 24.65 
+        AVG: 36.89
+
   training-free:
     - paper_id: lrpo-2026
       variant: ""
@@ -172,6 +289,12 @@ entry_groups:
       score_source: ""
       scores:
         AP: 77.48
+
+    - paper_id: lavad-2024
+      variant: ""
+      score_source: ""
+      scores:
+        AP: 62.01
 
   tuned-mllm:
     - paper_id: anom-π-2026
@@ -186,12 +309,34 @@ entry_groups:
       scores:
         AP: 87.82
 
+    - paper_id: holmes-vau-2025
+      variant: ""
+      score_source: ""
+      scores:
+        AP: 87.68
+
+
+
   tuning-free-mllm:
     - paper_id: headhunt-vad-2026
       variant: ""
       score_source: ""
       scores:
         AP: 82.63
+
+    - paper_id: hiprobe-vad-2025
+      variant: "InternVL"
+      score_source: ""
+      scores:
+        AP: 82.15
+       
+
+    - paper_id: hiprobe-vad-2025
+      variant: "Holmes-VAU"
+      score_source: ""
+      scores:
+        AP: 89.51
+       
 
   vision-free:
     - paper_id: td-vad-2026

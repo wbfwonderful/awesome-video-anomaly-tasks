@@ -1,0 +1,45 @@
+- paper_id: lbr-spr-2022
+  short_name: LBR-SPR
+  title: "Deep Anomaly Discovery from Unlabeled Videos via Normality Advantage and Self-Paced Refinement"
+  year: 2022
+  venue: CVPR
+  official_url: 
+  arxiv_url:
+  code_url:
+  tags:
+    - Unsuperivsed
+
+- paper_id: gcl-2022
+  short_name: GCL
+  title: "Generative Cooperative Learning for Unsupervised Video Anomaly Detection"
+  year: 2022
+  venue: CVPR
+  official_url: 
+  arxiv_url:
+  code_url:
+  tags:
+    - Unsuperivsed
+
+- paper_id: ubnormal-2022
+  short_name: UBnormal
+  title: "UBnormal: New Benchmark for Supervised Open-Set Video Anomaly Detection"
+  year: 2022
+  venue: CVPR
+  official_url: 
+  arxiv_url:
+  code_url:
+  tags:
+    - Dataset
+    - Open-set
+
+- paper_id: bn-svp-2022
+  short_name: BN-SVP
+  title: "Bayesian Nonparametric Submodular Video Partition for Robust  Anomaly Detection"
+  year: 2022
+  venue: CVPR
+  official_url: 
+  arxiv_url:
+  code_url:
+  tags:
+    - Weakly-supervised
+

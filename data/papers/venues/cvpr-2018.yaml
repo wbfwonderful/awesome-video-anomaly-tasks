@@ -9,3 +9,15 @@
   tags:
     - Weakly-supervised
     - Dataset
+
+- paper_id: shanghaitech-2018
+  short_name: ShanghaiTech
+  title: Future Frame Prediction for Anomaly Detection – A New Baseline
+  year: 2018
+  venue: CVPR
+  official_url: 
+  arxiv_url:
+  code_url:
+  tags:
+    - Semi-supervised
+    - Dataset

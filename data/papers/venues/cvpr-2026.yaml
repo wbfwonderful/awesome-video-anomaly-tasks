@@ -1,1 +1,85 @@
-[]
+- paper_id: fine-vad-2026
+  short_name: Fine-VAD
+  title: "Fine-VAD: Towards Fine-Grained Video Anomaly Detection via Progressive  Cross-Granularity Learning"
+  year: 2026
+  venue: CVPR
+  official_url: 
+  arxiv_url: 
+  code_url: 
+  tags:
+    - CLIP
+    - Weakly-supervised
+
+- paper_id: las-vad-2026
+  short_name: LAS-VAD
+  title: "Weakly Supervised Video Anomaly Detection with Anomaly-Connected Components and Intention Reasoning"
+  year: 2026
+  venue: CVPR
+  official_url: 
+  arxiv_url: 
+  code_url: 
+  tags:
+    - CLIP
+    - Weakly-supervised
+
+- paper_id: tlma-2026
+  short_name: TMLA
+  title: "TLMA: Mitigating the Impact of Weakly Labeled Information for Video Anomaly Detection"
+  year: 2026
+  venue: CVPR
+  official_url: 
+  arxiv_url: 
+  code_url: 
+  tags:
+    - Weakly-supervised
+
+- paper_id: -2026
+  short_name: 
+  title: ""
+  year: 2026
+  venue: CVPR
+  official_url: 
+  arxiv_url: 
+  code_url: 
+  tags:
+    - 
+- paper_id: -2026
+  short_name: 
+  title: ""
+  year: 2026
+  venue: CVPR
+  official_url: 
+  arxiv_url: 
+  code_url: 
+  tags:
+    - 
+- paper_id: -2026
+  short_name: 
+  title: ""
+  year: 2026
+  venue: CVPR
+  official_url: 
+  arxiv_url: 
+  code_url: 
+  tags:
+    - 
+- paper_id: -2026
+  short_name: 
+  title: ""
+  year: 2026
+  venue: CVPR
+  official_url: 
+  arxiv_url: 
+  code_url: 
+  tags:
+    - 
+- paper_id: -2026
+  short_name: 
+  title: ""
+  year: 2026
+  venue: CVPR
+  official_url: 
+  arxiv_url: 
+  code_url: 
+  tags:
+    - 

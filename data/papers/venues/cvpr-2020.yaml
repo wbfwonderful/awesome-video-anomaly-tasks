@@ -1,0 +1,11 @@
+- paper_id: ordinal-2020
+  short_name: Ordinal-Regression
+  title: "Self-trained Deep Ordinal Regression for End-to-End Video Anomaly Detection"
+  year: 2020
+  venue: CVPR
+  official_url: 
+  arxiv_url:
+  code_url:
+  tags:
+    - Semi-supervised
+

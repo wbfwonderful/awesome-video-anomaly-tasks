@@ -22,6 +22,24 @@
     - AVG
   notes: Large-scale real-world surveillance anomaly dataset with video-level anomaly categories and temporal evaluation annotations.
 
+- id: tad
+  name: TAD
+  dataset_type: original-video
+  source_dataset_ids: []
+  has_new_videos: true
+  contribution_types: []
+  task_types:
+    - weakly-supervised-vad
+  links:
+    homepage: https://github.com/ktr-hubrt/WSAL
+    paper: https://ieeexplore.ieee.org/iel7/83/9263394/09408419.pdf
+    download: https://github.com/ktr-hubrt/WSAL
+    annotation:
+  metrics:
+    - AUC
+  notes: Traffic.
+
+
 - id: shanghaitech
   name: ShanghaiTech Campus
   dataset_type: original-video
@@ -152,11 +170,64 @@
     - Structure, Semantic, Hierachy
   notes: Context-Aware video anomalies.
 
+- id: cuva
+  name: CUVA
+  dataset_type: original-video
+  source_dataset_ids: []
+  has_new_videos: true
+  contribution_types: []
+  task_types:
+    - video anomaly understanding, Localization
+  links:
+    homepage: 
+    paper: 
+    download: https://github.com/fesvhtr/CUVA
+    annotation:
+  metrics:
+    - MMEval
+  notes: Causation understanding of video anomaly
+
+
+- id: prevad
+  name: PreVAD
+  dataset_type: original-video
+  source_dataset_ids: []
+  has_new_videos: true
+  contribution_types: []
+  task_types:
+    - weakly-supervised-vad
+  links:
+    homepage: 
+    paper: https://openreview.net/forum?id=70lFIQG5OB
+    download: https://github.com/Kamino666/LaGoVAD-PreVAD
+    annotation:
+  metrics:
+    - AUC
+  notes: Open world video anomaly.
+
+- id: ucf-dvs
+  name: UCF-Crime-DVS
+  dataset_type: derived-benchmark
+  source_dataset_ids: []
+  has_new_videos: false
+  contribution_types: []
+  task_types:
+    - weakly-supervised-vad
+  links:
+    homepage: https://ojs.aaai.org/index.php/AAAI/article/view/32705/34860
+    paper: https://ojs.aaai.org/index.php/AAAI/article/view/32705/34860
+    download: https://github.com/YBQian-Roy/UCF-Crime-DVS
+    annotation:
+  metrics:
+    - AUC
+  notes: complex-scene from 
+
+
 - id: hivau-70k
   name: HIVAU-70K
   dataset_type: derived-benchmark
   source_dataset_ids: []
-  has_new_videos: true
+  has_new_videos: false
   contribution_types: [XD-Violence, UCF-Crime]
   task_types:
     - video anomaly understanding

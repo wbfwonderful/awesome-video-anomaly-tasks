@@ -8,3 +8,25 @@
   code_url: https://github.com/henrryzh1/UR-DMU
   tags:
     - Weakly-supervised
+
+- paper_id: erf-2023
+  short_name: ERF
+  title: Learning Event-Relevant Factors for Video Anomaly Detection
+  year: 2023
+  venue: AAAI
+  official_url: 
+  arxiv_url: 
+  code_url: 
+  tags:
+    - Semi-supervised
+
+- paper_id: mgfn-2023
+  short_name: MGFN
+  title: "MGFN : Magnitude-Contrastive Glance-and-Focus Network  for Weakly-Supervised Video Anomaly Detection"
+  year: 2023
+  venue: AAAI
+  official_url: 
+  arxiv_url: 
+  code_url: 
+  tags:
+    - Weakly-supervised

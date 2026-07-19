@@ -1,2 +1,44 @@
 dataset_id: nwpu-campus
-entry_groups: {}
+entry_groups: 
+  weakly-supervised-coarse:
+    - paper_id: tdsd-2024
+      variant: ""
+      score_source: ""
+      scores:
+        AUC: 80.22
+    
+    - paper_id: vadclip-2024
+      variant: ""
+      score_source: "https://dl.acm.org/doi/pdf/10.1145/3664647.3680934"
+      scores:
+        AUC: 72.64 
+    
+    - paper_id: umil-2023
+      variant: ""
+      score_source: "https://dl.acm.org/doi/pdf/10.1145/3664647.3680934"
+      scores:
+        AUC: 72.18
+
+    - paper_id: dmu-2023
+      variant: ""
+      score_source: "https://dl.acm.org/doi/pdf/10.1145/3664647.3680934"
+      scores:
+        AUC: 70.46
+    
+    - paper_id: mgfn-2023
+      variant: ""
+      score_source: "https://dl.acm.org/doi/pdf/10.1145/3664647.3680934"
+      scores:
+        AUC: 70.39
+
+    - paper_id: rtfm-2021
+      variant: ""
+      score_source: "https://dl.acm.org/doi/pdf/10.1145/3664647.3680934"
+      scores:
+        AUC: 70.57
+
+    - paper_id: realad-2018
+      variant: ""
+      score_source: "https://dl.acm.org/doi/pdf/10.1145/3664647.3680934"
+      scores:
+        AUC: 65.47

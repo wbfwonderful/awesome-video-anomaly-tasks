@@ -9,3 +9,58 @@
   presentation: highlight
   tags:
     - MLLM
+
+- paper_id: π-vad-2025
+  short_name: π-VAD
+  title: "Just Dance with π! A Poly-modal Inductor for Weakly-supervised Video Anomaly Detection"
+  year: 2025
+  venue: CVPR
+  official_url: 
+  arxiv_url: 
+  code_url: 
+  tags:
+    - Weakly-supervised
+
+- paper_id: anomize-2025
+  short_name: Anomize
+  title: "Anomize: Better Open Vocabulary Video Anomaly Detection"
+  year: 2025
+  venue: CVPR
+  official_url: 
+  arxiv_url: 
+  code_url: 
+  tags:
+    - Open-vocabulary
+
+- paper_id: vera-2025
+  short_name: VERA
+  title: "VERA: Explainable Video Anomaly Detection via Verbalized Learning of  Vision-Language Models"
+  year: 2025
+  venue: CVPR
+  official_url: 
+  arxiv_url: 
+  code_url: https://vera-framework.github.io
+  tags:
+    - Verbalized-learning
+
+- paper_id: eg-mpc-2025
+  short_name: EG-MPC
+  title: "Noise-Resistant Video Anomaly Detection via RGB Error-Guided Multiscale  Predictive Coding and Dynamic Memory"
+  year: 2025
+  venue: CVPR
+  official_url: 
+  arxiv_url: 
+  code_url: 
+  tags:
+    - Semi-supervised
+
+- paper_id: tao-2025
+  short_name: TAO
+  title: "Track Any Anomalous Object: A Granular Video Anomaly Detection Pipeline"
+  year: 2025
+  venue: CVPR
+  official_url: 
+  arxiv_url: 
+  code_url: 
+  tags:
+    - Pixel-level

@@ -1,0 +1,59 @@
+- paper_id: fed-wsvad-2025
+  short_name: Fed-WSVAD
+  title: Federated Weakly Supervised Video Anomaly Detection with Multimodal Prompt
+  year: 2025
+  venue: AAAI
+  official_url: 
+  arxiv_url: 
+  code_url: 
+  tags:
+    - Weakly-supervised
+    - CLIP
+    - Privacy
+
+- paper_id: pdmag-vad-2025
+  short_name: PDMAD-VAD
+  title: Video Anomaly Detection with Motion and Appearance Guided  Patch Diffusion Model
+  year: 2025
+  venue: AAAI
+  official_url: 
+  arxiv_url: 
+  code_url: 
+  tags:
+    - Semi-supervised
+
+
+- paper_id: varcmp-2025
+  short_name: VarCMP
+  title: VarCMP: Adapting Cross-Modal Pre-Training Models  for Video Anomaly Retrieval
+  year: 2025
+  venue: AAAI
+  official_url: 
+  arxiv_url: 
+  code_url: 
+  tags:
+    - Retrieval
+    - CLIP
+
+- paper_id: dcmd-2025
+  short_name: DCMD
+  title: Dual Conditioned Motion Diffusion for Pose-Based Video Anomaly Detection
+  year: 2025
+  venue: AAAI
+  official_url: 
+  arxiv_url: 
+  code_url: https://github.com/guijiejie/DCMD-main
+  tags:
+    - Semi-supervised
+
+- paper_id: msf-2025
+  short_name: MSF
+  title: "UCF-Crime-DVS: A Novel Event-Based Dataset for Video Anomaly Detection with Spiking Neural Networks"
+  year: 2025
+  venue: AAAI
+  official_url: 
+  arxiv_url: 
+  code_url: 
+  tags:
+    - Weakly-supervised
+    - Dataset

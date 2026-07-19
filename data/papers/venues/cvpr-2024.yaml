@@ -8,7 +8,6 @@
   code_url:
   tags:
     - Weakly-supervised
-    - CLIP
 
 - paper_id: lavad-2024
   short_name: LAVAD
@@ -21,3 +20,71 @@
   tags:
     - Training free
 
+
+- paper_id: mulde-2024
+  short_name: MULDE
+  title: "MULDE: Multiscale Log-Density Estimation via Denoising Score Matching for  Video Anomaly Detection"
+  year: 2024
+  venue: CVPR
+  official_url: 
+  arxiv_url: 
+  code_url: 
+  tags:
+    - Semi-supervised
+
+- paper_id: clap-2024
+  short_name: CLAP
+  title: "Collaborative Learning of Anomalies with Privacy (CLAP) for Unsupervised  Video Anomaly Detection: A New Baseline"
+  year: 2024
+  venue: CVPR
+  official_url: 
+  arxiv_url: 
+  code_url: 
+  tags:
+    - Privacy
+
+- paper_id: ovvad-2024
+  short_name: OVVAD
+  title: "Open-Vocabulary Video Anomaly Detection"
+  year: 2024
+  venue: CVPR
+  official_url: 
+  arxiv_url: 
+  code_url: 
+  tags:
+    - Open-vacubulary
+    - CLIP
+
+- paper_id: a-guardian-2024
+  short_name: A-Guardian
+  title: "Uncovering What, Why and How: A Comprehensive Benchmark for Causation Understanding of Video Anomaly"
+  year: 2024
+  venue: CVPR
+  official_url: 
+  arxiv_url: 
+  code_url: 
+  tags:
+    - Benchmark
+    - MLLM
+
+- paper_id: masked-ae-2024
+  short_name: Masked-AE
+  title: "Self-Distilled Masked Auto-Encoders are Efficient Video Anomaly Detectors"
+  year: 2024
+  venue: CVPR
+  official_url: 
+  arxiv_url: 
+  code_url: https://github.com/ristea/aed-mae.
+  tags:
+    - Semi-supervised
+
+- paper_id: mgst-2024
+  short_name: MGST
+  title: "Multi-Scale Video Anomaly Detection by Multi-Grained Spatio-Temporal Representation Learning"
+  year: 2024
+  venue: CVPR
+  official_url: 
+  arxiv_url: 
+  code_url: 
+  tags:
+    - Semi-supervised

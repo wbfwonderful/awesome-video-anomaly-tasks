@@ -8,3 +8,37 @@
   code_url: https://github.com/YihuaJerry/EventVAD
   tags:
     - Training free
+    - MLLM
+
+- paper_id: holotrace-2025
+  short_name: HoloTrace
+  title: "HoloTrace: LLM-based Bidirectional Causal Knowledge Graph  for Edge-Cloud Video Anomaly Detection"
+  year: 2025
+  venue: ACM MM
+  official_url: 
+  arxiv_url:
+  code_url: 
+  tags:
+    - MLLM
+
+- paper_id: sdmbs-2025
+  short_name: SDMBs
+  title: "Efficient Video Anomaly Detection via Scene-Dependent Memory  Assisted Inter-Frame RGB Difference Reconstruction"
+  year: 2025
+  venue: ACM MM
+  official_url: 
+  arxiv_url:
+  code_url: 
+  tags:
+    - Semi-supervised
+
+- paper_id: hiprobe-vad-2025
+  short_name: HiProbe-VAD
+  title: "HiProbe-VAD: Video Anomaly Detection via Hidden States  Probing in Tuning-Free Multimodal LLMs"
+  year: 2025
+  venue: ACM MM
+  official_url: 
+  arxiv_url:
+  code_url: 
+  tags:
+    - MLLM

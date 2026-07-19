@@ -1,0 +1,15 @@
+dataset_id: ucsd-ped2
+entry_groups: 
+  semi-supervised:
+    - paper_id: pdmag-vad-2025
+      variant: ""
+      score_source: ""
+      scores:
+        AUC: 98.6
+
+    - paper_id: erf-2023
+      variant: ""
+      score_source: ""
+      scores:
+        AUC: 99.4
+    

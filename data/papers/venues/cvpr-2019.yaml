@@ -1,0 +1,33 @@
+- paper_id: gcn-2019
+  short_name: GCN
+  title: "Graph Convolutional Label Noise Cleaner: Train a Plug-and-play Action Classifier for Anomaly Detection"
+  year: 2019
+  venue: CVPR
+  official_url: 
+  arxiv_url:
+  code_url:
+  tags:
+    - Weakly-supervised
+
+
+- paper_id: mpedr-2019
+  short_name: MPEDR
+  title: "Learning Regularity in Skeleton Trajectories for Anomaly Detection in Videos"
+  year: 2019
+  venue: CVPR
+  official_url: 
+  arxiv_url:
+  code_url:
+  tags:
+    - Semi-supervised
+
+- paper_id: dummy-2019
+  short_name: Dummy
+  title: "Object-centric Auto-encoders and Dummy Anomalies  for Abnormal Event Detection in Video"
+  year: 2019
+  venue: CVPR
+  official_url: 
+  arxiv_url:
+  code_url:
+  tags:
+    - Semi-supervised

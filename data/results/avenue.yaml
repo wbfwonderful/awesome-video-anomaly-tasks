@@ -1,0 +1,15 @@
+dataset_id: avenue
+entry_groups: 
+  semi-supervised:
+    - paper_id: pdmag-vad-2025
+      variant: ""
+      score_source: ""
+      scores:
+        AUC: 91.3
+
+    - paper_id: erf-2023
+      variant: ""
+      score_source: ""
+      scores:
+        AUC: 91.5
+    

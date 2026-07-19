@@ -55,6 +55,72 @@ entry_groups:
       scores: 
         AUC: 88.92
 
+    - paper_id: fed-wsvad-2025
+      variant: ""
+      score_source: ""
+      scores: 
+        AUC: 84.06
+
+    - paper_id: dmu-2023
+      variant: ""
+      score_source: ""
+      scores: 
+        AUC: 86.97
+
+    - paper_id: mgfn-2023
+      variant: ""
+      score_source: ""
+      scores: 
+        AUC: 86.67
+
+    - paper_id: stprompt-2024
+      variant: ""
+      score_source: ""
+      scores: 
+        AUC: 88.08      
+
+    - paper_id: gcn-2019
+      variant: ""
+      score_source: ""
+      scores: 
+        AUC: 82.12
+
+    - paper_id: bn-svp-2022
+      variant: ""
+      score_source: ""
+      scores: 
+        AUC: 83.39
+
+    - paper_id: pseudo-2023
+      variant: ""
+      score_source: ""
+      scores: 
+        AUC: 86.22
+
+    - paper_id: pe-mil-2024
+      variant: ""
+      score_source: ""
+      scores: 
+        AUC: 86.83
+
+    - paper_id: las-vad-2026
+      variant: "I3D"
+      score_source: ""
+      scores:
+        AUC: 91.05
+
+    - paper_id: las-vad-2026
+      variant: "CLIP"
+      score_source: ""
+      scores:
+        AUC: 90.86
+
+    - paper_id: tlma-2026
+      variant: ""
+      score_source: ""
+      scores:
+        AUC: 89.47
+
   weakly-supervised-fine:
     - paper_id: realad-2018
       variant: ""
@@ -177,6 +243,28 @@ entry_groups:
         mAP@0.5: 3.03
         AVG: 9.93
 
+    - paper_id: fine-vad-2026
+      variant: ""
+      score_source: ""
+      scores:
+        mAP@0.1: 21.43 
+        mAP@0.2: 18.62 
+        mAP@0.3: 16.25 
+        mAP@0.4: 11.41 
+        mAP@0.5: 7.26
+        AVG: 14.99
+
+    - paper_id: las-vad-2026
+      variant: ""
+      score_source: ""
+      scores:
+        mAP@0.1: 22.07 
+        mAP@0.2: 19.96 
+        mAP@0.3: 16.18 
+        mAP@0.4: 11.24 
+        mAP@0.5: 8.64 
+        AVG: 15.62
+
   training-free:
     - paper_id: lavad-2024
       variant: ""
@@ -195,7 +283,13 @@ entry_groups:
       score_source: ""
       scores:
         AUC: 88.85 
-  
+
+    - paper_id: vera-2025
+      variant: ""
+      score_source: ""
+      scores:
+        AUC: 86.55
+
   tuned-mllm:
     - paper_id: anom-π-2026
       variant: ""
@@ -208,6 +302,30 @@ entry_groups:
       score_source: ""
       scores:
         AUC: 89.57
+    
+    - paper_id: holmes-vau-2025
+      variant: ""
+      score_source: ""
+      scores:
+        AUC: 88.96
+
+    - paper_id: π-vad-2025
+      variant: ""
+      score_source: ""
+      scores:
+        AP: 90.33
+
+    - paper_id: ovvad-2024
+      variant: "Open-vocabulary"
+      score_source: ""
+      scores: 
+        AUC: 86.40
+
+    - paper_id: anomize-2025
+      variant: "Open-vocabulary"
+      score_source: ""
+      scores: 
+        AUC: 84.49
 
   tuning-free-mllm:
     - paper_id: headhunt-vad-2026
@@ -215,6 +333,19 @@ entry_groups:
       score_source: ""
       scores:
         AUC: 87.03
+
+    - paper_id: hiprobe-vad-2025
+      variant: "InternVL"
+      score_source: ""
+      scores:
+        AUC: 86.72
+
+    - paper_id: hiprobe-vad-2025
+      variant: "Holmes-VAU"
+      score_source: ""
+      scores:
+        AUC: 88.91
+       
 
   vision-free:
     - paper_id: td-vad-2026

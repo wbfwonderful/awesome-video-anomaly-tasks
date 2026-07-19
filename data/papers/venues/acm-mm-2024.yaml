@@ -9,3 +9,27 @@
   tags:
     - Weakly-supervised
     - CLIP
+
+- paper_id: tdsd-2024
+  short_name: TDSD
+  title: "TDSD: Text-Driven Scene-Decoupled Weakly Supervised  Video Anomaly Detection"
+  year: 2024
+  venue: ACM MM
+  official_url: 
+  arxiv_url: 
+  code_url: https://github.com/shengyangsun/TDSD
+  tags:
+    - Weakly-supervised
+    - CLIP
+
+
+- paper_id: proxy-vad-2024
+  short_name: Proxy-VAD
+  title: Video Anomaly Detection via Progressive Learning of Multiple  Proxy Tasks
+  year: 2024
+  venue: ACM MM
+  official_url: 
+  arxiv_url: 
+  code_url:
+  tags:
+    - Multi-task

@@ -13,3 +13,51 @@ entry_groups:
       score_source: ""
       scores:
         AUC: 78.75
+
+  semi-supervised:
+    - paper_id: pdmag-vad-2025
+      variant: ""
+      score_source: ""
+      scores:
+        AUC: 63.4
+
+    - paper_id: dcmd-2025
+      variant: ""
+      score_source: ""
+      scores:
+        AUC: 69.0
+
+  weakly-supervised-coarse:
+    - paper_id: stprompt-2024
+      variant: ""
+      score_source: ""
+      scores: 
+        AUC: 63.98
+
+
+    - paper_id: vadclip-2024
+      variant: ""
+      score_source: "https://arxiv.org/abs/2408.05905"
+      scores: 
+        AUC: 63.98
+
+    - paper_id: dmu-2023
+      variant: ""
+      score_source: "https://arxiv.org/abs/2408.05905"
+      scores: 
+        AUC: 59.91
+
+    - paper_id: rtfm-2023
+      variant: ""
+      score_source: "https://arxiv.org/abs/2408.05905"
+      scores: 
+        AUC: 60.94
+
+    - paper_id: ovvad-2024
+      variant: ""
+      score_source: ""
+      scores: 
+        AUC: 66.53
+
+
+
