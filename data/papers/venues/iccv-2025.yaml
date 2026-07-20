@@ -1,0 +1,43 @@
+- paper_id: adsm-2025
+  short_name: ADSM
+  title: "Autoregressive Denoising Score Matching is a Good Video Anomaly Detector"
+  year: 2025
+  venue: ICCV
+  official_url: 
+  arxiv_url: 
+  code_url: 
+  tags:
+    - Semi-supervised
+
+- paper_id: aet-2025
+  short_name: AET
+  title: "Aligning Effective Tokens with Video Anomaly in Large Language Models"
+  year: 2025
+  venue: ICCV
+  official_url: 
+  arxiv_url: 
+  code_url: 
+  tags:
+    - MLLM
+
+- paper_id: seeker-2025
+  short_name: SeeKer
+  title: "Sequential keypoint density estimator: an overlooked baseline of skeleton-based video anomaly detection"
+  year: 2025
+  venue: ICCV
+  official_url: 
+  arxiv_url: 
+  code_url: 
+  tags:
+    - Semi-supervised
+
+- paper_id: gs-moe-2025
+  short_name: GS-MoE
+  title: "Mixture of Experts Guided by Gaussian Splatters Matters: A new Approach to  Weakly-Supervised Video Anomaly Detection"
+  year: 2025
+  venue: ICCV
+  official_url: 
+  arxiv_url: 
+  code_url: https://github.com/snehashismajhi/GS-MoE
+  tags:
+    - Weakly-supervised

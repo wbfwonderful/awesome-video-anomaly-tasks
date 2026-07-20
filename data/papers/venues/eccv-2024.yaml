@@ -1,0 +1,58 @@
+- paper_id: anomaly-ruler-2024
+  short_name: AnomalyRuler
+  title: "Follow the Rules: Reasoning for Video Anomaly  Detection with Large Language Models"
+  year: 2024
+  venue: ECCV
+  official_url: 
+  arxiv_url: 
+  code_url: https://github.com/Yuchen413/AnomalyRuler
+  tags:
+    - MLLM
+    - Training-free
+
+- paper_id: fedvad-2024
+  short_name: FedVAD
+  title: "FedVAD: Enhancing Federated Video Anomaly Detection with GPT-Driven Semantic Distillation"
+  year: 2024
+  venue: ECCV
+  official_url: 
+  arxiv_url: 
+  code_url: 
+  tags:
+    - Privacy
+
+- paper_id: -2024
+  short_name: 
+  title: "Learning Anomalies with Normality Prior for  Unsupervised Video Anomaly Detection"
+  year: 2024
+  venue: ECCV
+  official_url: 
+  arxiv_url: 
+  code_url: https://github.com/shyern/LANP-UVAD.git
+  tags:
+    - Unsupervised
+
+
+- paper_id: cdl-2024
+  short_name: CDL
+  title: "Cross-Domain Learning for Video Anomaly Detection with Limited Supervision"
+  year: 2024
+  venue: ECCV
+  official_url: 
+  arxiv_url: 
+  code_url: 
+  tags:
+    - Cross-Domain
+    - Weakly-supervised
+
+
+- paper_id: wocc-ws-2024
+  short_name: wOCC-WS
+  title: "Interleaving One-Class and Weakly-Supervised  Models with Adaptive Thresholding for Unsupervised Video Anomaly Detection"
+  year: 2024
+  venue: ECCV
+  official_url: 
+  arxiv_url: 
+  code_url: 
+  tags:
+    - Unsupervised

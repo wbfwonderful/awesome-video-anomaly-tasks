@@ -56,3 +56,9 @@ entry_groups:
       score_source: ""
       scores:
         AUC: 85.28
+
+    - paper_id: anomaly-ruler-2024
+      variant: ""
+      score_source: ""
+      scores:
+        AUC: 85.20

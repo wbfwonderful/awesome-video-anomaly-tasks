@@ -14,7 +14,35 @@ export function getPaperId(paper = {}) {
 }
 
 export function normalizePaperFiles(paperFiles) {
-  return paperFiles.flat();
+  return paperFiles.flat().filter(isRenderablePaper);
+}
+
+function isRenderablePaper(paper) {
+  if (!paper || typeof paper !== "object" || Array.isArray(paper)) return false;
+
+  const requiredTextFields = ["paper_id", "short_name", "title", "venue"];
+  if (requiredTextFields.some((field) => (
+    typeof paper[field] !== "string" || paper[field].trim() === ""
+  ))) {
+    return false;
+  }
+
+  const scalarFields = [
+    "year",
+    "official_url",
+    "arxiv_url",
+    "code_url",
+    "presentation",
+  ];
+  if (scalarFields.some((field) => !isScalar(paper[field]))) return false;
+
+  return paper.tags == null || (
+    Array.isArray(paper.tags) && paper.tags.every(isScalar)
+  );
+}
+
+function isScalar(value) {
+  return value == null || ["string", "number", "boolean"].includes(typeof value);
 }
 
 export function selectPaperRows({ papers = [], filters = {}, sort = {} }) {

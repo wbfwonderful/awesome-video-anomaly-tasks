@@ -121,6 +121,30 @@ entry_groups:
       scores:
         AUC: 89.47
 
+    - paper_id: fedvad-2024
+      variant: ""
+      score_source: ""
+      scores:
+        AUC: 84.68
+
+    - paper_id: gs-moe-2025
+      variant: ""
+      score_source: ""
+      scores:
+        AUC: 91.58
+
+    - paper_id: lec-2025
+      variant: "I3D"
+      score_source: ""
+      scores:
+        AUC: 88.47
+  
+    - paper_id: lec-2025
+      variant: "CLIP"
+      score_source: ""
+      scores:
+        AUC: 86.56
+
   weakly-supervised-fine:
     - paper_id: realad-2018
       variant: ""
@@ -265,6 +289,18 @@ entry_groups:
         mAP@0.5: 8.64 
         AVG: 15.62
 
+    - paper_id: lec-2025
+      variant: ""
+      score_source: ""
+      scores:
+        mAP@0.1: 19.65 
+        mAP@0.2: 17.17 
+        mAP@0.3: 14.37
+        mAP@0.4: 9.45
+        mAP@0.5: 7.18 
+        AVG: 13.56
+
+
   training-free:
     - paper_id: lavad-2024
       variant: ""
@@ -325,7 +361,7 @@ entry_groups:
       variant: ""
       score_source: ""
       scores:
-        AP: 90.33
+        AUC: 90.33
 
     - paper_id: ovvad-2024
       variant: "Open-vocabulary"

@@ -9,3 +9,15 @@
   tags:
     - Weakly-supervised
 
+- paper_id: cvae-2021
+  short_name: CVAE
+  title: "A Hybrid Video Anomaly Detection Framework via Memory-Augmented Flow  Reconstruction and Flow-Guided Frame Prediction"
+  year: 2021
+  venue: ICCV
+  official_url: 
+  arxiv_url:
+  code_url: https://github.com/LiUzHiAn/hf2vad
+  tags:
+    - Semi-supervised
+
+

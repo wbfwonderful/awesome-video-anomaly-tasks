@@ -1,0 +1,10 @@
+- paper_id: loe-2022
+  short_name: LOE
+  title: "Latent Outlier Exposure for Anomaly Detection with Contaminated Data"
+  year: 2022
+  venue: ICML
+  official_url: 
+  arxiv_url:
+  code_url:
+  tags:
+    - Semi-supervised

@@ -1,0 +1,21 @@
+- paper_id: hawk-2024
+  short_name: HAWK
+  title: "HAWK: Learning to Understand Open-World Video Anomalies"
+  year: 2024
+  venue: NeurIPS
+  official_url: 
+  arxiv_url:
+  code_url: https://github.com/jqtangust/hawk
+  tags:
+    - MLLM
+
+- paper_id: mdvad-2024
+  short_name: MDVAD
+  title: "Towards Multi-Domain Learning for Generalizable Video Anomaly Detection"
+  year: 2024
+  venue: NeurIPS
+  official_url: 
+  arxiv_url:
+  code_url: 
+  tags:
+    - Multi-Domain 

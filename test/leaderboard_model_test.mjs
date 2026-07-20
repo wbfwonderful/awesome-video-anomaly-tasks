@@ -216,13 +216,61 @@ const groupedResultFiles = [
 
 test("normalizePaperFiles flattens manifest-scoped paper files", () => {
   const paperFiles = [
-    [{ paper_id: "paper-a", short_name: "PaperA" }],
-    [{ paper_id: "paper-b", short_name: "PaperB" }],
+    [{
+      paper_id: "paper-a",
+      short_name: "PaperA",
+      title: "Paper A",
+      year: 2025,
+      venue: "AAAI",
+      tags: [],
+    }],
+    [{
+      paper_id: "paper-b",
+      short_name: "PaperB",
+      title: "Paper B",
+      year: 2025,
+      venue: "AAAI",
+      tags: [],
+    }],
   ];
 
   assert.deepEqual(
     normalizePaperFiles(paperFiles).map((paper) => paper.paper_id),
     ["paper-a", "paper-b"],
+  );
+});
+
+test("normalizePaperFiles drops malformed papers before they render as object text", () => {
+  const paperFiles = [[
+    {
+      paper_id: "valid-paper",
+      short_name: "Valid",
+      title: "Valid paper",
+      year: 2026,
+      venue: "CVPR",
+      tags: [],
+    },
+    {
+      paper_id: "object-paper",
+      short_name: {},
+      title: "Malformed paper",
+      year: 2026,
+      venue: "CVPR",
+      tags: [],
+    },
+    {
+      paper_id: "placeholder-paper",
+      short_name: "",
+      title: "",
+      year: 2026,
+      venue: "CVPR",
+      tags: [],
+    },
+  ]];
+
+  assert.deepEqual(
+    normalizePaperFiles(paperFiles).map((paper) => paper.paper_id),
+    ["valid-paper"],
   );
 });
 

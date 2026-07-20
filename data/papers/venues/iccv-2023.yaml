@@ -1,0 +1,55 @@
+- paper_id: mocovad-2023
+  short_name: MoCoDAD
+  title: "Multimodal Motion Conditioned Diffusion Model for Skeleton-based Video  Anomaly Detection"
+  year: 2023
+  venue: ICCV
+  official_url: 
+  arxiv_url: 
+  code_url: https://github.com/aleflabo/MoCoDAD
+  tags:
+    - Semi-supervised
+
+- paper_id: normalizing-2023
+  short_name: Normalizing-Flows 
+  title: "Normalizing Flows for Human Pose Anomaly Detection"
+  year: 2023
+  venue: ICCV
+  official_url: 
+  arxiv_url: 
+  code_url: https://github.com/orhir/STG-NF
+  tags:
+    - Semi-supervised
+
+- paper_id: ted-spad-2023
+  short_name: TeD-SPAD
+  title: "TeD-SPAD: Temporal Distinctiveness for Self-supervised Privacy-preservation  for video Anomaly Detection"
+  year: 2023
+  venue: ICCV
+  official_url: 
+  arxiv_url: 
+  code_url: 
+  tags:
+    - Privacy
+
+- paper_id: sequentially-2023
+  short_name: Sequentially-learning
+  title: "Video Anomaly Detection via Sequentially Learning Multiple Pretext Tasks"
+  year: 2023
+  venue: ICCV
+  official_url: 
+  arxiv_url: 
+  code_url: 
+  tags:
+    - Semi-supervised
+
+- paper_id: fpdm-2023
+  short_name: FPDM
+  title: “Feature Prediction Diffusion Model for Video Anomaly Detection
+  year: 2023
+  venue: ICCV
+  official_url: 
+  arxiv_url: 
+  code_url: 
+  tags:
+    - Semi-supervised
+

@@ -133,6 +133,32 @@ entry_groups:
       scores:
         AP: 86.78
 
+    - paper_id: fedvad-2024
+      variant: ""
+      score_source: ""
+      scores:
+        AP: 66.21
+
+    - paper_id: gs-moe-2025
+      variant: ""
+      score_source: ""
+      scores:
+        AP: 82.89
+
+  
+    - paper_id: lec-2025
+      variant: "I3D"
+      score_source: ""
+      scores:
+        AP: 88.21
+  
+    - paper_id: lec-2025
+      variant: "CLIP"
+      score_source: ""
+      scores:
+        AP: 89.97
+
+
   weakly-supervised-fine:
     - paper_id: realad-2018
       variant: ""
@@ -276,6 +302,18 @@ entry_groups:
         mAP@0.4: 29.51 
         mAP@0.5: 24.65 
         AVG: 36.89
+
+    - paper_id: lec-2025
+      variant: ""
+      score_source: ""
+      scores:
+        mAP@0.1: 48.78 
+        mAP@0.2: 40.94 
+        mAP@0.3: 34.28 
+        mAP@0.4: 28.02 
+        mAP@0.5: 23.68 
+        AVG: 35.14
+
 
   training-free:
     - paper_id: lrpo-2026

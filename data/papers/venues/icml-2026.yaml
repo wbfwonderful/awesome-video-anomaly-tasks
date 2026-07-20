@@ -7,8 +7,8 @@
   arxiv_url: https://arxiv.org/abs/2607.00654
   code_url:
   tags:
-    - Verbalized learning
-    - Training free
+    - Verbalized-learning
+    - Training-free
     - MLLM
 
 - paper_id: td-vad-2026
@@ -20,7 +20,7 @@
   arxiv_url:
   code_url: 
   tags:
-    - Vision free
+    - Vision-free
 
 - paper_id: prism-2026
   short_name: PRISM
@@ -31,7 +31,7 @@
   arxiv_url:
   code_url:
   tags:
-    - Training free
+    - Training-free
 
 - paper_id: opl-2026
   short_name: OPL
