@@ -7,6 +7,12 @@ entry_groups:
       scores:
         AUC: 76.24
 
+    - paper_id: lavida-2026
+      variant: ""
+      score_source: ""
+      scores:
+        AUC: 76.45
+
   tuned-mllm:
     - paper_id: anom-π-2026
       variant: ""

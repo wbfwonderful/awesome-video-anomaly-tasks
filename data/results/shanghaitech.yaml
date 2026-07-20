@@ -49,3 +49,10 @@ entry_groups:
       score_source: ""
       scores: 
         AUC: 98.35
+  
+  training-free:
+    - paper_id: lavida-2026
+      variant: ""
+      score_source: ""
+      scores:
+        AUC: 85.28

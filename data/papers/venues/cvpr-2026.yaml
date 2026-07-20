@@ -33,53 +33,60 @@
   tags:
     - Weakly-supervised
 
-- paper_id: -2026
-  short_name: 
-  title: ""
+- paper_id: exploration-2026
+  short_name: Exploration
+  title: "The Road Less Seen: Segment Exploration for Weakly Supervised Video Anomaly Detection"
   year: 2026
   venue: CVPR
   official_url: 
   arxiv_url: 
   code_url: 
   tags:
-    - 
-- paper_id: -2026
-  short_name: 
-  title: ""
+    - MLLM
+
+- paper_id: d2mil-2026
+  short_name: D2MIL
+  title: "Learning from Noisy Supervision: A Denoising–Debiasing Framework for Weakly Supervised Video Anomaly Detection"
   year: 2026
   venue: CVPR
   official_url: 
   arxiv_url: 
   code_url: 
   tags:
-    - 
-- paper_id: -2026
-  short_name: 
-  title: ""
+    - Weakly-supervised
+
+- paper_id: alert-clip-2026
+  short_name: Alert-CLIP
+  title: "Alert-CLIP: Abnormality-aware Latent-Enhanced Representation Tuning of CLIP for Video Anomaly Detection"
   year: 2026
   venue: CVPR
   official_url: 
   arxiv_url: 
   code_url: 
   tags:
-    - 
-- paper_id: -2026
-  short_name: 
-  title: ""
+    - CLIP
+    - Weakly-supervised
+
+- paper_id: lavida-2026
+  short_name: LAVIDA
+  title: "No Need For Real Anomaly: MLLM Empowered Zero-Shot Video Anomaly Detection"
   year: 2026
   venue: CVPR
   official_url: 
   arxiv_url: 
   code_url: 
   tags:
-    - 
-- paper_id: -2026
-  short_name: 
-  title: ""
+    - MLLM
+    - Training-free
+
+- paper_id: mome-2026
+  short_name: MoME
+  title: "Joint Learning of General and Diverse Patterns with Mixture of Memory Experts for Weakly-Supervised Video Anomaly Detection"
   year: 2026
   venue: CVPR
   official_url: 
   arxiv_url: 
   code_url: 
   tags:
-    - 
+    - Weakly-supervised
+    - CLIP

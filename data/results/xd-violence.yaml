@@ -131,7 +131,7 @@ entry_groups:
       variant: ""
       score_source: ""
       scores:
-        AP: 87.92
+        AP: 86.78
 
   weakly-supervised-fine:
     - paper_id: realad-2018
@@ -295,6 +295,19 @@ entry_groups:
       score_source: ""
       scores:
         AP: 62.01
+
+    - paper_id: lavida-2026
+      variant: ""
+      score_source: ""
+      scores:
+        AP: 90.62
+
+    - paper_id: mome-2026
+      variant: ""
+      score_source: ""
+      scores:
+        AP: 86.15
+
 
   tuned-mllm:
     - paper_id: anom-π-2026
