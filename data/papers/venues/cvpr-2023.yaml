@@ -3,7 +3,7 @@
   title: Unbiased Multiple Instance Learning for Weakly Supervised Video Anomaly Detection
   year: 2023
   venue: CVPR
-  official_url: 
+  official_url: https://openaccess.thecvf.com/content/CVPR2023/html/Lv_Unbiased_Multiple_Instance_Learning_for_Weakly_Supervised_Video_Anomaly_Detection_CVPR_2023_paper.html
   arxiv_url: https://arxiv.org/abs/2303.12369
   code_url: https://github.com/ktr-hubrt/UMIL
   tags:
@@ -26,8 +26,8 @@
   title: "Video Event Restoration Based on Keyframes for Video Anomaly Detection"
   year: 2023
   venue: CVPR
-  official_url: 
-  arxiv_url:
+  official_url: https://openaccess.thecvf.com/content/CVPR2023/html/Yang_Video_Event_Restoration_Based_on_Keyframes_for_Video_Anomaly_Detection_CVPR_2023_paper.html
+  arxiv_url: https://arxiv.org/abs/2304.05112
   code_url:
   tags:
     - Semi-supervised
@@ -37,8 +37,8 @@
   title: "Exploiting Completeness and Uncertainty of Pseudo Labels for Weakly Supervised Video Anomaly Detection"
   year: 2023
   venue: CVPR
-  official_url: 
-  arxiv_url:
+  official_url: https://openaccess.thecvf.com/content/CVPR2023/html/Zhang_Exploiting_Completeness_and_Uncertainty_of_Pseudo_Labels_for_Weakly_Supervised_Video_Anomaly_Detection_CVPR_2023_paper.html
+  arxiv_url: https://arxiv.org/abs/2212.04090
   code_url:
   tags:
     - Weakly-supervised
@@ -48,8 +48,8 @@
   title: "EVAL: Explainable Video Anomaly Localization"
   year: 2023
   venue: CVPR
-  official_url: 
-  arxiv_url:
+  official_url: https://openaccess.thecvf.com/content/CVPR2023/html/Singh_EVAL_Explainable_Video_Anomaly_Localization_CVPR_2023_paper.html
+  arxiv_url: https://arxiv.org/abs/2212.07900
   code_url:
   tags:
     - Semi-supervised
@@ -59,9 +59,9 @@
   title: "A New Comprehensive Benchmark for Semi-supervised Video Anomaly Detection and Anticipation"
   year: 2023
   venue: CVPR
-  official_url: 
-  arxiv_url:
-  code_url:
+  official_url: https://openaccess.thecvf.com/content/CVPR2023/html/Cao_A_New_Comprehensive_Benchmark_for_Semi-Supervised_Video_Anomaly_Detection_and_CVPR_2023_paper.html
+  arxiv_url: https://arxiv.org/abs/2305.13611
+  code_url: https://github.com/zugexiaodui/campus_vad_code
   tags:
     - Semi-supervised
     - Dataset
@@ -72,8 +72,8 @@
   title: "Hierarchical Semantic Contrast for Scene-aware Video Anomaly Detection"
   year: 2023
   venue: CVPR
-  official_url: 
-  arxiv_url:
-  code_url:
+  official_url: https://openaccess.thecvf.com/content/CVPR2023/html/Sun_Hierarchical_Semantic_Contrast_for_Scene-Aware_Video_Anomaly_Detection_CVPR_2023_paper.html
+  arxiv_url: https://arxiv.org/abs/2303.13051
+  code_url: https://github.com/shengyangsun/HSC_VAD
   tags:
     - Semi-supervised

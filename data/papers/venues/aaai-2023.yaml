@@ -14,7 +14,7 @@
   title: Learning Event-Relevant Factors for Video Anomaly Detection
   year: 2023
   venue: AAAI
-  official_url: 
+  official_url: https://ojs.aaai.org/index.php/AAAI/article/view/25334
   arxiv_url: 
   code_url: 
   tags:
@@ -25,8 +25,8 @@
   title: "MGFN : Magnitude-Contrastive Glance-and-Focus Network  for Weakly-Supervised Video Anomaly Detection"
   year: 2023
   venue: AAAI
-  official_url: 
-  arxiv_url: 
-  code_url: 
+  official_url: https://doi.org/10.1609/aaai.v37i1.25112
+  arxiv_url: https://arxiv.org/abs/2211.15098
+  code_url: https://github.com/carolchenyx/MGFN
   tags:
     - Weakly-supervised

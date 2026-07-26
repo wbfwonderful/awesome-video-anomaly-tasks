@@ -3,7 +3,7 @@
   title: "HAWK: Learning to Understand Open-World Video Anomalies"
   year: 2024
   venue: NeurIPS
-  official_url: 
+  official_url: ""
   arxiv_url:
   code_url: https://github.com/jqtangust/hawk
   tags:
@@ -14,8 +14,8 @@
   title: "Towards Multi-Domain Learning for Generalizable Video Anomaly Detection"
   year: 2024
   venue: NeurIPS
-  official_url: 
+  official_url: https://papers.neurips.cc/paper_files/paper/2024/file/59eb2d8ce0e4830f80780f7f78c67dec-Paper-Conference.pdf
   arxiv_url:
   code_url: 
   tags:
-    - Multi-Domain 
+    - Multi-Domain

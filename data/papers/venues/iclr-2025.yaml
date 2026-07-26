@@ -3,9 +3,8 @@
   title: "LOCAL PATTERNS GENERALIZE BETTER FOR NOVEL ANOMALIES"
   year: 2025
   venue: ICLR
-  official_url: 
+  official_url: ""
   arxiv_url: 
   code_url: https://github.com/AllenYLJiang/Local-Patterns-Generalize-Better/
   tags:
     - Semi-supervised
-

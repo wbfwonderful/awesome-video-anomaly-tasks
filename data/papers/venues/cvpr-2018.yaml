@@ -4,7 +4,7 @@
   year: 2018
   venue: CVPR
   official_url: https://openaccess.thecvf.com/content_cvpr_2018/html/Sultani_Real-World_Anomaly_Detection_CVPR_2018_paper.html
-  arxiv_url:
+  arxiv_url: https://arxiv.org/abs/1801.04264
   code_url: https://github.com/Roc-Ng/DeepMIL
   tags:
     - Weakly-supervised
@@ -15,9 +15,9 @@
   title: Future Frame Prediction for Anomaly Detection – A New Baseline
   year: 2018
   venue: CVPR
-  official_url: 
-  arxiv_url:
-  code_url:
+  official_url: https://openaccess.thecvf.com/content_cvpr_2018/html/Liu_Future_Frame_Prediction_CVPR_2018_paper.html
+  arxiv_url: https://arxiv.org/abs/1712.09867
+  code_url: https://github.com/stevenliuwen/ano_pred_cvpr2018
   tags:
     - Semi-supervised
     - Dataset

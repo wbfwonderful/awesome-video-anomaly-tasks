@@ -3,9 +3,9 @@
   title: "MIST: Multiple Instance Self-Training Framework for Video Anomaly Detection"
   year: 2021
   venue: CVPR
-  official_url: 
-  arxiv_url:
-  code_url:
+  official_url: https://openaccess.thecvf.com/content/CVPR2021/html/Feng_MIST_Multiple_Instance_Self-Training_Framework_for_Video_Anomaly_Detection_CVPR_2021_paper.html
+  arxiv_url: https://arxiv.org/abs/2104.01633
+  code_url: https://github.com/fjchange/MIST_VAD
   tags:
     - Weakly-supervised
 

@@ -3,9 +3,9 @@
   title: Federated Weakly Supervised Video Anomaly Detection with Multimodal Prompt
   year: 2025
   venue: AAAI
-  official_url: 
+  official_url: https://ojs.aaai.org/index.php/AAAI/article/view/35398
   arxiv_url: 
-  code_url: 
+  code_url: https://github.com/wbfwonderful/Fed-WSVAD
   tags:
     - Weakly-supervised
     - CLIP
@@ -16,8 +16,8 @@
   title: Video Anomaly Detection with Motion and Appearance Guided  Patch Diffusion Model
   year: 2025
   venue: AAAI
-  official_url: 
-  arxiv_url: 
+  official_url: https://ojs.aaai.org/index.php/AAAI/article/view/33169
+  arxiv_url: https://arxiv.org/abs/2412.09026
   code_url: 
   tags:
     - Semi-supervised
@@ -25,10 +25,10 @@
 
 - paper_id: varcmp-2025
   short_name: VarCMP
-  title: VarCMP: Adapting Cross-Modal Pre-Training Models  for Video Anomaly Retrieval
+  title: "VarCMP: Adapting Cross-Modal Pre-Training Models for Video Anomaly Retrieval"
   year: 2025
   venue: AAAI
-  official_url: 
+  official_url: https://ojs.aaai.org/index.php/AAAI/article/view/32909
   arxiv_url: 
   code_url: 
   tags:
@@ -40,7 +40,7 @@
   title: Dual Conditioned Motion Diffusion for Pose-Based Video Anomaly Detection
   year: 2025
   venue: AAAI
-  official_url: 
+  official_url: ""
   arxiv_url: 
   code_url: https://github.com/guijiejie/DCMD-main
   tags:
@@ -51,9 +51,9 @@
   title: "UCF-Crime-DVS: A Novel Event-Based Dataset for Video Anomaly Detection with Spiking Neural Networks"
   year: 2025
   venue: AAAI
-  official_url: 
-  arxiv_url: 
-  code_url: 
+  official_url: https://ojs.aaai.org/index.php/AAAI/article/view/32705
+  arxiv_url: https://arxiv.org/abs/2503.12905
+  code_url: https://github.com/YBQian-Roy/UCF-Crime-DVS
   tags:
     - Weakly-supervised
     - Dataset

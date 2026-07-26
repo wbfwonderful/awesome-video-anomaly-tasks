@@ -6,7 +6,7 @@
   status: preprint
   official_url: https://arxiv.org/pdf/2305.13611
   arxiv_url: https://arxiv.org/abs/2305.13611
-  code_url:
+  code_url: https://github.com/zugexiaodui/campus_vad_code
   tags:
     - dataset
     - benchmark

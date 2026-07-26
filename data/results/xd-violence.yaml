@@ -67,7 +67,7 @@ entry_groups:
       scores: 
         AP: 80.11
     
-    - paper_id: cmhkf-2023
+    - paper_id: cmhkf-2025
       variant: ""
       score_source: ""
       scores:
@@ -270,7 +270,7 @@ entry_groups:
         mAP@0.5: 17.89
         AVG: 28.87
      
-    - paper_id: cmhkf-2023
+    - paper_id: cmhkf-2025
       variant: ""
       score_source: ""
       scores:

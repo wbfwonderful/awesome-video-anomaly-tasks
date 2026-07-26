@@ -3,8 +3,10 @@ files:
   - venues/icml-2026.yaml
   - venues/icml-2025.yaml
   - venues/aaai-2026.yaml
+  - venues/aaai-2025.yaml
   - venues/aaai-2024.yaml
   - venues/aaai-2023.yaml
+  - venues/acl.yaml
   - venues/acm-mm-2025.yaml
   - venues/acm-mm-2024.yaml
   - venues/cvpr-2026.yaml
@@ -16,7 +18,13 @@ files:
   - venues/cvpr-2020.yaml
   - venues/cvpr-2019.yaml
   - venues/cvpr-2018.yaml
+  - venues/eccv-2024.yaml
+  - venues/iccv-2025.yaml
+  - venues/iccv-2023.yaml
   - venues/icip-2023.yaml
+  - venues/iclr-2025.yaml
   - venues/t-mm.yaml
   - venues/iccv-2021.yaml
+  - venues/icml-2022.yaml
+  - venues/neurips-2024.yaml
   - preprints/2023-q2.yaml

@@ -3,7 +3,7 @@
   title: "Multimodal Motion Conditioned Diffusion Model for Skeleton-based Video  Anomaly Detection"
   year: 2023
   venue: ICCV
-  official_url: 
+  official_url: ""
   arxiv_url: 
   code_url: https://github.com/aleflabo/MoCoDAD
   tags:
@@ -14,7 +14,7 @@
   title: "Normalizing Flows for Human Pose Anomaly Detection"
   year: 2023
   venue: ICCV
-  official_url: 
+  official_url: ""
   arxiv_url: 
   code_url: https://github.com/orhir/STG-NF
   tags:
@@ -25,8 +25,8 @@
   title: "TeD-SPAD: Temporal Distinctiveness for Self-supervised Privacy-preservation  for video Anomaly Detection"
   year: 2023
   venue: ICCV
-  official_url: 
-  arxiv_url: 
+  official_url: ""
+  arxiv_url: https://arxiv.org/abs/2308.11072
   code_url: 
   tags:
     - Privacy
@@ -36,7 +36,7 @@
   title: "Video Anomaly Detection via Sequentially Learning Multiple Pretext Tasks"
   year: 2023
   venue: ICCV
-  official_url: 
+  official_url: https://openaccess.thecvf.com/content/ICCV2023/papers/Shi_Video_Anomaly_Detection_via_Sequentially_Learning_Multiple_Pretext_Tasks_ICCV_2023_paper.pdf
   arxiv_url: 
   code_url: 
   tags:
@@ -44,12 +44,11 @@
 
 - paper_id: fpdm-2023
   short_name: FPDM
-  title: “Feature Prediction Diffusion Model for Video Anomaly Detection
+  title: "Feature Prediction Diffusion Model for Video Anomaly Detection"
   year: 2023
   venue: ICCV
-  official_url: 
+  official_url: https://openaccess.thecvf.com/content/ICCV2023/papers/Yan_Feature_Prediction_Diffusion_Model_for_Video_Anomaly_Detection_ICCV_2023_paper.pdf
   arxiv_url: 
   code_url: 
   tags:
     - Semi-supervised
-

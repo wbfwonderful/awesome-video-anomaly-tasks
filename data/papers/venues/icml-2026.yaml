@@ -29,7 +29,7 @@
   venue: ICML
   official_url: https://openreview.net/forum?id=0ZhgSSbA6i
   arxiv_url:
-  code_url:
+  code_url: https://github.com/ytC2026/ICML2026-PRISM
   tags:
     - Training-free
 
@@ -39,7 +39,7 @@
   year: 2026
   venue: ICML
   official_url: https://openreview.net/forum?id=fjUUmUCy9m
-  arxiv_url:
+  arxiv_url: https://arxiv.org/abs/2605.08651
   code_url:
   presentation: spotlight
   tags:

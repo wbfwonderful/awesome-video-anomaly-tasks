@@ -3,8 +3,8 @@
   title: "Self-trained Deep Ordinal Regression for End-to-End Video Anomaly Detection"
   year: 2020
   venue: CVPR
-  official_url: 
-  arxiv_url:
+  official_url: https://openaccess.thecvf.com/content_CVPR_2020/html/Pang_Self-Trained_Deep_Ordinal_Regression_for_End-to-End_Video_Anomaly_Detection_CVPR_2020_paper.html
+  arxiv_url: https://arxiv.org/abs/2003.06780
   code_url:
   tags:
     - Semi-supervised

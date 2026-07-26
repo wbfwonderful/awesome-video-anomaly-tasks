@@ -3,8 +3,8 @@
   title: "Deep Anomaly Discovery from Unlabeled Videos via Normality Advantage and Self-Paced Refinement"
   year: 2022
   venue: CVPR
-  official_url: 
-  arxiv_url:
+  official_url: https://openaccess.thecvf.com/content/CVPR2022/html/Yu_Deep_Anomaly_Discovery_From_Unlabeled_Videos_via_Normality_Advantage_and_CVPR_2022_paper.html
+  arxiv_url: https://arxiv.org/abs/2108.01975
   code_url:
   tags:
     - Unsuperivsed
@@ -14,8 +14,8 @@
   title: "Generative Cooperative Learning for Unsupervised Video Anomaly Detection"
   year: 2022
   venue: CVPR
-  official_url: 
-  arxiv_url:
+  official_url: https://doi.org/10.1109/CVPR52688.2022.01433
+  arxiv_url: https://arxiv.org/abs/2203.03962
   code_url:
   tags:
     - Unsuperivsed
@@ -25,9 +25,9 @@
   title: "UBnormal: New Benchmark for Supervised Open-Set Video Anomaly Detection"
   year: 2022
   venue: CVPR
-  official_url: 
-  arxiv_url:
-  code_url:
+  official_url: https://openaccess.thecvf.com/content/CVPR2022/html/Acsintoae_UBnormal_New_Benchmark_for_Supervised_Open-Set_Video_Anomaly_Detection_CVPR_2022_paper.html
+  arxiv_url: https://arxiv.org/abs/2111.08644
+  code_url: https://github.com/lilygeorgescu/UBnormal
   tags:
     - Dataset
     - Open-set
@@ -37,9 +37,9 @@
   title: "Bayesian Nonparametric Submodular Video Partition for Robust  Anomaly Detection"
   year: 2022
   venue: CVPR
-  official_url: 
-  arxiv_url:
-  code_url:
+  official_url: https://openaccess.thecvf.com/content/CVPR2022/html/Sapkota_Bayesian_Nonparametric_Submodular_Video_Partition_for_Robust_Anomaly_Detection_CVPR_2022_paper.html
+  arxiv_url: https://arxiv.org/abs/2203.12840
+  code_url: https://github.com/ritmininglab/BN-SVP
   tags:
     - Weakly-supervised
 

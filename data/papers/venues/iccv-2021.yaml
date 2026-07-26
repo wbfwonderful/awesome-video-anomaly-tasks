@@ -14,8 +14,8 @@
   title: "A Hybrid Video Anomaly Detection Framework via Memory-Augmented Flow  Reconstruction and Flow-Guided Frame Prediction"
   year: 2021
   venue: ICCV
-  official_url: 
-  arxiv_url:
+  official_url: https://openaccess.thecvf.com/content/ICCV2021/html/Liu_A_Hybrid_Video_Anomaly_Detection_Framework_via_Memory-Augmented_Flow_Reconstruction_ICCV_2021_paper.html
+  arxiv_url: https://arxiv.org/abs/2108.06852
   code_url: https://github.com/LiUzHiAn/hf2vad
   tags:
     - Semi-supervised

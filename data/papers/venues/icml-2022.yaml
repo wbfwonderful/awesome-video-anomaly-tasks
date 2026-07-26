@@ -3,8 +3,8 @@
   title: "Latent Outlier Exposure for Anomaly Detection with Contaminated Data"
   year: 2022
   venue: ICML
-  official_url: 
-  arxiv_url:
+  official_url: https://proceedings.mlr.press/v162/qiu22b.html
+  arxiv_url: https://arxiv.org/abs/2202.08088
   code_url:
   tags:
     - Semi-supervised

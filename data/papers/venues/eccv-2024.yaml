@@ -3,7 +3,7 @@
   title: "Follow the Rules: Reasoning for Video Anomaly  Detection with Large Language Models"
   year: 2024
   venue: ECCV
-  official_url: 
+  official_url: ""
   arxiv_url: 
   code_url: https://github.com/Yuchen413/AnomalyRuler
   tags:
@@ -15,18 +15,18 @@
   title: "FedVAD: Enhancing Federated Video Anomaly Detection with GPT-Driven Semantic Distillation"
   year: 2024
   venue: ECCV
-  official_url: 
+  official_url: https://www.ecva.net/papers/eccv_2024/papers_ECCV/papers/06981.pdf
   arxiv_url: 
   code_url: 
   tags:
     - Privacy
 
-- paper_id: -2024
-  short_name: 
+- paper_id: lanp-uvad-2024
+  short_name: LANP-UVAD
   title: "Learning Anomalies with Normality Prior for  Unsupervised Video Anomaly Detection"
   year: 2024
   venue: ECCV
-  official_url: 
+  official_url: ""
   arxiv_url: 
   code_url: https://github.com/shyern/LANP-UVAD.git
   tags:
@@ -38,8 +38,8 @@
   title: "Cross-Domain Learning for Video Anomaly Detection with Limited Supervision"
   year: 2024
   venue: ECCV
-  official_url: 
-  arxiv_url: 
+  official_url: ""
+  arxiv_url: https://arxiv.org/abs/2408.05191
   code_url: 
   tags:
     - Cross-Domain
@@ -51,8 +51,8 @@
   title: "Interleaving One-Class and Weakly-Supervised  Models with Adaptive Thresholding for Unsupervised Video Anomaly Detection"
   year: 2024
   venue: ECCV
-  official_url: 
-  arxiv_url: 
-  code_url: 
+  official_url: ""
+  arxiv_url: https://arxiv.org/abs/2401.13551
+  code_url: https://github.com/benedictstar/Joint-VAD
   tags:
     - Unsupervised

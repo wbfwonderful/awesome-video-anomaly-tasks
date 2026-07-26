@@ -15,7 +15,7 @@
   title: "TDSD: Text-Driven Scene-Decoupled Weakly Supervised  Video Anomaly Detection"
   year: 2024
   venue: ACM MM
-  official_url: 
+  official_url: https://openreview.net/forum?id=TAVtkpjS9P
   arxiv_url: 
   code_url: https://github.com/shengyangsun/TDSD
   tags:
@@ -28,7 +28,7 @@
   title: Video Anomaly Detection via Progressive Learning of Multiple  Proxy Tasks
   year: 2024
   venue: ACM MM
-  official_url: 
+  official_url: https://doi.org/10.1145/3664647.3680871
   arxiv_url: 
   code_url:
   tags:

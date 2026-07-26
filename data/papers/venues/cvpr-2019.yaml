@@ -3,9 +3,9 @@
   title: "Graph Convolutional Label Noise Cleaner: Train a Plug-and-play Action Classifier for Anomaly Detection"
   year: 2019
   venue: CVPR
-  official_url: 
-  arxiv_url:
-  code_url:
+  official_url: https://openaccess.thecvf.com/content_CVPR_2019/html/Zhong_Graph_Convolutional_Label_Noise_Cleaner_Train_a_Plug-And-Play_Action_Classifier_CVPR_2019_paper.html
+  arxiv_url: https://arxiv.org/abs/1903.07256
+  code_url: https://github.com/jx-zhong-for-academic-purpose/GCN-Anomaly-Detection
   tags:
     - Weakly-supervised
 
@@ -15,9 +15,9 @@
   title: "Learning Regularity in Skeleton Trajectories for Anomaly Detection in Videos"
   year: 2019
   venue: CVPR
-  official_url: 
-  arxiv_url:
-  code_url:
+  official_url: https://openaccess.thecvf.com/content_CVPR_2019/html/Morais_Learning_Regularity_in_Skeleton_Trajectories_for_Anomaly_Detection_in_Videos_CVPR_2019_paper.html
+  arxiv_url: https://arxiv.org/abs/1903.03295
+  code_url: https://github.com/RomeroBarata/skeleton_based_anomaly_detection
   tags:
     - Semi-supervised
 
@@ -26,8 +26,8 @@
   title: "Object-centric Auto-encoders and Dummy Anomalies  for Abnormal Event Detection in Video"
   year: 2019
   venue: CVPR
-  official_url: 
-  arxiv_url:
-  code_url:
+  official_url: https://openaccess.thecvf.com/content_CVPR_2019/html/Ionescu_Object-Centric_Auto-Encoders_and_Dummy_Anomalies_for_Abnormal_Event_Detection_in_CVPR_2019_paper.html
+  arxiv_url: https://arxiv.org/abs/1812.04960
+  code_url: https://github.com/fjchange/object_centric_VAD
   tags:
     - Semi-supervised

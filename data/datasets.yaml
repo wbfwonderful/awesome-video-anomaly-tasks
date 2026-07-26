@@ -208,7 +208,7 @@
 - id: ucf-dvs
   name: UCF-Crime-DVS
   dataset_type: derived-benchmark
-  source_dataset_ids: []
+  source_dataset_ids: [UCF-Crime]
   has_new_videos: false
   contribution_types: []
   task_types:
@@ -220,40 +220,39 @@
     annotation:
   metrics:
     - AUC
-  notes: complex-scene from 
+  notes: Dynamic vision sensor VAD.
 
 
 - id: hivau-70k
   name: HIVAU-70K
   dataset_type: derived-benchmark
-  source_dataset_ids: []
+  source_dataset_ids: [XD-Violence, UCF-Crime]
   has_new_videos: false
-  contribution_types: [XD-Violence, UCF-Crime]
+  contribution_types: []
   task_types:
     - video anomaly understanding
+  links:
+    homepage: https://github.com/pipixin321/HolmesVAU
+    paper: https://openaccess.thecvf.com/content/CVPR2025/papers/Zhang_Holmes-VAU_Towards_Long-term_Video_Anomaly_Understanding_at_Any_Granularity_CVPR_2025_paper.pdf
+    download: https://github.com/pipixin321/HolmesVAU
+    annotation:
+  metrics:
+    - BLEU, CIDEr, METEOR, ROUGE
+  notes: Multi-granularity annotations.
+
+- id: csad
+  name: CSAD
+  dataset_type: derived-benchmark
+  source_dataset_ids: [XD-Violence, UCF-Crime, Ubnormal]
+  has_new_videos: true
+  contribution_types: []
+  task_types:
+    - complex-scene
   links:
     homepage: https://openreview.net/pdf?id=qE3knKF1rz
     paper: https://openreview.net/pdf?id=qE3knKF1rz
     download: https://openreview.net/pdf?id=qE3knKF1rz
     annotation:
   metrics:
-    - BLEU, CIDEr, METEOR, ROUGE
-  notes: Multi-granularity annotations.
-
-
-# - id: csad
-#   name: CSAD
-#   dataset_type: derived-benchmark
-#   source_dataset_ids: []
-#   has_new_videos: true
-#   contribution_types: []
-#   task_types:
-#     - complex-scene
-#   links:
-#     homepage: https://openreview.net/pdf?id=qE3knKF1rz
-#     paper: https://openreview.net/pdf?id=qE3knKF1rz
-#     download: https://openreview.net/pdf?id=qE3knKF1rz
-#     annotation:
-#   metrics:
-#     - AUC
-#   notes: complex-scene from 
+    - AUC
+  notes: Complex-scene from XD, UCF and UB.

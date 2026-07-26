@@ -15,9 +15,9 @@
   title: "Just Dance with π! A Poly-modal Inductor for Weakly-supervised Video Anomaly Detection"
   year: 2025
   venue: CVPR
-  official_url: 
-  arxiv_url: 
-  code_url: 
+  official_url: https://openaccess.thecvf.com/content/CVPR2025/html/Majhi_Just_Dance_with_pi_A_Poly-modal_Inductor_for_Weakly-supervised_Video_CVPR_2025_paper.html
+  arxiv_url: https://arxiv.org/abs/2505.13123
+  code_url: https://github.com/snehashismajhi/PI-VAD
   tags:
     - Weakly-supervised
 
@@ -26,8 +26,8 @@
   title: "Anomize: Better Open Vocabulary Video Anomaly Detection"
   year: 2025
   venue: CVPR
-  official_url: 
-  arxiv_url: 
+  official_url: https://openaccess.thecvf.com/content/CVPR2025/html/Li_Anomize_Better_Open_Vocabulary_Video_Anomaly_Detection_CVPR_2025_paper.html
+  arxiv_url: https://arxiv.org/abs/2503.18094
   code_url: 
   tags:
     - Open-vocabulary
@@ -37,7 +37,7 @@
   title: "VERA: Explainable Video Anomaly Detection via Verbalized Learning of  Vision-Language Models"
   year: 2025
   venue: CVPR
-  official_url: 
+  official_url: https://openaccess.thecvf.com/content/CVPR2025/html/Ye_VERA_Explainable_Video_Anomaly_Detection_via_Verbalized_Learning_of_Vision-Language_CVPR_2025_paper.html
   arxiv_url: 
   code_url: https://vera-framework.github.io
   tags:
@@ -48,7 +48,7 @@
   title: "Noise-Resistant Video Anomaly Detection via RGB Error-Guided Multiscale  Predictive Coding and Dynamic Memory"
   year: 2025
   venue: CVPR
-  official_url: 
+  official_url: https://openaccess.thecvf.com/content/CVPR2025/html/Hu_Noise-Resistant_Video_Anomaly_Detection_via_RGB_Error-Guided_Multiscale_Predictive_Coding_CVPR_2025_paper.html
   arxiv_url: 
   code_url: 
   tags:
@@ -59,8 +59,8 @@
   title: "Track Any Anomalous Object: A Granular Video Anomaly Detection Pipeline"
   year: 2025
   venue: CVPR
-  official_url: 
-  arxiv_url: 
+  official_url: https://openaccess.thecvf.com/content/CVPR2025/html/Huang_Track_Any_Anomalous_ObjectA_Granular_Video_Anomaly_Detection_Pipeline_CVPR_2025_paper.html
+  arxiv_url: https://arxiv.org/abs/2506.05175
   code_url: 
   tags:
     - Pixel-level

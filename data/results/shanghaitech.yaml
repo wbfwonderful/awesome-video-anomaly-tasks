@@ -32,7 +32,7 @@ entry_groups:
       scores: 
         AUC: 96.78
 
-    - paper_id: rtfm-2023
+    - paper_id: rtfm-2021
       variant: ""
       score_source: "https://arxiv.org/abs/2408.05905"
       scores: 

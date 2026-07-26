@@ -3,8 +3,8 @@
   title: "Autoregressive Denoising Score Matching is a Good Video Anomaly Detector"
   year: 2025
   venue: ICCV
-  official_url: 
-  arxiv_url: 
+  official_url: https://openaccess.thecvf.com/content/ICCV2025/papers/Zhang_Autoregressive_Denoising_Score_Matching_is_a_Good_Video_Anomaly_Detector_ICCV_2025_paper.pdf
+  arxiv_url: https://arxiv.org/abs/2506.23282
   code_url: 
   tags:
     - Semi-supervised
@@ -14,8 +14,8 @@
   title: "Aligning Effective Tokens with Video Anomaly in Large Language Models"
   year: 2025
   venue: ICCV
-  official_url: 
-  arxiv_url: 
+  official_url: ""
+  arxiv_url: https://arxiv.org/abs/2508.06350
   code_url: 
   tags:
     - MLLM
@@ -25,9 +25,9 @@
   title: "Sequential keypoint density estimator: an overlooked baseline of skeleton-based video anomaly detection"
   year: 2025
   venue: ICCV
-  official_url: 
-  arxiv_url: 
-  code_url: 
+  official_url: https://openaccess.thecvf.com/content/ICCV2025/papers/Delic_Sequential_keypoint_density_estimator_an_overlooked_baseline_of_skeleton-based_video_ICCV_2025_paper.pdf
+  arxiv_url: https://arxiv.org/abs/2506.18368
+  code_url: https://github.com/adelic99/seeker
   tags:
     - Semi-supervised
 
@@ -36,7 +36,7 @@
   title: "Mixture of Experts Guided by Gaussian Splatters Matters: A new Approach to  Weakly-Supervised Video Anomaly Detection"
   year: 2025
   venue: ICCV
-  official_url: 
+  official_url: ""
   arxiv_url: 
   code_url: https://github.com/snehashismajhi/GS-MoE
   tags:
