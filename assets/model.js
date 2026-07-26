@@ -286,7 +286,7 @@ const PAPER_LINK_TYPES = [
 ];
 
 export function getPaperPrimaryUrl(paper = {}) {
-  return paper.official_url || paper.arxiv_url || paper.code_url || "";
+  return normalizeUrl(paper.official_url) || normalizeUrl(paper.arxiv_url) || normalizeUrl(paper.code_url);
 }
 
 export function getPaperDetailUrl(paper = {}) {
@@ -325,7 +325,7 @@ function getTokenStyle(prefix, value) {
 
 export function getPaperLinks(paper = {}, labels = {}) {
   return PAPER_LINK_TYPES.flatMap((linkType) => {
-    const url = paper[linkType.key];
+    const url = normalizeUrl(paper[linkType.key]);
     if (!url) return [];
 
     return [{
@@ -339,12 +339,18 @@ export function getPaperLinks(paper = {}, labels = {}) {
 export function getEntryLinks(row, scoreKey) {
   const score = row.scores?.[scoreKey] || {};
   const paperPrimaryUrl = getPaperPrimaryUrl(row.paper);
+  const paperUrl = normalizeUrl(row.paperUrl);
+  const codeUrl = normalizeUrl(row.paper?.code_url);
   return {
-    methodUrl: row.paperUrl || row.paper?.code_url || "",
-    paperUrl: row.paperUrl || "",
-    codeUrl: row.paper?.code_url || "",
-    scoreSourceUrl: row.score_source || score.source_url || paperPrimaryUrl,
+    methodUrl: paperUrl || codeUrl,
+    paperUrl,
+    codeUrl,
+    scoreSourceUrl: normalizeUrl(row.score_source) || normalizeUrl(score.source_url) || paperPrimaryUrl,
   };
+}
+
+function normalizeUrl(value) {
+  return typeof value === "string" ? value.trim() : "";
 }
 
 export function getScoreValue(row, scoreKey) {

@@ -19,7 +19,6 @@ class LeaderboardUiStructureTest < Minitest::Test
     assert_includes html, 'id="dataset-provenance-body"'
     assert_includes html, 'class="multi-select-options"'
     refute_includes html, 'data-sort="status"'
-    refute_includes html, "<th>Links</th>"
     assert_includes html, 'id="leaderboard-head"'
     assert_includes js, "function renderMetricHeaders"
     assert_includes js, "function renderFilterControl"
@@ -33,8 +32,9 @@ class LeaderboardUiStructureTest < Minitest::Test
     assert_includes js, "function renderTrackBadges"
     assert_includes js, "row.trackInfos"
     assert_includes js, "getTrackStyle"
+    refute_includes js, "function renderPaperLinks"
+    refute_includes js, "leaderboard.links"
     refute_includes js, '<div class="muted">${escapeHtml(row.variant)}</div>'
-    refute_includes js, '<td class="link-list">'
   end
 
   def test_homepage_links_to_paper_and_dataset_subpages
